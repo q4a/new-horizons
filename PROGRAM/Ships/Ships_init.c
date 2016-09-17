@@ -4645,7 +4645,7 @@ void InitShips()
 
 	refShip.MaxCrew		= 38;//BB crew seem too few for size(see weight), was 30
 	refShip.MinCrew		= 12;//BB was 6(sloops were hard to sail)
-	refShip.Price		= 49000;//BB was 20000
+	refShip.Price		= 29000;//BB was 20000
 	refShip.HP		= 1100;//BB was 1000(used cedar wood for greater strength)
 	refShip.SP		= 200;
 	refShip.Jetty			= false; // PB

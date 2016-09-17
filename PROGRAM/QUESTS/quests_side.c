@@ -1905,13 +1905,7 @@ void SideQuestComplete(string sQuestName)
 			locations[FindLocation("Cartagena Hotel")].type = "Poe_home";	//when cursed
 			int ghosts_gone = 0;
 			Pchar.quest.ghosts_gone = ghosts_gone;
-
-			pchar.quest.dusty_start.win_condition.l1 = "locator";
-			pchar.quest.dusty_start.win_condition.l1.location = "Cartagena hotel";
-			pchar.quest.dusty_start.win_condition.l1.locator_group = "goto";
-			pchar.quest.dusty_start.win_condition.l1.locator = "goto8";
-			pchar.quest.dusty_start.win_condition = "dusty_start";
-
+		
 			pchar.quest.fall_to_private.win_condition.l1 = "locator";
 			pchar.quest.fall_to_private.win_condition.l1.location = "Cartagena_hotel_room2";
 			pchar.quest.fall_to_private.win_condition.l1.locator_group = "goto";
@@ -2004,14 +1998,7 @@ void SideQuestComplete(string sQuestName)
 			Locations[FindLocation("Cartagena Hotel")].reload.l2.disable = 0;
 			DoQuestReloadToLocation("Cartagena Hotel", "reload", "reload2", "_");
 		break;
-
-		case "dusty_start":
-			LAi_SetActorType(CharacterFromID("Dusty_Broome"));
-			LAi_ActorDialog(characterFromID("Dusty_Broome"), pchar, "", 0.0, 0.0);
-			LAi_ActorWaitDialog(Pchar, characterFromID("Dusty_Broome"));
-			Characters[GetCharacterIndex("Dusty_Broome")].dialog.CurrentNode  = "First time";
-		break;
-
+	
 		case "dusty_info_ghosts":
 			DoQuickSave();
 			Locations[FindLocation("Cartagena Hotel")].reload.l3.disable = 0;	//room 3

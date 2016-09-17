@@ -190,9 +190,9 @@ void ProcessDialogEvent()
 		// function -->
 		case "increase_hp2":
 			pChar.apothecary.chr = 0;
-			pChar.apothecary.payment = sti(pChar.rank) * 500;
+			pChar.apothecary.payment = 100000;
 			dialog.Text = DLG_TEXT[44] + pChar.apothecary.payment + DLG_TEXT[45];
-			if (sti(pChar.wealth) >= sti(pChar.apothecary.payment))
+			if(sti(PChar.money) >= sti(pChar.apothecary.payment))
 			{
 				Link.l1 = DLG_TEXT[46];
 				Link.l1.go = "increase_hp3";
@@ -205,9 +205,9 @@ void ProcessDialogEvent()
 			pChar.apothecary.chr = 1;
 			intOfficer = sti(GetOfficersIndex(PChar, 1));
 			refOfficer = GetCharacter(intOfficer);
-			pChar.apothecary.payment = sti(refOfficer.rank) * 500;
+			pChar.apothecary.payment = 100000;
 			dialog.Text = DLG_TEXT[44] + pChar.apothecary.payment + DLG_TEXT[45];
-			if (sti(pChar.wealth) >= sti(pChar.apothecary.payment))
+			if(sti(PChar.money) >= sti(pChar.apothecary.payment))
 			{
 				Link.l1 = DLG_TEXT[46];
 				Link.l1.go = "increase_hp3";
@@ -220,9 +220,9 @@ void ProcessDialogEvent()
 			pChar.apothecary.chr = 2;
 			intOfficer = sti(GetOfficersIndex(PChar, 2));
 			refOfficer = GetCharacter(intOfficer);
-			pChar.apothecary.payment = sti(refOfficer.rank) * 500;
+			pChar.apothecary.payment = 100000;
 			dialog.Text = DLG_TEXT[44] + pChar.apothecary.payment + DLG_TEXT[45];
-			if (sti(pChar.wealth) >= sti(pChar.apothecary.payment))
+			if(sti(PChar.money) >= sti(pChar.apothecary.payment))
 			{
 				Link.l1 = DLG_TEXT[46];
 				Link.l1.go = "increase_hp3";
@@ -235,9 +235,9 @@ void ProcessDialogEvent()
 			pChar.apothecary.chr = 3;
 			intOfficer = sti(GetOfficersIndex(PChar, 3));
 			refOfficer = GetCharacter(intOfficer);
-			pChar.apothecary.payment = sti(refOfficer.rank) * 500;
+			pChar.apothecary.payment = 100000;
 			dialog.Text = DLG_TEXT[44] + pChar.apothecary.payment + DLG_TEXT[45];
-			if (sti(pChar.wealth) >= sti(pChar.apothecary.payment))
+			if(sti(PChar.money) >= sti(pChar.apothecary.payment))
 			{
 				Link.l1 = DLG_TEXT[46];
 				Link.l1.go = "increase_hp3";
@@ -311,17 +311,16 @@ void ProcessDialogEvent()
 void increaseMaxHP(ref pChar, ref nextDiag)
 {	
 	int officerIndex = sti(pChar.apothecary.chr);
-	int playerMoney = sti(pChar.wealth);
 	ref refOfficer;
 	int increasePer;
 	
 	if (officerIndex == 0) {
 		refOfficer = pChar;		
-		increasePer = sti(refOfficer.chr_ai.hp_max) / 10;		// 10% increase
+		increasePer = 10;		// 
 	} else {
 		int intOfficer = sti(GetOfficersIndex(PChar, officerIndex));
 		refOfficer = GetCharacter(intOfficer);
-		increasePer = sti(refOfficer.chr_ai.hp_max) / 20;		// 5% increase
+		increasePer = 10;		// 
 	}
 	
 	ChangeHPBonus(refOfficer, increasePer);
@@ -331,9 +330,7 @@ void increaseMaxHP(ref pChar, ref nextDiag)
 	string logMsg3 = DLG_TEXT[42] + increasePer + DLG_TEXT[43];
 	DialogExit();
 	nextDiag.CurrentNode = nextDiag.TempNode;
-	playerMoney -= sti(pChar.apothecary.payment);
-	if (playerMoney < 0) playerMoney = 0;	// just in case
-	pChar.wealth = PlayerMoney;
+	AddMoneytoCharacter(Pchar, -100000);
 
 	DeleteAttribute(pChar, "apothecary");	// LDH
 	

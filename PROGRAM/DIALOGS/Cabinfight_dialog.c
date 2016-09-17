@@ -85,23 +85,28 @@ void ProcessDialogEvent()
 	}
 //MAXIMUS: [if your crew and enemy's crew will be enough for two minimum crews, you will be able to take him as companion] <--
 
-//MAXIMUS: [if enemy captain is stronger than player, you'll fight with him] -->
-	if(makeint(sti(PChar.skill.Leadership)+sti(PChar.skill.Fencing)+sti(PChar.skill.Grappling))>=makeint(sti(NPChar.skill.Leadership)+sti(NPChar.skill.Fencing)+sti(NPChar.skill.Grappling)))
+//TY Changed to check on AI reputation, skills, and piracy, and random chance, to engage in extreme act of attacking after surrender.
+	bDeathFight = false;
+	if(IsCharacterPerkOn(NPChar, "SwordplayProfessional")
 	{
-/*		if(CheckAttribute(boarding_enemy,"fight") && sti(boarding_enemy.fight)==1) bDeathFight = true;// if captain was created as fantom, but not by CreateTwinCharacter
-		else
-		{*/
-			if(IsCharacterPerkOn(PChar, "SwordplayProfessional") && IsCharacterPerkOn(PChar, "IronWill")) bDeathFight = false;
-			else
-			{
-				if(IsCharacterPerkOn(NPChar, "SwordplayProfessional") && IsCharacterPerkOn(NPChar, "IronWill")) bDeathFight = true;
-				else bDeathFight = false;
-			}
-//		}//MAXIMUS: eliminated, because we can make a proper officer from any fantom
+		if(frnd() < 0.2)
+		{
+			if(GetCharacterReputation(PChar) > REPUTATION_NEUTRAL && GetCharacterReputation(NPChar) < REPUTATION_NEUTRAL)
+			{bDeathFight = true;}
+			if(GetCharacterReputation(PChar) < REPUTATION_NEUTRAL && GetCharacterReputation(NPChar) > REPUTATION_NEUTRAL)
+			{bDeathFight = true;}
+		}
 	}
-	else { bDeathFight = true; }
-	if(IsUsedAlliesModel(NPChar)) { bDeathFight = true; }//MAXIMUS: ally's twin will always be agressive [twin officers looks strange, not so?]
-//MAXIMUS: [if enemy captain is stronger than player, you'll fight with him] <--
+	if(sti(NPChar.nation) = PIRATE)
+	{
+		if(frnd() < 0.3)
+		{
+			bDeathFight = true;
+		}
+	}	
+	
+	//if(IsUsedAlliesModel(NPChar)) { bDeathFight = true; }//MAXIMUS: ally's twin will always be agressive [twin officers looks strange, not so?] TY after discussion generally people believe better to allow player to make choice of changing outfit or otherwise dealing with duplicates
+	//MAXIMUS: [if enemy captain is stronger than player, you'll fight with him] <--
 
 	switch(Dialog.CurrentNode)
 	{
@@ -177,9 +182,9 @@ void ProcessDialogEvent()
 				}
 				else
 				{// added by MAXIMUS 26.08.2006 [if enemy captain is stronger than player, you'll fight with him] <--
-					if(NPChar.nation!=PIRATE)
+					if(sti(NPChar.nation) != PIRATE)
 					{
-						if(NPChar.nation==GetServedNation()) // of the same nation
+						if(sti(NPChar.nation)==GetServedNation()) // of the same nation
 						{
 							switch(Rand(2))
 							{

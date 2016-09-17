@@ -630,6 +630,10 @@ void SetSchemeForLocation(ref loc)
 			SetSoundScheme("shop");
 			SetMusicAlarm("choir");
 			break;
+		case "Estate_sneaking":
+			SetSoundScheme("house");
+			SetMusicAlarm("night_sneaking");
+			break;
 	// GOLDBUG -->
 	
 		case "Charleston_port":

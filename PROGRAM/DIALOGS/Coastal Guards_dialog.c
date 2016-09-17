@@ -36,7 +36,7 @@ void ProcessDialogEvent()
 			ccc, if you don't agree delete the 4 lines marked with ccc but keep the original one below
 			if(makeint(Pchar.reputation) >= 80 && makeint(Pchar.skill.Leadership) >= 5)	// original code
 			ccc */
-			if(makeint(Pchar.reputation) + (makeint(Pchar.skill.Leadership)*10) >= rand(200) && GetNationRelation2MainCharacter(sti(Npchar.nation)) != RELATION_ENEMY) )	// ccc new
+			if(makeint(Pchar.reputation) + (makeint(Pchar.skill.Leadership)*10) >= rand(200) && GetNationRelation2MainCharacter(sti(Npchar.nation)) != RELATION_ENEMY)	// ccc new
 			{
 				Link.l1.go = "ThisTimeFree";
 			}

@@ -48938,7 +48938,131 @@ void QuestComplete(string sQuestName)
 //_________________________________________________________________________________________________________________
 //Q2 Eden
 //JRH Eden
-		
+		case "maze_gate1_down_check":
+			pchar.quest.maze_gate1_down.win_condition.l1 = "locator";
+			pchar.quest.maze_gate1_down.win_condition.l1.location = "BB_Eden_maze";
+			pchar.quest.maze_gate1_down.win_condition.l1.locator_group = "goto";
+			pchar.quest.maze_gate1_down.win_condition.l1.locator = "gate1";
+			pchar.quest.maze_gate1_down.win_condition = "maze_gate1_down";
+		break;
+
+		case "maze_gate1_down":
+			ChangeCharacterAddressGroup(Pchar, "BB_Eden_maze", "goto", "gate1_down");
+
+			LAi_QuestDelay("maze_gate1_up_check", 0.5);
+		break;
+
+		case "maze_gate1_up_check":
+			pchar.quest.maze_gate1_up.win_condition.l1 = "locator";
+			pchar.quest.maze_gate1_up.win_condition.l1.location = "BB_Eden_maze";
+			pchar.quest.maze_gate1_up.win_condition.l1.locator_group = "goto";
+			pchar.quest.maze_gate1_up.win_condition.l1.locator = "gate1";
+			pchar.quest.maze_gate1_up.win_condition = "maze_gate1_up";
+		break;
+
+		case "maze_gate1_up":
+			ChangeCharacterAddressGroup(Pchar, "BB_Eden_maze", "goto", "gate1_up");
+
+			LAi_QuestDelay("maze_gate1_down_check", 0.5);
+		break;
+		//------------------------------------------------------------------------------
+		case "maze_gate2_down_check":
+			pchar.quest.maze_gate2_down.win_condition.l1 = "locator";
+			pchar.quest.maze_gate2_down.win_condition.l1.location = "BB_Eden_maze";
+			pchar.quest.maze_gate2_down.win_condition.l1.locator_group = "goto";
+			pchar.quest.maze_gate2_down.win_condition.l1.locator = "gate2";
+			pchar.quest.maze_gate2_down.win_condition = "maze_gate2_down";
+		break;
+
+		case "maze_gate2_down":
+			ChangeCharacterAddressGroup(Pchar, "BB_Eden_maze", "goto", "gate2_down");
+
+			LAi_QuestDelay("maze_gate2_up_check", 0.5);
+		break;
+
+		case "maze_gate2_up_check":
+			pchar.quest.maze_gate2_up.win_condition.l1 = "locator";
+			pchar.quest.maze_gate2_up.win_condition.l1.location = "BB_Eden_maze";
+			pchar.quest.maze_gate2_up.win_condition.l1.locator_group = "goto";
+			pchar.quest.maze_gate2_up.win_condition.l1.locator = "gate2";
+			pchar.quest.maze_gate2_up.win_condition = "maze_gate2_up";
+		break;
+
+		case "maze_gate2_up":
+			ChangeCharacterAddressGroup(Pchar, "BB_Eden_maze", "goto", "gate2_up");
+
+			LAi_QuestDelay("maze_gate2_down_check", 0.5);
+		break;
+		//------------------------------------------------------------------------------
+		case "GH_boxes_check":
+			if(CheckAttribute(Pchar,"GH_box1") && Pchar.GH_box1 == "checked")
+			{
+				if(CheckAttribute(Pchar,"GH_box2") && Pchar.GH_box2 == "checked")
+				{
+					if(CheckAttribute(Pchar,"GH_box3") && Pchar.GH_box3 == "checked")
+					{
+						ChangeCharacterAddressGroup(characterFromID("Margaret_Pough"), "BB_Eden_maze", "goto", "margaret");
+						
+						LAi_SetStayType(characterFromID("Margaret_Pough"));
+
+						pchar.quest.Margaret_Pough.win_condition.l1 = "location";
+						pchar.quest.Margaret_Pough.win_condition.l1.location = "BB_Eden_maze";
+						pchar.quest.Margaret_Pough.win_condition = "Margaret_Pough";
+					}
+				}
+			}
+		break;
+
+		case "Margaret_Pough":
+			LAi_SetActorType(characterFromID("Margaret_Pough"));
+			LAi_ActorDialog(characterFromID("Margaret_Pough"), pchar, "", 1.5, 1.0);
+			LAi_ActorWaitDialog(Pchar, characterFromID("Margaret_Pough"));
+			Characters[GetCharacterIndex("Margaret_Pough")].dialog.CurrentNode  = "what";
+		break;
+
+		case "Pough_done":
+			LAi_SetStayType(Pchar);
+			LAi_SetActorType(characterFromID("Margaret_Pough"));
+			LAi_ActorRunToLocator(characterFromID("Margaret_Pough"), "goto", "leave", "Pough_done1", 15.0);
+			Locations[FindLocation("BB_Eden_estate")].reload.l4.disable = 0;
+
+			LAi_QuestDelay("pchar_playertype", 5.0);
+		break;
+
+		case "Pough_done1":
+			ChangeCharacterAddressGroup(characterFromID("Margaret_Pough"), "BB_Eden_estate", "goto", "unlock");
+
+			pchar.quest.Margaret_Pough2_up.win_condition.l1 = "locator";
+			pchar.quest.Margaret_Pough2_up.win_condition.l1.location = "BB_Eden_estate";
+			pchar.quest.Margaret_Pough2_up.win_condition.l1.locator_group = "goto";
+			pchar.quest.Margaret_Pough2_up.win_condition.l1.locator = "unlock";
+			pchar.quest.Margaret_Pough2_up.win_condition = "Margaret_Pough2";
+		break;
+
+		case "Margaret_Pough2":
+			LAi_SetActorType(characterFromID("Margaret_Pough"));
+			LAi_ActorDialog(characterFromID("Margaret_Pough"), pchar, "", 1.5, 1.0);
+			LAi_ActorWaitDialog(Pchar, characterFromID("Margaret_Pough"));
+			Characters[GetCharacterIndex("Margaret_Pough")].dialog.CurrentNode  = "unlock";
+		break;
+
+		case "Pough2_done":
+			LAi_SetCitizenType(characterFromID("Margaret_Pough"));
+			Characters[GetCharacterIndex("Margaret_Pough")].dialog.CurrentNode  = "neutral";
+		break;
+		//------------------------------------------------------------------------------
+		case "estate_girder":
+			Locations[FindLocation("BB_Eden_chapel")].image = "";
+			DoQuestReloadToLocation("BB_Eden_chapel", "goto", "goto5" ,"estate_girder1");
+		break;
+
+		case "estate_girder1":
+			SetLocatorRadius(locations[FindLocation(Pchar.location)], "reload", "reload1", 1.0);
+			Locations[FindLocation("BB_Eden_chapel")].locators_radius.reload.reload1 = 1.0;
+
+			Locations[FindLocation("BB_Eden_chapel")].image = "wr_chapel.tga";
+		break;
+		//------------------------------------------------------------------------------
 		case "Eden_steplocks":
 			//starts Eden tunnel puzzle
 		

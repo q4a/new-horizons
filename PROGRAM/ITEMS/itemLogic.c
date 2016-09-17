@@ -2301,6 +2301,14 @@ void Box_FillBox(ref _location, string locatorName, bool isAbordageBox)
 		if(_location.id=="GB_Charleston_governor_bedroom")spawnItemsCount = 0;
 		if(_location.id=="GB_Charleston_governor_kitchen")spawnItemsCount = 0;
 		if(_location.id=="GB_Charleston_store")spawnItemsCount = 0;
+		if(_location.id=="bb_Eden_garden_house")spawnItemsCount = 0;
+		if(_location.id=="bb_Eden_estate")spawnItemsCount = 0;
+		if(_location.id=="bb_Eden_bedroom1")spawnItemsCount = 0;
+		if(_location.id=="bb_Eden_kitchen")spawnItemsCount = 0;
+		if(_location.id=="bb_Eden_attic2")spawnItemsCount = 0;
+		if(_location.id=="bb_Eden_attic3")spawnItemsCount = 0;
+		if(_location.id=="bb_Eden_bedroom2")spawnItemsCount = 0;
+		if(_location.id=="bb_Eden_dining_room")spawnItemsCount = 0;
 
 		if(_location.id=="bb_Maltains")
 		{

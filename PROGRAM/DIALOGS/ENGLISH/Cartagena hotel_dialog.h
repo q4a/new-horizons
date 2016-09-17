@@ -67,7 +67,7 @@ string DLG_TEXT[71] = {
 "You got my Bandages. Hand'em over!",
 "You got my Surgery Kit and Bandages. Hand'em over!",
 "Okay, I'll clean out the Hotel rooms right away.",
-"But Captain, they have locked themselves in. I can't clean up the rooms. Only room 3 is still open.",
+"But Captain, they have locked themselves in. I can't clean up the rooms. We can only find the key to room 3.",
 "Captain, thanks for the journey. Before I leave you, here are the plants I promised you Captain.",
 "Yes. Finally!",							//70
 };

@@ -524,12 +524,12 @@ Set all to -1 to disable this mod
 // ---- ADD ONS ---- All need shipyards. All can take out.
 
 //Copper plates
-#define CPSPEEDRANGEMAX			5		// int 0-100
-#define CPSPEEDRANGEMIN			0		// int 0-100
-#define CPTURNINGRANGEMAX		2		// int 0-100
-#define CPTURNINGRANGEMIN		0		// int 0-100
-#define CPINERTIARANGEMAX		0		// Not implemented
-#define CPINERTIARANGEMIN		-5		// Not implemented
+#define CPSPEEDRANGEMAX			3		// int 0-100
+#define CPSPEEDRANGEMIN			3		// int 0-100
+#define CPTURNINGRANGEMAX		1		// int 0-100
+#define CPTURNINGRANGEMIN		1		// int 0-100
+#define CPINERTIARANGEMAX		-3		// Not implemented
+#define CPINERTIARANGEMIN		-3		// Not implemented
 #define CPTIMEMULT				1		// Time to repair all hull multiply by CPTIMEMULT
 #define CPDISP					5		// int 0-100 Chance of being available
 #define CPCOSTMULT				4		//Ships price * CPCOSTMULT
@@ -559,40 +559,40 @@ Set all to -1 to disable this mod
 #define MASTCRIT				8.0		//float 0-100 - % of mast crit
 
 //New sails and ropes
-#define NSSPEEDRANGEMAX			5		//int 0-100
-#define NSSPEEDRANGEMIN			0		//int 0-100
-#define NSSAILHPRANGEMAX		10		//int 0-100 % of damage reduction
-#define NSSAILHPRANGEMIN		0		//int 0-100
-#define NSINERTIARANGEMAX		0		//Not implemente
-#define NSINERTIARANGEMIN		-10		//Not implemente
+#define NSSPEEDRANGEMAX			3		//int 0-100
+#define NSSPEEDRANGEMIN			3		//int 0-100
+#define NSSAILHPRANGEMAX		5		//int 0-100 % of damage reduction
+#define NSSAILHPRANGEMIN		5		//int 0-100
+#define NSINERTIARANGEMAX		-5		//Not implemente
+#define NSINERTIARANGEMIN		-5		//Not implemente
 #define NSTIMEMULT				1		// Time to repair all rigging multiply by NSTIMEMULT
 #define NSDISP					25		// int 0-100 Chance of being available
 #define NSCOSTMULT				0.5		// Cost of repair all rigging multiply by NSCOSTMULT
 
 //Long top-masts
-#define TMSPEEDRANGEMAX			10		//int 0-100
-#define TMSPEEDRANGEMIN			0		//int 0-100
-#define TMINERTIARANGEMAX		0		//Not implemente
-#define TMINERTIARANGEMIN		-10		//Not implemente
+#define TMSPEEDRANGEMAX			5		//int 0-100
+#define TMSPEEDRANGEMIN			5		//int 0-100
+#define TMINERTIARANGEMAX		-5		//Not implemente
+#define TMINERTIARANGEMIN		-5		//Not implemente
 #define TMSAILCRIT				4		//int 0-100 increase of % of mastcrit
 #define TMTIMEMULT				1		// Time to repair all rigging multiply by TMTIMEMULT
 #define TMDISP					15		// int 0-100 Chance of being available
 #define TMCOSTMULT				0.5		//Cost of repair all rigging multiply by TMCOSTMULT
 
 //Staysails
-#define SSTACKRANGEMAX			0.0		// float 0 - 1 Degrees of improve ClosestPoint - remmeber that ClosestPoint goes from 0 to 1
+#define SSTACKRANGEMAX			-0.1	// float 0 - 1 Degrees of improve ClosestPoint - remmeber that ClosestPoint goes from 0 to 1
 #define SSTACKRANGEMIN			-0.1	// float 0 - 1 Degrees of improve ClosestPoint - remmeber that ClosestPoint goes from 0 to 1
-#define SSTURNINGRANGEMAX		5		// int 0-100
-#define SSTURNINGRANGEMIN		0		// int 0-100
+#define SSTURNINGRANGEMAX		1		// int 0-100
+#define SSTURNINGRANGEMIN		1		// int 0-100
 #define SSTIMEMULT				1		// Time to repair all rigging multiply by SSTIMEMULT
 #define SSDISP					3		// int 0-100 Chance of being available	// Rare
 #define SSCOSTMULT				0.5		//Cost of repair all rigging multiply by SSCOSTMULT
 
 //Reinforced Hull --- No way back!!!!
-#define RHHULLHPRANGEMAX		10		//int 0-100
-#define RHHULLHPRANGEMIN		0		//int 0-100
-#define RHINERTIARANGEMAX		10		//Not implemented
-#define RHINERTIARANGEMIN		0		//Not implemented
+#define RHHULLHPRANGEMAX		5		//int 0-100
+#define RHHULLHPRANGEMIN		5		//int 0-100
+#define RHINERTIARANGEMAX		5		//Not implemented
+#define RHINERTIARANGEMIN		5		//Not implemented
 #define RHCALIBERADD			1		// Number of calibers up
 #define RHTIMEMULT				1		// Time to repair all hull multiply by RHTIMEMULT
 #define RHDISP					50		// int 0-100 Chance of being available	// Rather easy
@@ -603,14 +603,14 @@ Set all to -1 to disable this mod
 // Just One way and only once in a ship
 // Should change the model of ship in certain cases???
 
-#define FLUSHSPEEDRANGEMAX		15		//int 0-100
-#define FLUSHSPEEDRANGEMIN		5		//int 0-100
-#define FLUSHTURNINGRANGEMAX	15		//int 0-100
-#define FLUSHTURNINGRANGEMIN	5		//int 0-100
-#define FLUSHHULLHPRANGEMAX		-5		//int 0-100
-#define FLUSHHULLHPRANGEMIN		-7		//int 0-100
-#define FLUSHLOADRANGEMAX		20		//int 0-100
-#define FLUSHLOADRANGEMIN		10		//int 0-100
+#define FLUSHSPEEDRANGEMAX		10		//int 0-100
+#define FLUSHSPEEDRANGEMIN		10		//int 0-100
+#define FLUSHTURNINGRANGEMAX	10		//int 0-100
+#define FLUSHTURNINGRANGEMIN	10		//int 0-100
+#define FLUSHHULLHPRANGEMAX		-6		//int 0-100
+#define FLUSHHULLHPRANGEMIN		-6		//int 0-100
+#define FLUSHLOADRANGEMAX		15		//int 0-100
+#define FLUSHLOADRANGEMIN		15		//int 0-100
 #define FLUSHEDCOSTMULT			6		//int 0-100
 #define FLUSHEDTIMEMULT			1		//int 0-100
 #define FLUSHEDPROB				10		//int 0-100 Chance of being on in a fantom
@@ -972,7 +972,7 @@ Set all to -1 to disable this mod
 
 #define OFF_PRICE_SCALAR				0.2		// FLOAT - scalar to officerprice for use as monthly salary. Stock POTC: 0.2
 #define COMP_PRICE_SCALAR				0.5		// FLOAT - ditto, but for companions. Stock POTC: 0.5
-#define BASE_CREW_PAY					12		// INT - Base salary gold paid to each crew member, not adjusted for skills, perks & difficulty.  POTC Stock: 12
+#define BASE_CREW_PAY					36		// INT - Base salary gold paid to each crew member, not adjusted for skills, perks & difficulty.  POTC Stock: 12 TY tripling value to create new balance with lowered salaries from beginning of game (as if iron will and leadership 10) see characterutilite.c for further details. 
 #define PASSENGER_PRICE_SCALAR			0.1		// FLOAT - scalar to officerprice used as monthly salary for unassigned officers. Stock POTC: 0
 
 // Rum (note 2 is normal and 1 is double)

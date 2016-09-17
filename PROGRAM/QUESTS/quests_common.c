@@ -11,95 +11,57 @@ bool bQuestDisableAllCommands = false; // KK
 // boal -->
 void GenerateQuestShip(string character_id, int iNation) // KK
 {
+	//Check if the character is an enemy
 	bool isEnemy = false;
 	if(character_id == "Quest pirate" ) isEnemy = true;
 	if(character_id == "Convoy pirate") isEnemy = true;
-	InitQuestCaptain(character_id, iNation, isEnemy);		// LDH 05Sep06 // KK
 
-	ref PChar = GetMainCharacter(); // KK
-	int iShipType, iTradeMoney, irank, pRank;
+	//Get the captain which is only half setup
+	ref rCaptain = characterFromID(character_id);
+	
+	//Extract the nation and fantomtype from it
+	string sFantomType = "war";
+	if( iNation >= NATIONS_QUANTITY)	iNation = PIRATE;
+	if( iNation == PIRATE)				sFantomType = "pirate";
 
-	//PB: Generate Rank and Skills
-	pRank = sti(PChar.rank);
-	if(GetShipCap()) { if((8-GetCharacterShipClass(PChar)) * 2 < pRank) { pRank = (8-GetCharacterShipClass(PChar)) * 2; } } // NK
-	irank = makeint((pRank/2.0 + Rand(pRank/2)) * (2.0/3.0 + ((makefloat(GetDifficulty())-1.0)/5.0)) + 0.5);
-	if(irank < 1) irank = 1;
-	ref rFantom = characterFromID(character_id); // KK
-
-	if( sti(rFantom.nation) >= NATIONS_QUANTITY)	rFantom.nation = PIRATE; // KB- Fix Governor Pirate Quest bug // KK
-													rFantom.FantomType = "war";
-	if( sti(rFantom.nation) == PIRATE)				rFantom.FantomType = "pirate";
-	float mult = 1.0;
-	switch(rFantom.FantomType)
-	{
-		case "war":
-			mult *= 1.25;
-			rFantom.quest.officertype = OFFIC_TYPE_CAPNAVY;
-			break;
-
-		case "pirate":
-			mult *= 1.5; //note this is different from AIFantom! Because the gov knows this pirate is hunting near his island!
-			rFantom.quest.officertype = OFFIC_TYPE_CAPPIRATE;
-			break;
-	}
-	//rFantom.skill.freeskill  = 2*irank;
-	//rFantom.Perks.Freepoints = irank;
-	/*LAi_Officer_SetSkillmodifiers_and_Perks(rFantom, 0);
-	LAi_SetSkill_on_Modifier(rFantom);*/
-	//ResetSkillsandPerks(rFantom);
-	rFantom.rank = irank;
-	rFantom.skipPostInit = true; // PB: Make sure this captain is initialized RIGHT NOW and not later!
-	InitCharacterSkills(rFantom);
-	Fantom_SetRandomMoney(rFantom, rFantom.FantomType);
-
-	SetRandomNameToCharacter(rFantom);
-	rFantom.old.name = rFantom.name; // KK
-	rFantom.old.lastname = rFantom.lastname; // KK
-
-	//PB: Generate Ship
-	DeleteAttribute(rFantom, "Ship");
-
-	int maxclass, minclass;
-	maxclass = GetShipMinClassForSkills(sti(rFantom.skill.Leadership), sti(rFantom.skill.Sailing));	// PB: Same limit as for player
-	if(sti(rFantom.nation) == PIRATE             && maxclass < MAXPIRATECLASS)			maxclass = MAXPIRATECLASS;		// KK
-	if(HasSubStr(character_id,"Coastal_Captain") && maxclass < MAXCOASTGUARDCLASS)		maxclass = MAXCOASTGUARDCLASS;	// PB
+	//Determine the max and minclass of the ship
+	int maxclass, minclass, iShipType;
+	maxclass = GetShipMinClassForSkills(sti(rCaptain.skill.Leadership), sti(rCaptain.skill.Sailing));	// TODO: Change this so we determine it on something else
+	if(sti(rCaptain.nation) == PIRATE             && maxclass < MAXPIRATECLASS)			maxclass = MAXPIRATECLASS;
+	if(HasSubStr(character_id,"Coastal_Captain") && maxclass < MAXCOASTGUARDCLASS)		maxclass = MAXCOASTGUARDCLASS;
 	if(GetCurrentPeriod() <= PERIOD_EARLY_EXPLORERS || GetCurrentPeriod() >= PERIOD_NAPOLEONIC)
 	{
-		if(sti(rFantom.nation) == HOLLAND        && maxclass < 3)						maxclass = 3;
-		if(sti(rFantom.nation) == PORTUGAL       && maxclass < 3)						maxclass = 3;
+		if(iNation == HOLLAND        && maxclass < 3)						maxclass = 3;
+		if(iNation == PORTUGAL       && maxclass < 3)						maxclass = 3;
 	}
-
 	minclass =			maxclass + 2;
 	if(minclass > 8)	minclass = 8;
 
-	iShipType = Force_GetShipType(maxclass, minclass, "War", sti(rFantom.nation)); // PS
-	GiveShip2Character(rFantom, GetShipID(iShipType), "Ship Name", -1, sti(rFantom.nation), true, true); // PB: Generic Function
-	SetRandomNameToShip(rFantom);
-	Ship_SetFantomData(rFantom);
-
-	aref arship; makearef(arship, rFantom.ship);
-	ref Shiptype = GetShipByType(iShipType);
-	int iMCShipClass = makeint(GetCharacterShipClass(PChar)); // KK
-	if(makeint(Shiptype.Class) < iMCShipClass) mult *= 1.5;
-	if(makeint(Shiptype.Class) > iMCShipClass) mult *= 0.75;
-	rFantom.Points = mult * stf(GetLocalShipAttrib(arship, Shiptype, "Weight")) / 5000; // PRS3
-	rFantom.recognized = true; // PB: Have these ships always hostile, regardless of flag
+	//Make the ship
+	iShipType = Force_GetShipType(maxclass, minclass, "War", iNation);
+	
+	//Generate the captain
+	if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: In function GenerateQuestShip");
+	rCaptain = LAi_Create_Captain(rCaptain, sFantomType, iShipType, iNation); //Levis new function to create a captain
 
 	if(character_id == "Quest pirate")	// PB: For Governor Quest Ships only
 	{
 		//NK edit trademoney
+		ref Shiptype = GetShipByType(iShipType);
+		aref arship; makearef(arship, rCaptain.ship);
+		ref pchar = GetMainCharacter();
 		float shipmult = 5.0 * sqrt(intRet(sti(Shiptype.CannonsQuantity),sti(Shiptype.CannonsQuantity),1) * sti(GetLocalShipAttrib(arship, Shiptype, "HP")) * stf(GetLocalShipAttrib(arship, Shiptype, "SpeedRate"))); // PRS3
-		float commult = 1.0 + makeint(CalcCharacterSkill(PChar, SKILL_COMMERCE))/20.0;
+		float commult = 1.0 + makeint(CalcCharacterSkill(pchar, SKILL_COMMERCE))/20.0;
 
-		iTradeMoney = makeint(sqrt(irank) * shipmult * commult/25)*25;
+		int iTradeMoney = makeint(sqrt(sti(rCaptain.rank)) * shipmult * commult/25)*25;
 		if(iTradeMoney < 100) iTradeMoney = 100;
 
 		pchar.quest.generate_kill_quest = "begin";
 		pchar.quest.generate_kill_quest.money = iTradeMoney;
 		pchar.quest.generate_kill_quest.town = GetCurrentTownID();//MAXIMUS
 		pchar.quest.generate_kill_quest.destination = Islands[GetCharacterCurrentIsland(Pchar)].id;
-		pchar.quest.generate_kill_quest.nation = sti(rFantom.nation); // KK // MAXIMUS
-		pchar.quest.generate_kill_quest.shipname = rFantom.Ship.Name;
+		pchar.quest.generate_kill_quest.nation = iNation; // KK // MAXIMUS
+		pchar.quest.generate_kill_quest.shipname = rCaptain.Ship.Name;
 	}
 }
 // boal <--
@@ -4439,7 +4401,7 @@ Cost for level 50 is 55,374,000
 			EquipCharacterByItem(NPChar, "bladearrows");
 		break;
 
-		case "indian_arrow_tomahawk_equip_check":
+		case "indian_arrows_equip_check":
 			if(IsEquipCharacterByItem(Pchar, "pistolbow"))
 			{
 				//ok
@@ -4448,7 +4410,7 @@ Cost for level 50 is 55,374,000
 		break;
 
 		case "indian_pistols_equip_check":
-			if(IsEquipCharacterByItem(Pchar, "bladearrows") || IsEquipCharacterByItem(Pchar, "tomahawk") 
+			if(IsEquipCharacterByItem(Pchar, "bladearrows")
 			|| IsEquipCharacterByItem(Pchar, "shield_hand") || IsEquipCharacterByItem(Pchar, "shield_back"))
 			{
 				RemoveCharacterEquip(Pchar, BLADE_ITEM_TYPE);
@@ -4689,6 +4651,12 @@ Cost for level 50 is 55,374,000
 					weapon3.model = "LongRifle_C";
 					RemoveCharacterEquip(Pchar, GUN_ITEM_TYPE);
 					EquipCharacterByItem(Pchar, "LongRifle_C");
+				}
+				if(weapon3.model == "LongRifle_H_back")
+				{
+					weapon3.model = "LongRifle_H";
+					RemoveCharacterEquip(Pchar, GUN_ITEM_TYPE);
+					EquipCharacterByItem(Pchar, "LongRifle_H");
 				}
 				if(weapon3.model == "LongRifle_CT_back")
 				{
@@ -5178,6 +5146,47 @@ void back_LongRifle_C()
 
 //---------------------------------------------------------------------------
 
+#event_handler("LongRifle_H_on_hip", "hip_LongRifle_H");
+void hip_LongRifle_H()
+{
+	aref attack = GetEventData();
+	string weaponID = GetCharacterEquipByGroup(attack,GUN_ITEM_TYPE);
+	if (weaponID == "") return; // PB: Prevent potential error messages
+	aref weapon;
+	Items_FindItem(weaponID, &weapon);
+
+	float GunCurCharge = LAi_GetCharacterRelCharge(attack); // Levis
+	weapon.model = "LongRifle_H";
+	RemoveCharacterEquip(attack, GUN_ITEM_TYPE );
+	EquipCharacterByItem(attack, "LongRifle_H");
+	attack.chr_ai.charge = GunCurCharge; // Levis
+
+	if(IsMainCharacter(attack) && DisableReloadWhileFighting()) PlaySound("OBJECTS\DUEL\reload1.wav");
+}
+
+#event_handler("LongRifle_H_on_back", "back_LongRifle_H");
+void back_LongRifle_H()
+{
+	aref attack = GetEventData();
+	string weaponID = GetCharacterEquipByGroup(attack,GUN_ITEM_TYPE);
+	if (weaponID == "") return; // PB: Prevent potential error messages
+	aref weapon;
+	Items_FindItem(weaponID, &weapon);
+
+	if(weapon.model == "LongRifle_H")
+	{
+		float GunCurCharge = LAi_GetCharacterRelCharge(attack); // Levis
+		weapon.model = "LongRifle_H_back";
+		RemoveCharacterEquip(attack, GUN_ITEM_TYPE );
+		EquipCharacterByItem(attack, "LongRifle_H");
+		attack.chr_ai.charge = GunCurCharge; // Levis
+
+		if(IsMainCharacter(attack) && DisableReloadWhileFighting()) PlaySound("PEOPLE\clothes1.wav");
+	}
+}
+
+//---------------------------------------------------------------------------
+
 #event_handler("mguns_reset_check", "reset_check_mguns");
 void reset_check_mguns()
 {
@@ -5280,6 +5289,14 @@ void reset_check_mguns()
 					EquipCharacterByItem(tmpChr, "LongRifle_C");
 					tmpChr.chr_ai.charge = GunCurCharge; // Levis
 				}
+
+				if(IsEquipCharacterByItem(tmpChr, "LongRifle_H"))
+				{
+					Items_FindItem("LongRifle_H", &weapon);
+					weapon.model = "LongRifle_H_back";
+					EquipCharacterByItem(tmpChr, "LongRifle_H");
+					tmpChr.chr_ai.charge = GunCurCharge; // Levis
+				}
 			}
 		}
 	}
@@ -5357,6 +5374,14 @@ void fight_check_mguns()
 						Items_FindItem("LongRifle_C", &weapon);
 						weapon.model = "LongRifle_C_back";
 						EquipCharacterByItem(tmpChr, "LongRifle_C");
+						tmpChr.chr_ai.charge = GunCurCharge; // Levis
+					}
+
+					if(IsEquipCharacterByItem(tmpChr, "LongRifle_H"))
+					{
+						Items_FindItem("LongRifle_H", &weapon);
+						weapon.model = "LongRifle_H_back";
+						EquipCharacterByItem(tmpChr, "LongRifle_H");
 						tmpChr.chr_ai.charge = GunCurCharge; // Levis
 					}
 				}

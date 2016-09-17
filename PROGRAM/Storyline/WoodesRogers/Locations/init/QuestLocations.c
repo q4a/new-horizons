@@ -9208,7 +9208,7 @@ void LocationInitQuestLocations(ref n)
 
 //============================================================================
 //JRH Hands Charlestown Maltains
-//pär
+
 	locations[n].id = "bb_Maltains";
 	locations[n].id.label = "Order of Malta";
 	Locations[n].image = "church_wine_cellar.tga";
@@ -14996,7 +14996,7 @@ Locations[n].reload.l9.autoreload = "0";
 	Locations[n].image = "Inside_StoreSmall.tga";
 
 	Locations[n].id = "BB_crypt1";
-	locations[n].id.label = "Crypt ";
+	locations[n].id.label = "Crypt";
 	//Town sack
 	//Locations[n].townsack = "Khael Roa";
 	//Sound
@@ -15188,8 +15188,9 @@ Locations[n].reload.l9.autoreload = "0";
 
 	Locations[n].island = "QuebradasCostillas"; // NK 04-08-29
 	n = n + 1;
-//JRH estate
+
 	//--------------------------------------------------------------------------	
+//pär JRH estate
 	
 	Locations[n].id = "BB_Eden_estate";
 	locations[n].id.label = "Estate";
@@ -15198,6 +15199,7 @@ Locations[n].reload.l9.autoreload = "0";
 	
 	//Sound
 	locations[n].type = "deserted_mountains";
+//	locations[n].type = "Legrands_house";
 
 	//Models
 	//Always
@@ -15229,13 +15231,221 @@ Locations[n].reload.l9.autoreload = "0";
 	Locations[n].reload.l1.emerge = "Reload2";
 	Locations[n].reload.l1.autoreload = "0";
 
+	Locations[n].reload.l2.name = "reload2";
+	Locations[n].reload.l2.go = "BB_Eden_bedroom2";
+	Locations[n].reload.l2.emerge = "Reload1";
+	Locations[n].reload.l2.autoreload = "0";
+	Locations[n].reload.l2.disable = 1;
+
+	Locations[n].reload.l3.name = "reload3";
+	Locations[n].reload.l3.go = "BB_Eden_kitchen";
+	Locations[n].reload.l3.emerge = "Reload3";
+	Locations[n].reload.l3.autoreload = "0";
+	Locations[n].reload.l3.disable = 1;
+
+	Locations[n].reload.l4.name = "reload4";
+	Locations[n].reload.l4.go = "BB_Eden_bedroom1";
+	Locations[n].reload.l4.emerge = "Reload1";
+	Locations[n].reload.l4.autoreload = "0";
+	Locations[n].reload.l4.disable = 1;
+
 	Locations[n].reload.l5.name = "reload5";
 	Locations[n].reload.l5.go = "BB_Eden_office";
 	Locations[n].reload.l5.emerge = "Reload1";
 	Locations[n].reload.l5.autoreload = "0";
+	Locations[n].reload.l5.disable = 1;
+
+	Locations[n].reload.l6.name = "reload6";
+	Locations[n].reload.l6.go = "BB_Eden_chapel";
+	Locations[n].reload.l6.emerge = "Reload1";
+	Locations[n].reload.l6.autoreload = "0";
+	Locations[n].reload.l6.disable = 1;
+
+	Locations[n].reload.l7.name = "reload7";
+	Locations[n].reload.l7.go = "BB_Eden_maze";
+	Locations[n].reload.l7.emerge = "Reload2";
+	Locations[n].reload.l7.autoreload = "0";
+	Locations[n].locators_radius.reload.reload7 = 0.7;
 	
+	Locations[n].reload.l8.name = "reload8";
+	Locations[n].reload.l8.go = "BB_Eden_maze";
+	Locations[n].reload.l8.emerge = "Reload3";
+	Locations[n].reload.l8.autoreload = "0";
+	Locations[n].locators_radius.reload.reload8 = 0.7;
+
+	Locations[n].reload.l9.name = "reload9";
+	Locations[n].reload.l9.go = "BB_Eden_dining_room";
+	Locations[n].reload.l9.emerge = "Reload1";
+	Locations[n].reload.l9.autoreload = "0";
+	Locations[n].locators_radius.reload.reload9 = 0.7;
+	Locations[n].reload.l9.disable = 1;
+	
+	Locations[n].locators_radius.box.box17 = 1.3;
+	Locations[n].locators_radius.box.box18 = 1.5;
+	Locations[n].locators_radius.box.box20 = 0.6;
+	Locations[n].locators_radius.goto.unlock = 3.0;
+
+	Locations[n].locators_radius.randitem.randitem1 = 0.001;
+	Locations[n].items.randitem1 = "door_green";
+
+	Locations[n].locators_radius.randitem.randitem2 = 0.001;
+	Locations[n].items.randitem2 = "door_green";
+
 	LAi_LocationMonstersGen(&locations[n], false);
 	Locations[n].island = "KhaelRoa";
+	n = n + 1;
+
+	//--------------------------------------------------------------------------	
+
+	Locations[n].filespath.models = "locations\Outside\Maze";
+
+	Locations[n].id = "BB_Eden_maze";
+	locations[n].id.label = "Garden";
+	Locations[n].image = "Outside_Jungle_1.tga";
+	
+	//Sound
+	locations[n].type = "Chinese_garden";
+
+	//Models
+	//Always
+	Locations[n].models.always.locators = "Maze_l";
+	Locations[n].models.always.L1 = "Maze";
+	Locations[n].models.always.L2 = "estate_facade";
+
+	//Day
+	Locations[n].models.day.charactersPatch = "Maze_p";
+	//Night
+	Locations[n].models.night.charactersPatch = "Maze_p";
+	//Environment
+	Locations[n].environment.weather = "true";
+	Locations[n].environment.sea = "false";
+
+	//Reload map
+
+	Locations[n].reload.l1.name = "reload1";
+	Locations[n].reload.l1.go = "BB_Eden_garden_house";
+	Locations[n].reload.l1.emerge = "reload1";
+	Locations[n].reload.l1.autoreload = "0";
+	Locations[n].reload.l1.label = "Jungle.";
+
+	Locations[n].reload.l2.name = "reload2";
+	Locations[n].reload.l2.go = "bb_Eden_estate";
+	Locations[n].reload.l2.emerge = "reload7";
+	Locations[n].reload.l2.autoreload = "0";
+	Locations[n].reload.l2.label = "Shore.";
+	Locations[n].locators_radius.reload.reload2 = 0.7;
+
+	Locations[n].reload.l3.name = "reload3";
+	Locations[n].reload.l3.go = "bb_Eden_estate";
+	Locations[n].reload.l3.emerge = "reload8";
+	Locations[n].reload.l3.autoreload = "0";
+	Locations[n].reload.l3.label = "Shore.";
+	Locations[n].locators_radius.reload.reload3 = 0.7;
+
+	Locations[n].locators_radius.randitem.randitem1 = 0.001;
+	Locations[n].items.randitem1 = "iron_gate3";
+
+	Locations[n].locators_radius.randitem.randitem2 = 0.001;
+	Locations[n].items.randitem2 = "iron_gate3";
+
+	Locations[n].locators_radius.randitem.randitem3 = 0.001;
+	Locations[n].items.randitem3 = "door_green";
+
+	Locations[n].locators_radius.randitem.randitem4 = 0.01;
+	Locations[n].items.randitem4 = "tree2";
+
+	Locations[n].locators_radius.randitem.randitem5 = 0.01;
+	Locations[n].items.randitem5 = "tree2";
+
+	Locations[n].locators_radius.randitem.randitem6 = 0.01;
+	Locations[n].items.randitem6 = "door_window";
+
+	Locations[n].locators_radius.randitem.randitem7 = 0.001;
+	Locations[n].items.randitem7 = "iron_gate3";
+
+	Locations[n].locators_radius.randitem.randitem8 = 0.001;
+	Locations[n].items.randitem8 = "iron_gate3";
+
+	Locations[n].locators_radius.randitem.randitem9 = 0.01;
+	Locations[n].items.randitem9 = "door_window";
+
+	Locations[n].locators_radius.randitem.randitem10 = 0.01;
+	Locations[n].items.randitem10 = "green";
+
+	Locations[n].locators_radius.randitem.randitem11 = 0.01;
+	Locations[n].items.randitem11 = "tree2";
+
+	Locations[n].locators_radius.randitem.randitem12 = 0.01;
+	Locations[n].items.randitem12 = "green";
+
+	Locations[n].locators_radius.randitem.randitem13 = 0.01;
+	Locations[n].items.randitem13 = "door_green";
+
+	Locations[n].locators_radius.randitem.randitem14 = 0.01;
+	Locations[n].items.randitem14 = "door_green";
+
+	Locations[n].locators_radius.randitem.randitem15 = 0.01;
+	Locations[n].items.randitem15 = "green";
+
+	Locations[n].locators_radius.randitem.randitem16 = 0.01;
+	Locations[n].items.randitem16 = "green";
+
+	Locations[n].locators_radius.randitem.randitem17 = 0.01;
+	Locations[n].items.randitem17 = "armchair02";
+
+	LAi_LocationMonstersGen(&locations[n], false);
+	Locations[n].island = "KhaelRoa";
+	n = n + 1;
+
+	// -------------------------------------------------
+
+	Locations[n].id = "bb_Eden_garden_house";
+	locations[n].id.label = "Garden house";
+	Locations[n].filespath.models = "locations\Inside\ResidenceSmall1";
+	Locations[n].filespath.textures = "locations\inside\ResidenceSmall1";	
+	Locations[n].image = "Inside_ResidenceSmall1.tga";
+	
+	//Sound
+//	locations[n].type = "residence";
+	locations[n].type = "Legrands_house";
+	
+	//Models
+	//Always
+	Locations[n].models.always.locators = "resp_l_Q2";
+	Locations[n].models.always.l1 = "resp";
+	Locations[n].models.always.window = "resp_w";
+	Locations[n].models.always.window.tech = "LocationWindows";
+	Locations[n].models.always.window.level = 50;
+
+	//Day
+	Locations[n].models.day.charactersPatch = "resp_p";
+
+	//Night
+	Locations[n].models.night.charactersPatch = "resp_p";
+
+	//Environment
+	Locations[n].environment.weather = "false";
+	Locations[n].environment.sea = "false";
+	Locations[n].models.back = "back\juch_";
+
+	//Reload map
+	Locations[n].reload.l1.name = "Reload1";
+	Locations[n].reload.l1.go = "BB_Eden_maze";
+	Locations[n].reload.l1.emerge = "arrive1";
+	Locations[n].reload.l1.autoreload = "1";
+	Locations[n].locators_radius.reload.reload1 = 0.7;
+
+	Locations[n].locators_radius.box.box1 = 0.8;
+	Locations[n].locators_radius.box.box2 = 0.8;
+	Locations[n].locators_radius.box.box3 = 0.7;
+
+	Locations[n].locators_radius.randitem.randitem1 = 0.01;
+	Locations[n].items.randitem1 = "tree2";
+
+	Locations[n].locators_radius.randitem.randitem2 = 0.01;
+	Locations[n].items.randitem2 = "tree2";
+
+	Locations[n].island = "Aruba"; // NK 04-08-29
 	n = n + 1;
 
 	//--------------------------------------------------------------------------	
@@ -15258,6 +15468,7 @@ Locations[n].reload.l9.autoreload = "0";
 	Locations[n].models.always.window = "estateOffice_windows";
 	Locations[n].models.always.window.tech = "LocationWindows";
 	Locations[n].models.always.window.level = 50;
+	Locations[n].models.always.grassPatch = "estateOffice_grass";
 	//Day
 	Locations[n].models.day.fonar = "estateOffice_fd";
 	Locations[n].models.day.charactersPatch = "estateOffice_patch";
@@ -15275,6 +15486,7 @@ Locations[n].reload.l9.autoreload = "0";
 	Locations[n].reload.l1.go = "BB_Eden_estate";
 	Locations[n].reload.l1.emerge = "Reload5";
 	Locations[n].reload.l1.autoreload = "0";
+	Locations[n].reload.l1.disable = 1;
 
 	Locations[n].reload.l2.name = "reload2";
 	Locations[n].reload.l2.go = "BB_Eden_tunnel";
@@ -15289,6 +15501,577 @@ Locations[n].reload.l9.autoreload = "0";
 	LAi_LocationFightDisable(&Locations[n], true);
 	n = n + 1;
 
+	//--------------------------------------------------------------------------
+
+	Locations[n].id = "BB_Eden_bedroom1";
+	locations[n].id.label = "Bedroom";
+	Locations[n].image = "";
+	Locations[n].filespath.models = "locations\inside\EstateBedRoom1\\";
+	
+	//Sound
+//	locations[n].type = "residence";
+	locations[n].type = "Estate_sneaking";
+
+	//Models
+	//Always
+	Locations[n].models.always.l1 = "estateBedRoom1";
+	Locations[n].models.always.locators = "EstateBedRoom1_locators_Q2";
+	Locations[n].models.always.window = "estateBedRoom1_windows";
+	Locations[n].models.always.window.tech = "LocationWindows";
+	Locations[n].models.always.window.level = 50;
+	Locations[n].models.always.grassPatch = "estateRooms_grass";
+	//Day
+	Locations[n].models.day.fonar = "estateRooms_fd";
+	Locations[n].models.day.charactersPatch = "estateBedRoom1_patch";
+
+	//Night
+	Locations[n].models.night.fonar = "estateRooms_fn";
+	Locations[n].models.night.charactersPatch = "estateBedRoom1_patch";
+
+	//Environment
+	Locations[n].environment.weather = "true";	//yes!
+	Locations[n].environment.sea = "false";
+
+	//Reload map
+	Locations[n].reload.l1.name = "reload1";
+	Locations[n].reload.l1.go = "BB_Eden_estate";
+	Locations[n].reload.l1.emerge = "reload4";
+	Locations[n].reload.l1.autoreload = "0";
+	Locations[n].reload.l1.label = "";
+
+	Locations[n].reload.l2.name = "reload2";
+	Locations[n].reload.l2.go = "BB_Eden_kitchen";
+	Locations[n].reload.l2.emerge = "reload1";
+	Locations[n].reload.l2.autoreload = "0";
+	Locations[n].reload.l2.label = "";
+				
+	Locations[n].locators_radius.randitem.randitem1 = 0.001;
+	Locations[n].items.randitem1 = "door_fort";
+
+	LAi_LocationFightDisable(&Locations[n], true);
+
+	Locations[n].island = "Redmond";
+	n = n + 1;
+
+	//--------------------------------------------------------------------------
+
+	locations[n].id = "BB_Eden_kitchen";
+	locations[n].id.label = "Kitchen";
+	Locations[n].image = "wr_wood_tower1.tga";
+	
+	//Town sack
+	locations[n].lockWeather = "Inside";
+	//Sound
+//	locations[n].type = "Vane_towers";
+	locations[n].type = "Estate_sneaking";		
+	//Models
+	//Always
+	locations[n].filespath.models = "locations\inside\largehouse01";
+	locations[n].models.always.l1 = "largehouse01";
+	Locations[n].models.always.l2 = "largehouse01_rand";
+	Locations[n].models.always.l3 = "door_sklad";
+	locations[n].models.always.locators = "largehouse01_locators_JRH_estate";
+
+	Locations[n].models.always.window = "largehouse01_windows";
+	Locations[n].models.always.window.tech = "LocationWindows";
+	Locations[n].models.always.window.level = 50;
+	
+	//Day
+	locations[n].models.day.charactersPatch = "largehouse01_patch";
+	//Night
+	locations[n].models.night.charactersPatch = "largehouse01_patch";
+	//Environment
+	locations[n].environment.weather = "false";
+	locations[n].environment.sea = "false";
+	Locations[n].models.back = "back\farm_";
+
+	//Reload map
+	locations[n].reload.l1.name = "reload1";
+	locations[n].reload.l1.go = "BB_Eden_bedroom1";
+	locations[n].reload.l1.emerge = "reload2";
+	locations[n].reload.l1.autoreload = "0";
+	locations[n].reload.l1.label = "";
+	
+	locations[n].reload.l2.name = "reload2";
+	locations[n].reload.l2.go = "BB_Eden_attic1";
+	locations[n].reload.l2.emerge = "reload1";
+	locations[n].reload.l2.autoreload = "0";
+	locations[n].reload.l2.label = "";
+
+	locations[n].reload.l3.name = "reload3";
+	locations[n].reload.l3.go = "BB_Eden_estate";
+	locations[n].reload.l3.emerge = "reload3";
+	locations[n].reload.l3.autoreload = "0";
+	locations[n].reload.l3.label = "";
+	Locations[n].reload.l3.disable = 1;
+
+	Locations[n].locators_radius.randitem.randitem1 = 0.001;
+	Locations[n].items.randitem1 = "gatedoor_BRI";	
+
+	LAi_LocationFightDisable(&Locations[n], true);
+	Locations[n].island = "KhaelRoa";
+	n = n + 1;
+
+	//--------------------------------------------------------------------------
+
+	Locations[n].filespath.models = "locations\Inside\Hut_attic";
+	Locations[n].id = "BB_Eden_attic1";
+	locations[n].id.label = "Attic";
+	Locations[n].image = "GB_Legrands_attic.tga";
+	//Sound
+	locations[n].type = "Pym_tower";
+	//Models
+	//Always
+	Locations[n].models.always.locators = "Hut_attic_locators_Q2";	//new one soon
+	Locations[n].models.always.house = "Hut_attic";
+
+	//Day
+	Locations[n].models.day.charactersPatch = "Hut_attic_patch";
+
+	//Night
+	Locations[n].models.night.charactersPatch = "Hut_attic_patch";
+	Locations[n].models.night.fonar = "Hut_attic_cloth";
+
+	//Environment
+	Locations[n].environment.weather = "false";
+	Locations[n].environment.sea = "false";
+	//Locations[n].models.back = "back\juch_";
+
+	//Reload map
+	locations[n].reload.l1.name = "reload1";
+	locations[n].reload.l1.go = "BB_Eden_kitchen";
+	locations[n].reload.l1.emerge = "reload2";
+	locations[n].reload.l1.autoreload = "0";
+	locations[n].reload.l1.label = "";
+
+	locations[n].reload.l2.name = "reload2";
+	locations[n].reload.l2.go = "BB_Eden_attic2";
+	locations[n].reload.l2.emerge = "reload2";
+	locations[n].reload.l2.autoreload = "0";
+	locations[n].reload.l2.label = "";
+
+	Locations[n].locators_radius.randitem.randitem1 = 0.01;
+	Locations[n].items.randitem1 = "door_largeh2";	
+
+	Locations[n].locators_radius.randitem.randitem2 = 0.01;
+	Locations[n].items.randitem2 = "door_largeh";
+
+	Locations[n].locators_radius.randitem.randitem3 = 0.01;
+	Locations[n].items.randitem3 = "gatedoor_pgrey";			
+	
+	LAi_LocationFightDisable(&Locations[n], true);	
+	Locations[n].island = "QuebradasCostillas"; // NK 04-08-29
+	n = n + 1;
+
+	//--------------------------------------------------------------------------
+
+	Locations[n].filespath.models = "locations\Inside\MediumHouse2";
+
+	Locations[n].id = "BB_Eden_attic2";
+	locations[n].id.label = "Attic";
+	Locations[n].image = "wr_friday.tga";
+
+	//Town sack
+	Locations[n].townsack = "Redmond";
+
+	//Sound
+	locations[n].type = "Pym_tower";
+
+	//Models
+	//Always
+	Locations[n].models.always.locators = "MH02_l_Q2";
+	Locations[n].models.always.house = "MH02";
+	//Locations[n].models.always.env = "smalltavern_env";
+	Locations[n].models.always.window = "MH02_w";
+	Locations[n].models.always.window.tech = "LocationWindows";
+	Locations[n].models.always.window.level = 50;
+	//Day
+	Locations[n].models.day.charactersPatch = "MH02_p";
+
+	//Night
+	Locations[n].models.night.charactersPatch = "MH02_p";
+
+	//Environment
+	Locations[n].environment.weather = "false";
+	Locations[n].environment.sea = "false";
+	Locations[n].models.back = "back\juch_";
+
+	//Reload map
+	Locations[n].reload.l1.name = "reload1";
+	Locations[n].reload.l1.go = "BB_Eden_attic3";
+	Locations[n].reload.l1.emerge = "reload2";
+	Locations[n].reload.l1.autoreload = "0";
+	Locations[n].reload.l1.label = "Woodes Rogers' booty room";
+
+	Locations[n].reload.l2.name = "reload2";
+	Locations[n].reload.l2.go = "BB_Eden_attic1";
+	Locations[n].reload.l2.emerge = "reload2";
+	Locations[n].reload.l2.autoreload = "0";
+	Locations[n].locators_radius.reload.reload2 = 0.6;
+
+	Locations[n].locators_radius.box.box1 = 0.8;
+	Locations[n].locators_radius.box.box2 = 0.6;
+
+	Locations[n].locators_radius.randitem.randitem1 = 0.1;
+	Locations[n].items.randitem1 = "door_N07";
+
+	Locations[n].locators_radius.randitem.randitem2 = 0.1;
+	Locations[n].items.randitem2 = "gatedoor_small_stone";
+
+	Locations[n].locators_radius.randitem.randitem3 = 0.1;
+	Locations[n].items.randitem3 = "gatedoor_small_stone";
+
+	Locations[n].locators_radius.randitem.randitem4 = 0.1;
+	Locations[n].items.randitem4 = "WhalingShip";
+	
+	Locations[n].locators_radius.randitem.randitem5 = 0.001;
+	Locations[n].items.randitem5 = "chair";
+
+	Locations[n].locators_radius.randitem.randitem6 = 0.01;
+	Locations[n].items.randitem6 = "door_largeh";	
+
+	LAi_LocationFightDisable(&Locations[n], true);
+	Locations[n].island = "Redmond"; // NK 04-08-29
+	n = n + 1;
+
+	//--------------------------------------------------------------------------
+
+	Locations[n].id = "BB_Eden_attic3";
+	locations[n].id.label = "Attic";
+	Locations[n].image = "Charles_Windem_room.tga";
+
+	//Town sack
+	Locations[n].townsack = "Redmond";
+
+	//Sound
+	locations[n].type = "Pym_tower";
+
+	//Models
+	//Always
+	Locations[n].filespath.models = "locations\inside\Smallhome";
+	Locations[n].filespath.textures = "locations\inside\Smallhome\store";
+
+	Locations[n].models.always.city = "sh";
+	Locations[n].models.always.locators = "sh_l_Q2";
+	Locations[n].models.always.window = "sh_w";
+	Locations[n].models.always.window.tech = "LocationWindows";
+	Locations[n].models.always.window.level = 50;
+	//Day
+	Locations[n].models.day.charactersPatch = "sh_p";
+
+	//Night
+	Locations[n].models.night.charactersPatch = "sh_p";
+
+	//Environment
+	Locations[n].environment.weather = "false";
+	Locations[n].environment.sea = "false";
+	Locations[n].models.back = "back\juch_";
+
+	//Reload map
+	//floor hatch
+	Locations[n].reload.l1.name = "reload1";
+	Locations[n].reload.l1.go = "BB_Eden_dining_room";
+	Locations[n].reload.l1.emerge = "reload2";
+	Locations[n].reload.l1.autoreload = "0";
+	Locations[n].reload.l1.label = "";
+
+	//attic
+	Locations[n].reload.l2.name = "reload2";
+	Locations[n].reload.l2.go = "BB_Eden_attic2";
+	Locations[n].reload.l2.emerge = "reload1";
+	Locations[n].reload.l2.autoreload = "0";
+	Locations[n].locators_radius.reload.reload2 = 0.6;
+				
+	Locations[n].locators_radius.reload.reload3 = 0.001;			//not used
+
+	Locations[n].locators_radius.randitem.randitem1 = 0.1;
+	Locations[n].items.randitem1 = "key8";					//invisible
+
+	Locations[n].locators_radius.randitem.randitem2 = 0.1;
+	Locations[n].items.randitem2 = "door_N07";
+
+	Locations[n].locators_radius.randitem.randitem3 = 0.1;
+	Locations[n].items.randitem3 = "door_N07";
+
+	Locations[n].locators_radius.goto.goto4 = 1.0;
+	Locations[n].locators_radius.goto.goto5 = 1.0;
+	Locations[n].locators_radius.box.box2 = 0.6;
+
+	LAi_LocationFightDisable(&Locations[n], true);
+
+	Locations[n].island = "Redmond"; // NK 04-08-29
+	n = n + 1;
+
+	//--------------------------------------------------------------------------
+
+	Locations[n].id = "BB_Eden_dining_room";
+	locations[n].id.label = "Dining room";
+	Locations[n].image = "";
+	Locations[n].filespath.models = "locations\inside\Dining_room\\";
+	
+	//Sound
+//	locations[n].type = "residence";
+	locations[n].type = "Estate_sneaking";
+
+	//Models
+	//Always
+	Locations[n].models.always.l1 = "Dining_room";
+	
+	Locations[n].models.always.window = "Dining_room_windows";
+	Locations[n].models.always.window.tech = "LocationWindows";
+	Locations[n].models.always.window.level = 50;
+	Locations[n].models.always.grassPatch = "estateRooms_grass";
+	//Day
+	Locations[n].models.day.locators = "Dining_room_locators_Q2";
+	Locations[n].models.day.charactersPatch = "Dining_room_patch";
+
+	//Night
+	Locations[n].models.night.locators = "Dining_room_Nlocators_Q2";
+	Locations[n].models.night.charactersPatch = "Dining_room_patch";
+
+	//Environment
+	Locations[n].environment.weather = "false";
+	Locations[n].environment.sea = "false";
+	Locations[n].models.back = "back\juch2_";
+
+	//Reload map
+	Locations[n].reload.l1.name = "reload1";
+	Locations[n].reload.l1.go = "BB_Eden_estate";
+	Locations[n].reload.l1.emerge = "reload9";
+	Locations[n].reload.l1.autoreload = "0";
+	Locations[n].reload.l1.label = "";
+	Locations[n].reload.l1.disable = 1;
+
+	Locations[n].reload.l2.name = "reload2";
+	Locations[n].reload.l2.go = "BB_Eden_attic3";
+	Locations[n].reload.l2.emerge = "goto7";
+	Locations[n].reload.l2.autoreload = "0";
+	Locations[n].reload.l2.label = "";
+	Locations[n].locators_radius.reload.reload2 = 0.7;
+
+	Locations[n].reload.l3.name = "reload3";
+	Locations[n].reload.l3.go = "BB_Eden_bedroom2";
+	Locations[n].reload.l3.emerge = "reload3";
+	Locations[n].reload.l3.autoreload = "0";
+	Locations[n].reload.l3.label = "";
+	Locations[n].locators_radius.reload.reload3 = 0.7;
+
+	Locations[n].locators_radius.randitem.randitem1 = 0.1;
+	Locations[n].items.randitem1 = "hatch11D";
+
+	Locations[n].locators_radius.randitem.randitem2 = 0.001;
+	Locations[n].items.randitem2 = "door_fort";
+
+	Locations[n].locators_radius.randitem.randitem3 = 0.001;
+	Locations[n].items.randitem3 = "rope_ale";
+
+	LAi_LocationFightDisable(&Locations[n], true);
+
+	Locations[n].island = "Redmond";
+	n = n + 1;
+
+	//--------------------------------------------------------------------------
+
+	Locations[n].id = "BB_Eden_bedroom2";
+	locations[n].id.label = "Bedroom";
+	Locations[n].image = "";
+	Locations[n].filespath.models = "locations\inside\EstateBedRoom2\\";
+	
+	//Sound
+	locations[n].type = "Estate_sneaking";
+
+	//Models
+	//Always
+	Locations[n].models.always.l1 = "estateBedRoom2";
+	Locations[n].models.always.locators = "EstateBedRoom2_locators_Q2";
+	Locations[n].models.always.window = "estateBedRoom2_windows";
+	Locations[n].models.always.window.tech = "LocationWindows";
+	Locations[n].models.always.window.level = 50;
+	Locations[n].models.always.grassPatch = "estateRooms_grass";
+	//Day
+	Locations[n].models.day.fonar = "estateRooms_fd";
+	Locations[n].models.day.charactersPatch = "estateBedRoom2_patch";
+
+	//Night
+	Locations[n].models.night.fonar = "estateRooms_fn";
+	Locations[n].models.night.charactersPatch = "estateBedRoom2_patch";
+
+	//Environment
+	Locations[n].environment.weather = "true";	//yes!
+	Locations[n].environment.sea = "false";
+
+	//Reload map
+	Locations[n].reload.l1.name = "reload1";
+	Locations[n].reload.l1.go = "BB_Eden_estate";
+	Locations[n].reload.l1.emerge = "reload2";
+	Locations[n].reload.l1.autoreload = "0";
+	Locations[n].reload.l1.label = "";
+	Locations[n].reload.l1.disable = 1;
+
+	Locations[n].reload.l2.name = "reload2";
+	Locations[n].reload.l2.go = "BB_Eden_tower";
+	Locations[n].reload.l2.emerge = "reload4";
+	Locations[n].reload.l2.autoreload = "0";
+	Locations[n].reload.l2.label = "";
+
+	Locations[n].reload.l3.name = "reload3";
+	Locations[n].reload.l3.go = "BB_Eden_dining_room";
+	Locations[n].reload.l3.emerge = "reload3";
+	Locations[n].reload.l3.autoreload = "0";
+	Locations[n].reload.l3.label = "";
+
+	Locations[n].locators_radius.box.box1 = 0.9;
+
+	Locations[n].locators_radius.randitem.randitem1 = 0.001;
+	Locations[n].items.randitem1 = "door_fort";
+
+	LAi_LocationFightDisable(&Locations[n], true);
+	Locations[n].island = "Redmond";
+	n = n + 1;
+
+	//--------------------------------------------------------------------------
+
+	Locations[n].id = "BB_Eden_tower";
+	locations[n].id.label = "Tower";
+	Locations[n].filespath.models = "locations\inside\store04";
+	Locations[n].filespath.textures = "locations\inside\store04\church";
+	Locations[n].image = "wr_chapel_stairs.tga";
+
+	//Town sack
+	Locations[n].townsack = "Redmond";
+
+	//Sound
+	locations[n].type = "Pym_tower";
+
+	//Models
+	//Always
+	Locations[n].models.always.locators = "store04_locators_JRH5";
+	Locations[n].models.always.tavern = "store04";
+	Locations[n].models.always.window = "store04_window";
+	Locations[n].models.always.window.tech = "LocationWindows";
+	Locations[n].models.always.window.level = 50;
+	//Day
+	Locations[n].models.day.charactersPatch = "store04_patch";
+
+	//Night
+	Locations[n].models.night.charactersPatch = "store04_patch";
+
+	//Environment
+	Locations[n].environment.weather = "false";
+	Locations[n].environment.sea = "false";
+
+	//Reload map
+	Locations[n].reload.l4.name = "reload4";
+	Locations[n].reload.l4.go = "BB_Eden_bedroom2";
+	Locations[n].reload.l4.emerge = "reload2";
+	Locations[n].reload.l4.autoreload = "0";
+	Locations[n].reload.l4.label = "";
+
+	Locations[n].reload.l7.name = "reload7";
+	Locations[n].reload.l7.go = "BB_Eden_chapel";
+	Locations[n].reload.l7.emerge = "reload2";
+	Locations[n].reload.l7.autoreload = "1";
+	Locations[n].reload.l7.label = "";
+
+	Locations[n].locators_radius.goto.goto3 = 1.0;
+
+	Locations[n].locators_radius.randitem.randitem1 = 0.1;
+	Locations[n].items.randitem1 = "door_A01";
+
+	Locations[n].locators_radius.randitem.randitem3 = 0.1;
+	Locations[n].items.randitem3 = "textile3";
+
+	Locations[n].locators_radius.randitem.randitem4 = 0.1;
+	Locations[n].items.randitem4 = "chest1";
+
+	Locations[n].locators_radius.randitem.randitem5 = 0.1;
+	Locations[n].items.randitem5 = "gatedoor_5";
+
+	Locations[n].locators_radius.randitem.randitem6 = 0.1;
+	Locations[n].items.randitem6 = "textile3";
+
+	Locations[n].locators_radius.randitem.randitem7 = 0.1;
+	Locations[n].items.randitem7 = "chest1";
+	
+	Locations[n].locators_radius.randitem.randitem8 = 0.1;
+	Locations[n].items.randitem8 = "clock";
+
+	Locations[n].locators_radius.randitem.randitem9 = 0.1;
+	Locations[n].items.randitem9 = "barrel_big";
+
+	Locations[n].locators_radius.randitem.randitem10 = 0.1;
+	Locations[n].items.randitem10 = "bookshelf";
+
+	Locations[n].locators_radius.randitem.randitem11 = 0.1;
+	Locations[n].items.randitem11 = "gatedoor_p5";
+
+	Locations[n].locators_radius.randitem.randitem12 = 0.1;
+	Locations[n].items.randitem12 = "hatch3";
+
+	Locations[n].locators_radius.randitem.randitem13 = 0.001;
+	Locations[n].items.randitem13 = "gatedoor_CRY";
+
+	Locations[n].locators_radius.randitem.randitem14 = 0.001;
+	Locations[n].items.randitem14 = "gatedoor_p";
+
+	LAi_LocationFightDisable(&Locations[n], true);
+
+	Locations[n].island = "Redmond"; // NK 04-08-29
+	n = n + 1;
+
+	//--------------------------------------------------------------------------	
+
+	Locations[n].id = "BB_Eden_chapel";
+	locations[n].id.label = "Chapel";
+	Locations[n].image = "wr_chapel.tga";
+	Locations[n].filespath.models = "locations\inside\Church_2\\";
+//	Locations[n].filespath.textures = "locations\inside\Church_2\chapel";
+	
+	//Sound
+//	locations[n].type = "Vane_chapel";
+	locations[n].type = "crypt";
+
+	//Models
+	//Always
+	Locations[n].models.always.city = "Church2";
+	Locations[n].models.always.l1 = "girder_block";
+	Locations[n].models.always.locators = "Church2_l_Q2";
+	Locations[n].models.always.window = "church2_w";
+	Locations[n].models.always.window.tech = "LocationWindows";
+	Locations[n].models.always.window.level = 50;
+	//Day
+	Locations[n].models.day.charactersPatch = "Church2_p";
+
+	//Night
+	Locations[n].models.night.charactersPatch = "Church2_p";
+
+	//Environment
+	Locations[n].environment.weather = "false";
+	Locations[n].environment.sea = "false";
+
+	//Reload map
+	Locations[n].reload.l1.name = "reload1";
+	Locations[n].reload.l1.go = "BB_Eden_estate";
+	Locations[n].reload.l1.emerge = "reload6";
+	Locations[n].reload.l1.autoreload = "0";
+	Locations[n].reload.l1.label = "";
+	Locations[n].locators_radius.reload.reload1 = 0.001;
+
+	Locations[n].reload.l2.name = "reload2";
+	Locations[n].reload.l2.go = "BB_Eden_tower";
+	Locations[n].reload.l2.emerge = "goto3";
+	Locations[n].reload.l2.autoreload = "0";
+	Locations[n].reload.l2.label = "";		
+
+	Locations[n].locators_radius.randitem.randitem1 = 0.1;
+	Locations[n].items.randitem1 = "door_N07";
+
+	LAi_LocationFightDisable(&Locations[n], true);
+
+	Locations[n].island = "Redmond";
+	n = n + 1;
+	
+	//--------------------------------------------------------------------------
 	//--------------------------------------------------------------------------	
 
 	Locations[n].id = "BB_Teach_kitchen";
@@ -15586,4 +16369,20 @@ Locations[n].reload.l9.autoreload = "0";
 	Build_at("BB_Eden_estate", "Mansion", "", -220.5, 34.5, -22.0, 1.4, "building");
 
 	Build_at("Tortuga_gunsmith_workshop", "Field_Cannon_1", "", -12.7, 5.9, 40.3, -1.24, "building");
+	Build_at("bb_Eden_maze", "jungle", "", 0.0, 2.7, 0.0, -1.24, "wild_jungles");
+	Build_at("bb_Eden_maze", "jungle", "", 30.0, 2.7, 0.0, -3.0, "wild_jungles");
+	Build_at("bb_Eden_maze", "jungle", "", 0.0, 2.7, 30.0, -2.0, "wild_jungles");
+	Build_at("bb_Eden_maze", "jungle", "", -30.0, 2.7, 0.0, -1.0, "wild_jungles");
+	Build_at("bb_Eden_maze", "jungle", "", 0.0, 2.7, -30.0, -1.0, "wild_jungles");
+
+	Build_at("bb_Eden_maze", "jungle", "", 70.0, 2.7, 70.0, -1.24, "wild_jungles");
+	Build_at("bb_Eden_maze", "jungle", "", -70.0, 2.7, 70.0, -1.24, "wild_jungles");
+	Build_at("bb_Eden_maze", "jungle", "", -70.0, 2.7, -70.0, -1.24, "wild_jungles");
+	Build_at("bb_Eden_maze", "jungle", "", 70.0, 2.7, -70.0, -1.24, "wild_jungles");
+
+	Build_at("bb_Eden_maze", "jungle", "", 100.0, 2.7, 100.0, 1.0, "wild_jungles");
+	Build_at("bb_Eden_maze", "jungle", "", -100.0, 2.7, 100.0, 2.0, "wild_jungles");
+	Build_at("bb_Eden_maze", "jungle", "", -100.0, 2.7, -100.0, 1.0, "wild_jungles");
+	Build_at("bb_Eden_maze", "jungle", "", 100.0, 2.7, -100.0, 2.0, "wild_jungles");
+
 }

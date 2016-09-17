@@ -444,14 +444,15 @@ void LAi_StartBoarding(int locType, ref echr, bool isMCAttack)
 
 	// We determine the sizes of the commands
 // KK -->
-	if (!IsFort && !IsTown)
+	/*if (!IsFort && !IsTown)
 		refEnCharacter = CreateTwinCharacter(boarding_enemy);
-	else
-		refEnCharacter = boarding_enemy;
+	else*/
+	refEnCharacter = boarding_enemy; //Levis: should be okay for all now
 // <-- KK
 	LAi_RemoveCheckMinHP(refEnCharacter);//MAXIMUS: for some quest-characters
 	SDLogIt("refEnCharacter = " + refEnCharacter.id + ", boarding_enemy = " + boarding_enemy.id);
-
+	if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: Boarding enemy = "+boarding_enemy.id);
+	
 	// We start (the boarding process)
 	LAi_boarding_process = true;
 	LAi_LoadLocation(deckID);		// LDH - runs LAi_InitializeDeck
@@ -901,7 +902,7 @@ bool SurrenderAction(ref mchr, ref ch, string locationID, string homeLocator, st
 	string id = "surrender";
 	string desc = "This captain surrendered";
 	SetSkillCharMod(refEnCaptain, "Leadership", -1, id, desc); //Levis
-	SetSkillCharMod(refEnCaptain, "Grappling", -1, id, desc); //Levis
+	//SetSkillCharMod(refEnCaptain, "Grappling", -1, id, desc); //Levis TY after poll generally agreed to remove this part of the modifier
 	
 	refEnCaptain.nodisarm = 1;
 	if (!CheckAttribute(refEnCaptain,"chr_ai.type")) refEnCaptain.chr_ai.type = "stay";
@@ -1628,7 +1629,7 @@ void LAi_SetBoardingActors(string locID, string chLocType, string enLocType)
 		SetRandomNameToCharacter(chr);
 		// PB: Set Boarder Nations <--
 
-		if(!IsShipMerchant(boarding_enemy)) GiveSoldierWeapon(chr, boarding_enemy_nation);	// ARF: Update Soldier Weapons
+		//if(!IsShipMerchant(boarding_enemy)) GiveSoldierWeapon(chr, boarding_enemy_nation);	// ARF: Update Soldier Weapons
 
 		locnum++;
 		// PB: Don't reuse locators until needed -->

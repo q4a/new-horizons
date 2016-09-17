@@ -255,6 +255,8 @@ if(sti(GetStorylineVar(FindCurrentStoryline(), "WR_PUZZLES")) > 0 || sti(GetStor
   n = InitQuestBlade(n, "bladebottle_CA2_mix11",     "bottle_CA2", "JRH13",  7,   "", "",      0,  0, 	  "", 0,   1);    //full orange liquid: HgO + HNO2, before filter
   n = InitQuestBlade(n, "bladebottle_CR2_rps",       "bottle_CR2", "JRH12", 13,   "", "",      0,  0, 	  "", 0,   1);    //full: Red Pulvis Solaris
 
+  n = InitQuestBlade(n, "bladekeyring",       	     "keyring",     "JRH30", 14,   2,   2,      0,  0, 	  "", 0,   0);    //Maltese location
+ 
 
 //GoldBug
   n = InitQuestBlade(n, "bladeemptysack",                 "sack2", "JRH3",  10,    1,  1,      0,  0,     "", 0,   0);    //for driftwood
@@ -799,6 +801,7 @@ if(sti(GetStorylineVar(FindCurrentStoryline(), "WR_PUZZLES")) > 0 || sti(GetStor
   n = InitBuildingItemJRH(n,	"pole3",			"pole3");		//bladeboom horizontal
   n = InitBuildingItemJRH(n,	"plank1",			"plank1");		//bladeplank on the edge
   n = InitBuildingItemJRH(n,	"plank1_long",			"plank1_long");		//bladeplank on the edge (deck2 prow 2 st)
+  n = InitBuildingItemJRH(n,	"plank1_very_long",		"plank1_very_long");	//Maltains
   n = InitBuildingItemJRH(n,	"plank2",			"plank2");		//bladeplank flat
   n = InitBuildingItemJRH(n,	"plank2_long",			"plank2_long");		//big plank flat (hold)
   n = InitBuildingItemJRH(n,	"plank3",			"plank3");		//bladeplank 45 up
@@ -909,7 +912,6 @@ if(sti(GetStorylineVar(FindCurrentStoryline(), "WR_PUZZLES")) > 0 || sti(GetStor
 
 //JRH
 //Q2
-  n = InitBuildingItemJRH(n,	"suspension_bridge",		"suspension_bridge");	//
   n = InitBuildingItemJRH(n,	"ellipse_tower",		"ellipse_tower");	//
   n = InitBuildingItemJRH(n,	"cellar_wall",			"cellar_wall");		// = "B_house02" with an empty inside
   n = InitBuildingItemJRH(n,	"barn",				"barn");		//used for its ladder
@@ -969,6 +971,10 @@ if(sti(GetStorylineVar(FindCurrentStoryline(), "WR_PUZZLES")) > 0 || sti(GetStor
   n = InitBuildingItemJRH(n,	"sailcloth_wall",		"sailcloth_wall");	//Tortuga sailmaker
   n = InitBuildingItemJRH(n,	"sailcloth_floor",		"sailcloth_floor");	//Tortuga sailmaker
   n = InitBuildingItemJRH(n,	"wood_floor",			"wood_floor");		//Tortuga small woddhouse
+
+  n = InitBuildingItemJRH(n,	"iron_gate3",			"iron_gate3");		//Estate maze
+  n = InitBuildingItemJRH(n,	"door_green",			"door_green");		//Estate maze
+  n = InitBuildingItemJRH(n,	"door_window",			"door_window");		//Estate maze
 
 //goldbug
   n = InitBuildingItemJRH(n,	"tipi",				"tipi");
@@ -1183,12 +1189,17 @@ if(sti(GetStorylineVar(FindCurrentStoryline(), "WR_PUZZLES")) > 0 || sti(GetStor
  n = InitBuildingItemJRH(n,	"wood_long_log",		"wood_long_log");	//Chinatown + Aruba
 
  n = InitBuildingItemJRH(n,	"gatedoor_w8",			"gatedoor_w8");		//gatedoor metal on dark stones, also in Assassin
+ n = InitBuildingItemJRH(n,	"door_H1_small",		"door_H1_small");	//Citadel Rock
  //Moved to common by Levis & JRH:
  n = InitBuildingItemJRH(n,	"door_M11",			"door_M11");		//ships: cabin door, a little bigger, hotel
  n = InitBuildingItemJRH(n,	"gatedoor_dark_stone",		"gatedoor_dark_stone");	//stonewall mine tunnelA no lights, hotel
  n = InitBuildingItemJRH(n,	"hatch2",			"hatch2");		//floor hatch (inside, loansh. Redm), hotel
  n = InitBuildingItemJRH(n,	"hatch11",			"hatch11");		//floor hatch mine tunnelA, hotel
  n = InitBuildingItemJRH(n,	"hatch11D_O3",			"hatch11D_O3");		//dito brighter, Pym's, hotel
+ n = InitBuildingItemJRH(n,	"suspension_bridge",		"suspension_bridge");	//Citadel
+ n = InitBuildingItemJRH(n,	"suspension_bridge_ropes",	"suspension_bridge_ropes");//Citadel
+ n = InitBuildingItemJRH(n,	"small_planks",			"small_planks");	//Citadel
+
 
   //--------------------------------------------------------------------------------------------------------------------------------
   // JRH <--
@@ -2452,6 +2463,33 @@ if(sti(GetStorylineVar(FindCurrentStoryline(), "WR_PUZZLES")) > 0 || sti(GetStor
   itm.disarm	= 0;
   n++;
 
+  // Bladeanchor big
+  makeref(itm,Items[n]);
+  itm.id = "bladeanchor_big";
+  itm.sound = "OBJECTS\DUEL\anchor.wav";
+  itm.skipsell = true;	// you can't buy them
+  itm.skiprand = true;
+  itm.skipequip = NO_SPECIALWEAPONED_NPC ;
+  itm.groupID = BLADE_ITEM_TYPE;
+  itm.name = "itmname_bladeanchor_big";
+  itm.describe = "itmdescr_bladeanchor_big";
+  itm.folder = "ammo";
+  itm.model = "OtherItemsJRH\bladeanchor_big";
+  itm.picIndex = 15;
+  itm.picTexture = "ITEMS_JRH28";
+  itm.price = 0;
+  itm.dmg_min = 10.0;
+  itm.dmg_max = 20.0;
+  itm.piercing = 15;
+  itm.minlevel = 1;
+  itm.rare = 0.00;				// should be unique
+  itm.block = 10;
+  itm.param.time = 0.1;
+  itm.param.colorstart = argb(64, 64, 64, 64);
+  itm.param.colorend = argb(0, 32, 32, 32);
+  itm.disarm	= 0;
+  n++;
+
   // Bladespyglass6, Selkirk
   makeref(itm,Items[n]);
   itm.id = "bladespyglass6";
@@ -2713,7 +2751,7 @@ if(sti(GetStorylineVar(FindCurrentStoryline(), "WR_PUZZLES")) > 0 || sti(GetStor
   n = InitBlade(n,"battleax",  "battleax", "BOP2", 13, 0.01, 15, 1253, 28.0, 45.0, 70, 13,  PIRATE, 1,     1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC); // Master Battle Axe 
   n = InitBlade(n,"bladelead","bladelead","JD",    16, 0.25,  1,    7,  4.0, 10.0,  0,  0,  PIRATE, 1,     1,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_NAPOLEONIC); // Bronze Knuckles // SLiB special weapons added by KevAtl 09-03-2007
   n = InitBlade(n,"bladeclub","bladeclub","JD",    13, 0.20,  1,    9,  5.0, 20.0, 40,  5,  PIRATE, 1,     1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC); // Banger Club // SLiB special weapons added by KevAtl 09-03-2007
-  n = InitBlade(n,"tomahawk", "tomahawk", "BOP",    4, 0.00,  9,  661, 26.0, 40.0, 60, 10,  PIRATE, 1,     1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC); // Tomahawk special for Oranjestad //JRH
+  n = InitBlade(n,"tomahawk", "tomahawk", "BOP",    4, 0.00,  9,  100, 26.0, 40.0, 60, 10,  PIRATE, 1,     1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC); // Tomahawk special for Oranjestad //JRH
   n = InitBlade(n,"halberd",  "halberd",   "22",   13, 0.00,  9, 1253, 30.0, 40.0, 80, 10,  PIRATE, 1,     0,    PERIOD_EARLY_EXPLORERS,      PERIOD_THE_SPANISH_MAIN); // Halberd for Conquistadors //JRH
   n = InitBlade(n,"machete",  "machete", "JRH25",  13, 0.00,  1,   10, 10.0, 20.0, 30, 5,   PIRATE, 1,     1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC); // Machete //JRH
   //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2792,8 +2830,8 @@ if(sti(GetStorylineVar(FindCurrentStoryline(), "WR_PUZZLES")) > 0 || sti(GetStor
   n = InitBlade(n, "Minerspick","worker_Pick",          22,   4,  0.80,   1,    9,  8.0, 13.0, 15, 10,  PIRATE,    1,     1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC); // Pickaxe (SuperDurnius)//BB
   n = InitBlade(n, "Minersspade","worker_Spade",        22,   3,  0.80,   1,    8,  3.0, 13.0,  5, 15,  PIRATE,    2,     1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC); // Spade (SuperDurnius)//BB
   n = InitBlade(n, "Piratesdagger","piratesdagger",     22,   5,  0.80,   1,   24, 10.0, 15.0, 34,  9,  "",        0,     1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC); // Stiletto (SuperDurnius)//BB
-  n = InitBlade(n, "blademketB", "blademusketB",   "JRH28",   4,  0.00,  20, 4000, 20.0, 40.0, 40, 20,  "",        5,     1,    PERIOD_REVOLUTIONS,          PERIOD_NAPOLEONIC); // Musket with bayonet //JRH
-  n = InitBlade(n, "blademketK", "blademusketK",   "JRH28",   3,  0.00,  20, 3305, 20.0, 30.0, 30, 20,  "",        5,     1,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_COLONIAL_POWERS); // Musket with primitive bayonet //JRH
+  n = InitBlade(n, "blademketB", "blademusketB",   "JRH28",   4,  0.00,  20, 2000, 20.0, 40.0, 40, 20,  "",        5,     1,    PERIOD_REVOLUTIONS,          PERIOD_NAPOLEONIC); // Musket with bayonet //JRH
+  n = InitBlade(n, "blademketK", "blademusketK",   "JRH28",   3,  0.00,  20, 1652, 20.0, 30.0, 30, 20,  "",        5,     1,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_COLONIAL_POWERS); // Musket with primitive bayonet //JRH
   n = InitBlade(n, "blade_mKnife", "blade_mKnife", "JRH28",   2,  0.20,   1,   30,  6.0, 15.0, 30,  4,  "",        0,     1,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_COLONIAL_POWERS); // Knife to use as primitive bayonet //JRH
 
   //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -2801,34 +2839,35 @@ if(sti(GetStorylineVar(FindCurrentStoryline(), "WR_PUZZLES")) > 0 || sti(GetStor
   //         | gunID        modelID                   |  rare           | minDamage   Accuracy|Reload time                                     DisableWeaponsMod
   //         |   |             |            picTexture|   |  MinLevel   |     | maxDamage  |  |   | Nation           Sound              Ammo type    |       Available in period         Last period of availability
   //-------------|-------------|------------------|---|---|------|------|-----|-----|------|--|---|--|------------------|-------------------|--------|---------------|----------------------------|-----------------
-  n = InitGun(n,"pistol1", "pistol1",             6,  1, 0.50,   1,    150, 15.0, 25.0,    5, 1,  8, "", "OBJECTS\DUEL\pistol_small.wav",  "pb",     0,    PERIOD_EARLY_EXPLORERS, 		PERIOD_NAPOLEONIC);  // Short Pistol//BB BASE FOR PISTOLS
-  n = InitGun(n,"pistol2", "pistol2",             6,  2, 0.50,   4,    208, 40.0, 60.0,   50, 1, 12, "", "OBJECTS\DUEL\pistol_medium.wav", "pb",     0,    PERIOD_EARLY_EXPLORERS, 		PERIOD_NAPOLEONIC);  // Long Pistol//BB small calibre(less dmg)+good accuracy
-  n = InitGun(n,"pistol7", "pistol7",             9,  1, 0.20,   5,    357, 15.0, 25.0,    5, 3, 25, "", "OBJECTS\DUEL\pistol_small.wav",  "pb",     0,    PERIOD_EARLY_EXPLORERS, 		PERIOD_NAPOLEONIC);  // Brace of Small Pistols (Alan Smithee)
-  n = InitGun(n,"PiratesPistol","PiratesPistol", 22, 10, 0.20,   7,    554, 30.0, 60.0,   50, 1, 10, "", "OBJECTS\DUEL\pistol_medium.wav", "pb",     0,    PERIOD_THE_SPANISH_MAIN,     PERIOD_NAPOLEONIC);  // Pirates Pistol (SuperDurnius)
-  n = InitGun(n,"pistol6", "pistol6",             6,  6, 0.05,   9,   1026, 30.0, 40.0,   55, 2, 20, "", "OBJECTS\DUEL\pistol_medium.wav", "pb",     0,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_NAPOLEONIC);  // Double-Shot Pistol
-  n = InitGun(n,"pistol3", "pistol3",             6,  3, 0.37,  11,   1402, 30.0, 60.0,   30, 1, 20, "", "OBJECTS\DUEL\pistol_grape.wav",  "pg",     0,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_NAPOLEONIC);  // Grapeshot Pistol
-  n = InitGun(n,"pistol8", "pistol8",             9,  3, 0.15,  20,   1500, 30.0, 60.0,   50, 3, 10, "", "OBJECTS\DUEL\pistol_medium.wav", "pb",     0,    PERIOD_THE_SPANISH_MAIN, 	PERIOD_NAPOLEONIC);  // old Brace of Mid-size Pistols (Alan Smithee) now brace of flintlock pistols (JRMM)
-  n = InitGun(n,"pistol4", "pistol4",             6,  4, 0.05,  15,   2286, 20.0, 30.0,   60, 4, 35, "", "OBJECTS\DUEL\pistol_small.wav",  "pb",     0,    PERIOD_REVOLUTIONS,          PERIOD_NAPOLEONIC);  // Quad-Barrel Pistol
-  n = InitGun(n,"pistol5", "pistol5",             6,  5, 0.10,  16,   2653, 50.0,150.0,   70, 1, 14, "", "OBJECTS\DUEL\pistol_big.wav",    "pb",     0,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_NAPOLEONIC);  // Horse Pistol (was Scrapper Pistol)
-  n = InitGun(n,"pistolmtoon", "musketoon_back",  8,  9, 0.08,  17,   2968, 75.0,125.0,   60, 1, 24, "", "OBJECTS\DUEL\pistol_mtoon.wav",  "pg2",    1,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_NAPOLEONIC);  // JRH: model was Musketoon
-  n = InitGun(n,"pistol9", "pistol9",             9,  2, 0.10,  30,   5000, 50.0,150.0,   70, 2, 28, "", "OBJECTS\DUEL\pistol_big.wav",    "pb",     0,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_NAPOLEONIC);  // old Brace of Large Pistols (Alan Smithee) now brace of Horse Pistols (JRMM)
-  n = InitGun(n,"pistolmket",  "musket_back",     8, 10, 0.05,  20,   3245,150.0,250.0,   60, 1, 30, "", "", 				               "mb",     1,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_NAPOLEONIC);  // JRH: model was Musket, sound played in LAi_events
+  n = InitGun(n,"pistol1", "pistol1",             6,  1, 0.50,   1,    75,  15.0, 25.0,    5, 1,  8, "", "OBJECTS\DUEL\pistol_small.wav",  "pb",     0,    PERIOD_EARLY_EXPLORERS, 		PERIOD_NAPOLEONIC);  // Short Pistol//BB BASE FOR PISTOLS
+  n = InitGun(n,"pistol2", "pistol2",             6,  2, 0.50,   4,    104, 40.0, 60.0,   50, 1, 12, "", "OBJECTS\DUEL\pistol_medium.wav", "pb",     0,    PERIOD_EARLY_EXPLORERS, 		PERIOD_NAPOLEONIC);  // Long Pistol//BB small calibre(less dmg)+good accuracy
+  n = InitGun(n,"pistol7", "pistol7",             9,  1, 0.20,   5,    250, 15.0, 25.0,    5, 3, 25, "", "OBJECTS\DUEL\pistol_small.wav",  "pb",     0,    PERIOD_EARLY_EXPLORERS, 		PERIOD_NAPOLEONIC);  // Brace of Small Pistols (Alan Smithee)
+  n = InitGun(n,"PiratesPistol","PiratesPistol", 22, 10, 0.20,   7,    277, 30.0, 60.0,   50, 1, 10, "", "OBJECTS\DUEL\pistol_medium.wav", "pb",     0,    PERIOD_THE_SPANISH_MAIN,     PERIOD_NAPOLEONIC);  // Pirates Pistol (SuperDurnius)
+  n = InitGun(n,"pistol6", "pistol6",             6,  6, 0.05,   9,    513, 30.0, 40.0,   55, 2, 20, "", "OBJECTS\DUEL\pistol_medium.wav", "pb",     0,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_NAPOLEONIC);  // Double-Shot Pistol
+  n = InitGun(n,"pistol3", "pistol3",             6,  3, 0.37,  11,    701, 30.0, 60.0,   30, 1, 20, "", "OBJECTS\DUEL\pistol_grape.wav",  "pg",     0,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_NAPOLEONIC);  // Grapeshot Pistol
+  n = InitGun(n,"pistol8", "pistol8",             9,  3, 0.15,  17,    900, 30.0, 60.0,   50, 3, 10, "", "OBJECTS\DUEL\pistol_medium.wav", "pb",     0,    PERIOD_THE_SPANISH_MAIN, 	PERIOD_NAPOLEONIC);  // old Brace of Mid-size Pistols (Alan Smithee) now brace of flintlock pistols (JRMM)
+  n = InitGun(n,"pistol4", "pistol4",             6,  4, 0.05,  15,   1143, 20.0, 30.0,   60, 4, 35, "", "OBJECTS\DUEL\pistol_small.wav",  "pb",     0,    PERIOD_REVOLUTIONS,          PERIOD_NAPOLEONIC);  // Quad-Barrel Pistol
+  n = InitGun(n,"pistol5", "pistol5",             6,  5, 0.10,  16,   1326, 50.0,150.0,   70, 1, 14, "", "OBJECTS\DUEL\pistol_big.wav",    "pb",     0,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_NAPOLEONIC);  // Horse Pistol (was Scrapper Pistol)
+  n = InitGun(n,"pistolmtoon", "musketoon_back",  8,  9, 0.08,  17,   1484, 75.0,125.0,   60, 1, 24, "", "OBJECTS\DUEL\pistol_mtoon.wav",  "pg2",    1,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_NAPOLEONIC);  // JRH: model was Musketoon
+  n = InitGun(n,"pistol9", "pistol9",             9,  2, 0.10,  30,   3000, 50.0,150.0,   70, 2, 28, "", "OBJECTS\DUEL\pistol_big.wav",    "pb",     0,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_NAPOLEONIC);  // old Brace of Large Pistols (Alan Smithee) now brace of Horse Pistols (JRMM)
+  n = InitGun(n,"pistolmket",  "musket_back",     8, 10, 0.05,  20,   1622,150.0,250.0,   60, 1, 30, "", "", 				               "mb",     1,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_NAPOLEONIC);  // JRH: model was Musket, sound played in LAi_events
   n = InitGun(n,"pistol10", "pistol10",        "JD",  5, 0.02,  99,   6572, 60.0, 90.0,   60, 1,  1, "", "OBJECTS\DUEL\pistol_shotgun.wav","pg",     1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC);  // Pump Shotgun SLiB  LDH fix sound error
-  n = InitGun(n,"pistol25", "pistol5",           24,  9, 0.02,  54,   9999, 50.0,150.0,   70, 4, 14, "", "OBJECTS\DUEL\pistol_big.wav",    "pb",     0,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_NAPOLEONIC);  // Brace of four Horse Pistols (JRMM)
-  n = InitGun(n,"pistol26", "pistol26",          24, 10, 0.02,  24,   9999, 30.0, 60.0,   30, 4, 35, "", "OBJECTS\DUEL\pistol_grape.wav",  "pg",     0,    PERIOD_NAPOLEONIC, 	        PERIOD_NAPOLEONIC);  // Four-barrel Grapeshot Pistol (JRH)
+  n = InitGun(n,"pistol25", "pistol5",           24,  9, 0.02,  54,   8000, 50.0,150.0,   70, 4, 14, "", "OBJECTS\DUEL\pistol_big.wav",    "pb",     0,    PERIOD_GOLDEN_AGE_OF_PIRACY, PERIOD_NAPOLEONIC);  // Brace of four Horse Pistols (JRMM)
+  n = InitGun(n,"pistol26", "pistol26",          24, 10, 0.02,  24,   8000, 30.0, 60.0,   30, 4, 35, "", "OBJECTS\DUEL\pistol_grape.wav",  "pg",     0,    PERIOD_NAPOLEONIC, 	        PERIOD_NAPOLEONIC);  // Four-barrel Grapeshot Pistol (JRH)
   n = InitGun(n,"pistolbow", "bow",           "BOP",  1, 0.00,   1,     20, 30.0, 40.0,   80, 1, 1.5,"", "OBJECTS\DUEL\bow.wav",           "ar",     1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC);  // Bow (BOP)
-  n = InitGun(n,"LongRifle_C", "LongRifle_C_back", "BOP2",11,0.00,99,    1,150.0,200.0,   80, 1, 50, "", "OBJECTS\DUEL\pistol_medium2.wav","pb",    1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC);  // JRH: Long Rifle for All Storylines
-  n = InitGun(n,"LongRifle_CT","LongRifle_CT_back","BOP2",11,0.00,99,    1,150.0,200.0,   80, 1, 50, "", "OBJECTS\DUEL\pistol_medium2.wav","pb",    1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC);  // JRH: Long Rifle for All Storylines, with telescope
+  n = InitGun(n,"LongRifle_C", "LongRifle_C_back", "BOP2",11,0.00,99, 2000,150.0,200.0,   80, 1, 50, "", "OBJECTS\DUEL\pistol_medium2.wav","pb",    1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC);  // JRH: Long Rifle for All Storylines
+  n = InitGun(n,"LongRifle_CT","LongRifle_CT_back","BOP2",11,0.00,99, 2000,150.0,200.0,  120, 1, 50, "", "OBJECTS\DUEL\pistol_medium2.wav","pb",    1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC);  // JRH: Long Rifle for All Storylines, with telescope
   n = InitGun(n,"telescope",    "",		           "BOP2", 9,0.00,99,    1,150.0,200.0,   80, 1, 50, "", "",                                 "",     1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC);  // JRH: Telescope
   n = InitGun(n,"LongRifle_BT","LongRifle_BT_back","BOP2",10,0.00,99,12000,150.0,250.0,   80, 1,  1, "", "OBJECTS\DUEL\pistol_medium2.wav",  "",     1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC);  // JRH: Custom quest musket for BOP, with telescope
   n = InitGun(n,"LongRifle_W", "LongRifle_W_back", "BOP2", 7,0.00,99,    0,150.0,250.0,   80, 1, 30, "", "OBJECTS\DUEL\pistol_medium2.wav", "pb2",   1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC);  // JRH: Custom quest musket for WR
   n = InitGun(n,"LongRifle_WT","LongRifle_WT_back","BOP2", 8,0.00,99,    0,150.0,250.0,   80, 1, 30, "", "OBJECTS\DUEL\pistol_medium2.wav", "pb2",   1,    PERIOD_EARLY_EXPLORERS,      PERIOD_NAPOLEONIC);  // JRH: Custom quest musket for WR, with telescope 
-  
-  n = InitGun(n,"pistol11", "pistol11",     "JRH28",  6, 0.15,   4,   750, 40.0, 60.0,   80, 1, 12, "", "OBJECTS\DUEL\pistol_medium.wav", "pb",      0,    PERIOD_EARLY_EXPLORERS,      PERIOD_THE_SPANISH_MAIN);	// JRH: wheellock
-  n = InitGun(n,"pistol12", "pistol12",     "JRH28",  7, 0.05,   9,  1500, 40.0, 60.0,   80, 2, 24, "", "OBJECTS\DUEL\pistol_medium3.wav","pb",      0,    PERIOD_EARLY_EXPLORERS,      PERIOD_THE_SPANISH_MAIN);	// JRH: wheellock expensive pair
-  n = InitGun(n,"pistol13", "pistol13_back","JRH28",  8, 0.10,  14,  2000, 75.0,125.0,   80, 1, 24, "", "OBJECTS\DUEL\pistol_medium.wav", "pb2",     1,    PERIOD_EARLY_EXPLORERS,      PERIOD_THE_SPANISH_MAIN);	// JRH: Short wheellock musket 
-  n = InitGun(n,"Arguebuse", "Arguebuse_back",    "JRH28", 1, 0.15,17,2000,100.0,200.0,  40, 1, 24, "", "OBJECTS\DUEL\pistol_big2.wav",   "mb",      1,    PERIOD_EARLY_EXPLORERS,      PERIOD_THE_SPANISH_MAIN);	// JRH: Arguebuse
-  n = InitGun(n,"pistolmketB",  "musketB_back",   "JRH28", 4, 0.05,20,4000,150.0,250.0,  60, 1, 30, "", "", 				              "mb",      1,    PERIOD_REVOLUTIONS,          PERIOD_NAPOLEONIC);  		// JRH: Musket with bayonet, sound played in LAi_events 
+  n = InitGun(n,"LongRifle_H", "LongRifle_H_back", "BOP2",16,0.02,20, 4000,150.0,250.0,  120, 1, 50, "", "OBJECTS\DUEL\pistol_musket2.wav", "pb2",   1,    PERIOD_NAPOLEONIC,      		PERIOD_NAPOLEONIC);  // TY: Baker Rifle for Hornblower and Napoleonic  
+
+  n = InitGun(n,"pistol11", "pistol11",     "JRH28",  6, 0.15,   4,   375, 40.0, 60.0,   80, 1, 12, "", "OBJECTS\DUEL\pistol_medium.wav", "pb",      0,    PERIOD_EARLY_EXPLORERS,      PERIOD_THE_SPANISH_MAIN);	// JRH: wheellock
+  n = InitGun(n,"pistol12", "pistol12",     "JRH28",  7, 0.05,   9,   800, 40.0, 60.0,   80, 2, 24, "", "OBJECTS\DUEL\pistol_medium3.wav","pb",      0,    PERIOD_EARLY_EXPLORERS,      PERIOD_THE_SPANISH_MAIN);	// JRH: wheellock expensive pair
+  n = InitGun(n,"pistol13", "pistol13_back","JRH28",  8, 0.10,  14,  1000, 75.0,125.0,   80, 1, 24, "", "OBJECTS\DUEL\pistol_medium.wav", "pb2",     1,    PERIOD_EARLY_EXPLORERS,      PERIOD_THE_SPANISH_MAIN);	// JRH: Short wheellock musket 
+  n = InitGun(n,"Arguebuse", "Arguebuse_back",    "JRH28", 1, 0.15,17,1000,100.0,200.0,  40, 1, 24, "", "OBJECTS\DUEL\pistol_big2.wav",   "mb",      1,    PERIOD_EARLY_EXPLORERS,      PERIOD_THE_SPANISH_MAIN);	// JRH: Arguebuse
+  n = InitGun(n,"pistolmketB",  "musketB_back",   "JRH28", 4, 0.05,20,2000,150.0,250.0,  60, 1, 30, "", "", 				              "mb",      1,    PERIOD_REVOLUTIONS,          PERIOD_NAPOLEONIC);  		// JRH: Musket with bayonet, sound played in LAi_events 
  //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
@@ -2991,8 +3030,8 @@ if(sti(GetStorylineVar(FindCurrentStoryline(), "WR_PUZZLES")) > 0 || sti(GetStor
   n = InitItem(n,"scales", "",         11,  8,  0.05,  3,   1340, 0,   1, 0, 0,   0,  0,  0,  0,  0,  0,  0,  0, +1,  0,  0,  1,  0,  0);// Scales				// + skill item
   n = InitItem(n,"doctortoolkit", "",  11,  4,  0.05,  8,   5031, 0,   1, 0, 0,   0,  0,  0,  0,  0,  0,  0, +1,  0,  0,  0,  1,  0,  0);// Doctor's Toolkit	// ++ skill item
   n = InitItem(n,"microscope", "",     11,  5,  0.05,  5,   3410, 0,   1, 0, 0,  +1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0);// Microscope			// + skill item
-  n = InitItem(n,"carpentertools", "", 24,  5,  0.05,  4,   2410, 0,   1, 0, 0,   0,  0,  0,  0,  0,  0, +1,  0,  0,  0,  0,  1,  0,  0);// Carpenter's Toolkit	// + skill item JRMM
-  n = InitItem(n,"silkgrapple", "",    24,  6,  0.05,  6,   6410, 0,   1, 0, 0,   0,  0,  0,  0,  0, +1,  0,  0,  0,  0,  0,  1,  0,  0);// Silk Grapple lines	// + skill item JRMM
+  n = InitItem(n,"carpentertools", "", 24,  5,  0.05,  4,   2410, 0,   1, 0, 0,   0,  0,  0,  0,  0,  0, +2,  0,  0,  0,  0,  1,  0,  0);// Carpenter's Toolkit	// + skill item JRMM
+  n = InitItem(n,"silkgrapple", "",    24,  6,  0.05,  6,   6410, 0,   1, 0, 0,   0,  0,  0,  0,  0, +2,  0,  0,  0,  0,  0,  1,  0,  0);// Silk Grapple lines	// + skill item JRMM
   n = InitItem(n,"gunnerdrum", "",     24,  7,  0.05,  4,   1410, 0,   1, 0, 0,   0,  0,  0,  0, +1,  0,  0,  0,  0,  0,  0,  1,  0,  0);// Gunner's Drum	    // + skill item JRMM
   n = InitItem(n,"gunnerglass", "",    24,  8,  0.05,  4,   3410, 0,   1, 0, 0,   0,  0,  0, +1,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0);// Gunner's Glass	    // + skill item JRMM
   n = InitItem(n,"masterkeys", "",     24, 11,  0.05,  4,   2410, 0,   1, 0, 0,  +1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0);// Master Keys	     	// + skill item JRMM
@@ -3001,21 +3040,21 @@ if(sti(GetStorylineVar(FindCurrentStoryline(), "WR_PUZZLES")) > 0 || sti(GetStor
   //------------------------------------------------------------------------------------------------------------------------------------------------------------------
   // BOOKS: added by Short Jack Gold
   //-----------------------------------------------------------------------------------------------------------------------------------------------------------------
-  n = InitItem(n,"book1",  "",         13,  3,  0.10,  2,   2212, 0,   1, 0, 0,   0,  0,  0,  0,  0, +2,  0,  0,  0,  0,  0,  1,  0,  0);// Black Bart's Bumper Book of Boarding
-  n = InitItem(n,"book2",  "",         13,  4,  0.05,  3,   2310, 0,   1, 0, 0,   0,  0,  0, +1,  0,  0,  0,  0, +1,  0,  0,  1,  0,  0);// Boelen Algebra
+  n = InitItem(n,"book1",  "",         13,  3,  0.10,  2,   2212, 0,   1, 0, 0,   0,  0,  0,  0,  0, +1,  0,  0,  0,  0,  0,  1,  0,  0);// Black Bart's Bumper Book of Boarding
+  n = InitItem(n,"book2",  "",         13,  4,  0.05,  3,   3910, 0,   1, 0, 0,   0,  0,  0, +2,  0,  0,  0,  0, +1,  0,  0,  1,  0,  0);// Boelen Algebra
   n = InitItem(n,"book9",  "",         13,  1,  0.25,  1,    100, 0,   1, 0, 0,   0,  0,  0,  0,  0,  0,  0,  0,  0, -1,  0,  0,  0,  0);// Cooking With Albatross - PB: Clue about "Dead Albatross" effect
-  n = InitItem(n,"book10", "",         13, 13,  0.05,  2,   1240, 0,   1, 0, 1,   0,  0,  0,  0,  0,  0,  0, +1,  0,  0,  0,  1,  0,  0);// Definitive Defence
-  n = InitItem(n,"book3",  "",         11, 15,  0.05,  3,   2360, 0,   1, 0, 0,   0,  0,  0,  0,  0,  0,  0,  0, +1, +1,  0,  1,  0,  0);// Drow's Double Your Dubloons
-  n = InitItem(n,"book11", "",         13, 11,  0.05,  8,   1830, 0,   1, 0, 1,   0,  0,  0,  0, +1,  0,  0,  0,  0,  0,  0,  1,  0,  0);// Fighting Forts
-  n = InitItem(n,"book12", "",         13,  5,  0.10,  2,   1220, 0,   1, 0, 1,   0,  0,  0, +1,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0);// Great Gun Sights
-  n = InitItem(n,"book13", "",         13,  6,  0.10,  1,   1108, 0,   1, 0, 1,  +1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0);// Handy Sea Phrases
-  n = InitItem(n,"book4",  "",         13, 14,  0.05,  3,   2310, 0,   1, 0, 0,   0,  0, +2,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0);// Hook's Book
-  n = InitItem(n,"book14", "",         13,  8,  0.10,  1,   2210, 0,   1, 0, 1,   0, +1,  0,  0,  0,  0,  0, +1,  0,  0,  0,  1,  0,  0);// How to Repel Boarders
+  n = InitItem(n,"book10", "",         13, 13,  0.05,  2,   1840, 0,   1, 0, 0,   0,  0,  0,  0,  0,  0,  0, +2,  0,  0,  0,  1,  0,  0);// Definitive Defence
+  n = InitItem(n,"book3",  "",         11, 15,  0.05,  3,   3360, 0,   1, 0, 0,   0,  0,  0,  0,  0,  0,  0,  0, +2, +1,  0,  1,  0,  0);// Drow's Double Your Dubloons
+  n = InitItem(n,"book11", "",         13, 11,  0.05,  8,   1830, 0,   1, 0, 0,   0,  0,  0,  0, +2,  0,  0,  0,  0,  0,  0,  1,  0,  0);// Fighting Forts
+  n = InitItem(n,"book12", "",         13,  5,  0.10,  2,   1220, 0,   1, 0, 0,   0,  0,  0, +1,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0);// Great Gun Sights
+  n = InitItem(n,"book13", "",         13,  6,  0.10,  1,   1108, 0,   1, 0, 0,  +1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0);// Handy Sea Phrases
+  n = InitItem(n,"book4",  "",         13, 14,  0.05,  3,   2310, 0,   1, 0, 0,   0,  0, +1,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0);// Hook's Book
+  n = InitItem(n,"book14", "",         13,  8,  0.10,  1,   2210, 0,   1, 0, 0,   0, +1,  0,  0,  0,  0,  0, +1,  0,  0,  0,  1,  0,  0);// How to Repel Boarders
   n = InitItem(n,"book5",  "",         13, 15,  0.10,  2,   2215, 0,   1, 0, 0,   0,  0,  0,  0,  0,  0, +1,  0,  0,  0,  0,  1,  0,  0);// Morgan's Missing Mizzen
   n = InitItem(n,"book6",  "",         13,  9,  0.10,  3,   2320, 0,   1, 0, 0,   0,  0,  0,  0, +1,  0,  0,  0,  0,  0,  0,  1,  0,  0);// Morgan's Mast Mashing
-  n = InitItem(n,"book7",  "",         11, 14,  0.05,  9,   2975, 0,   1, 0, 0,  +1,  +1, 0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0);// Morgan's Almanac
-  n = InitItem(n,"book8",  "",         13,  2,  0.10,  1,   2117, 0,   1, 0, 0,   0,  0, +1,  0,  0, +1,  0,  0,  0,  0,  0,  1,  0,  0);// Pirating With Petros
-  n = InitItem(n,"book15", "",         13, 12,  0.10,  3,   1306, 0,   1, 0, 1,   0,  0,  0,  0,  0,  0, +1,  0,  0,  0,  0,  1,  0,  0);// Ship Repair Without Nails
+  n = InitItem(n,"book7",  "",         11, 14,  0.05,  9,   2975, 0,   1, 0, 0,  +1, +1,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  0,  0);// Morgan's Almanac
+  n = InitItem(n,"book8",  "",         13,  2,  0.10,  1,   2117, 0,   1, 0, 0,   0, +1,  0,  0,  0, +1,  0,  0,  0,  0,  0,  1,  0,  0);// Pirating With Petros
+  n = InitItem(n,"book15", "",         13, 12,  0.10,  3,   1306, 0,   1, 0, 0,   0,  0,  0,  0,  0,  0, +1,  0,  0,  0,  0,  1,  0,  0);// Ship Repair Without Nails
   n = InitItem(n,"relationbook", "",   13,  4,  0.00,  1,      1, 0,   1, 0, 1,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1);// Nation Relations Tutorial
   n = InitItem(n,"piratebook", "",     13, 10,  0.00,  1,    500, 0,   1, 0, 1,   0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1);// Pirate Tutorial
   //------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -4023,7 +4062,7 @@ int InitStdArmor( ref ItemIndex,
   armor.armor     = armorlevel;
   // GreatZen <--
 
-  if ( id == "cheaparmor" ) armor.skill.fencing = -1; // GreatZen
+  if ( id == "cheaparmor" ) armor.skill.fencing = (-1*GetDifficulty()); // GreatZen TY fixed to new skill effect
 //if ( id == "commonarmor" ) armor.skill.fencing = -1; //BB added check for other armour types, armour does slow you down, you trade of for the protection.
 
   armorIndex++;

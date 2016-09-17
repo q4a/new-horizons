@@ -605,7 +605,7 @@ if(comName=="activate" || comName=="click")
 				
 				LAi_QuestDelay("bladepaperroll_equip_check", 0.1);
 			}
-
+		
 			if(itmName == "bladearrows")
 			{
 				if(IsEquipCharacterByItem(Pchar, "bladearrows"))
@@ -616,38 +616,25 @@ if(comName=="activate" || comName=="click")
 				else
 				{
 					//EQUIP
-					LAi_QuestDelay("indian_arrow_tomahawk_equip_check", 0.1);
+					LAi_QuestDelay("indian_arrows_equip_check", 0.1);
 				}
 			}
 		
-			if(itmName == "tomahawk")
+			if(HasSubStr(itmName, "pistol"))
 			{
-				if(IsEquipCharacterByItem(Pchar, "tomahawk"))
+				if(IsEquipCharacterByItem(Pchar, FindCharacterItemByGroup(&PChar, GUN_ITEM_TYPE)))
 				{
 					//RELEASE
-					//no problem
+					//no problem				
 				}
 				else
 				{
 					//EQUIP
-					LAi_QuestDelay("indian_arrow_tomahawk_equip_check", 0.1);
-				}
-			}
-		
-			if(itmName != "pistolbow" || itmName != "blowgun")
-			{
-				if(HasSubStr(itmName, "pistol"))
-				{
-					if(IsEquipCharacterByItem(Pchar, FindCharacterItemByGroup(&PChar, GUN_ITEM_TYPE)))
-					{
-						//RELEASE
-						//no problem				
+					if(itmName == "pistolbow" || itmName == "blowgun")
+					{	
+						//ok
 					}
-					else
-					{
-						//EQUIP
-						LAi_QuestDelay("indian_pistols_equip_check", 0.1);
-					}
+					else LAi_QuestDelay("indian_pistols_equip_check", 0.1);
 				}
 			}
 

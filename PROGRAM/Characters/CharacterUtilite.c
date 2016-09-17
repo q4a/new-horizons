@@ -932,7 +932,7 @@ float PayScaleFactor()
 	ref mc = GetMainCharacter();
 	int leadership = GetShipSkill(mc, SKILL_LEADERSHIP);
 	int iron_will = GetOfficersPerkUsing(mc, "IronWill");
-	float leadership_factor = 1.0 - makefloat(leadership)*makefloat(1 + iron_will)/40.0;
+	float leadership_factor = 0.5;        // TY according to results of discussion setting to 0.5, the value it used to have with ironwill and leadership=10 . Meanwhile, crew salaries are being tripled in the internal settings, creating the discussed new balance of salaries weighted more towards crew as opposed to officers and no paycuts for crew as the player gains in skill, increasing salary pressure in late game
 	float difficulty_factor = makefloat(GetDifficulty() + 1)*0.5;
 	return leadership_factor * difficulty_factor * SALARY_MULTIPLIER;
 }
@@ -3591,20 +3591,20 @@ float GetCharPriceMod(ref ch, int priceType, bool summ, bool bShipyard)
 	else
 	{
 		bool bCheckSkills = true;
-		if ( IsMainCharacter(ch) )
-		{
+		//if ( IsMainCharacter(ch) )
+		//{
 		/*	if (IsInAnyService())  	// Levis: Professional Navy and LoM pay commission, but are not affected by skills
 			{
 				bCheckSkills = false;
 				if (bShipyard)		skillModify = SHIPYARD_SHIP_SELL_MULT;															// skills don't affect shipyard transactions
 				else				skillModify = makefloat(((SHIPYARD_PIRATEDSHIP_SELL_MULT+SHIPYARD_BOUGHTSHIP_SELL_MULT)/2));	// 50% commission
 			}*/
-			if (!bShipyard && HasMerchantPassport(ch))	// PB: Honest merchants don't pay commission outside the shipyard
-			{
-				bCheckSkills = false;
-				skillModify  = 1.0;																									// skills don't affect store transactions
-			}
-		}
+			//if (!bShipyard && HasMerchantPassport(ch))	// PB: Honest merchants don't pay commission outside the shipyard
+			//{
+				//bCheckSkills = false;
+				//skillModify  = 1.0;																									// skills don't affect store transactions
+			//}
+		//} TY Commented out the merchant passport part, merchants still need to negotiate prices obviously.
 		if (bCheckSkills)
 		{
 			skillModify = 0.75 + skillDelta*0.019;

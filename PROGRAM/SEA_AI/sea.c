@@ -855,23 +855,25 @@ void SeaLogin(ref Login)
 	trace("SEA: added ships");
 
 	CreateFlagEnvironment();
-
+	
 	// set ship for sea camera
 	SeaCameras_SetShipForSeaCamera(rPlayer);
 // <-- KK
-
+	
 	ReloadProgressUpdate();
 
 // KK -->
 	// set tasks 2 all groups
 	int c, iRelation; //NK bugfix 5-1
 	string sGroupID;
-	if (!bLoadSavedGame) {
+	if (!bLoadSavedGame) 
+	{
+		trace("Start forloop");
 		for (i=0; i<GetArraySize(&sTaskList)-2; i++)
 		{
 			sGroupID = sTaskList[i];
 			rGroup = Group_GetGroupByID(sGroupID);
-
+			trace("i= "+i+" Check for group "+sGroupID+" with task "+rGroup.Task);
 			// set task
 			switch (sti(rGroup.Task))
 			{
@@ -1002,15 +1004,20 @@ void SeaLogin(ref Login)
 // KK -->
 void LoadShipsToSea(int iNumShips, string sGName, int iNation, int iGeraldSails)
 {
+	if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: In function LoadShipsToSea with iNumShips="+iNumShips+" and sGName="+SGName);
 	ref rPlayer = GetMainCharacter();
 	ref rCommander;
 	int nflag1, ntex1, nflag2, ntex2;
 	nflag2 = GetPirateFlag(rPlayer, &ntex2);
 	for (int j = 0; j < iNumShips; j++)
 	{
+		if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: Inside loop. Find captain for numFantoms="+iNumFantoms+" j="+j);
 		int iFantomIndex = FANTOM_CHARACTERS + iNumFantoms - iNumShips + j;
+		if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: Fantomindex ="+iFantomIndex);
 		ref rFantom; makeref(rFantom, Characters[iFantomIndex]);
 
+		if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: old ID="+rFantom.id+" new id=fenc_" + iFantomIndex);
+		
 		rFantom.id = "fenc_" + iFantomIndex;
 		rFantom.isFantom = true; // TIH used to easily tell a generated shipchar from a stored shipchar Aug27'06
 
@@ -1021,11 +1028,11 @@ void LoadShipsToSea(int iNumShips, string sGName, int iNation, int iGeraldSails)
 		}
 
 		// set random character and ship names, face id
-		rFantom.sex = "man";
-		rFantom.Nation = iNation;
+		//rFantom.sex = "man";
+		//rFantom.Nation = iNation;
 
-		SetRandomNameToCharacter(rFantom); // KK
-		SetRandomNameToShip(rFantom);
+		//SetRandomNameToCharacter(rFantom); // KK
+		//SetRandomNameToShip(rFantom);
 		//SetRandomFaceToCharacter(rFantom); // PB: What is this for?
 
 		// screwface : delete the recognized attribute
@@ -1036,7 +1043,7 @@ void LoadShipsToSea(int iNumShips, string sGName, int iNation, int iGeraldSails)
 		rFantom.location.group = "";
 		rFantom.location.locator = "";
 
-		Fantom_SetRandomModel(rFantom, rFantom.fantomtype);
+		//Fantom_SetRandomModel(rFantom, rFantom.fantomtype);
 		/*switch(Rand(7))
 		{
 			case 0: rFantom.quest.officertype = OFFIC_TYPE_BOATSWAIN; break;
@@ -1060,22 +1067,23 @@ void LoadShipsToSea(int iNumShips, string sGName, int iNation, int iGeraldSails)
 		if(Levelboost < minlevel) Levelboost = 10 + ((8-sti(refShip.Class)) * 2) + (rand(7) - 2);
 		LAi_Create_Officer(Levelboost, &rFantom);*/
 		//rFantom.quest.officerprice = makeint((sti(rPlayer.rank) * 2 + 10)*100) - 330 + rand(40)*15 + rand(10); //Levis this should happen in create officer once the twin character is created
-		LAi_NPC_Equip(rFantom, sti(rFantom.rank), true, 0.5);
+		//LAi_NPC_Equip(rFantom, sti(rFantom.rank), true, 0.5);
 // added by MAXIMUS <--
-		Fantom_SetRandomMoney(rFantom, rFantom.fantomtype);
-		Ship_SetFantomData(rFantom);
-		Fantom_SetCannons(rFantom, rFantom.fantomtype);
-		Fantom_SetSails(rFantom, rFantom.fantomtype);
+		//Fantom_SetRandomMoney(rFantom, rFantom.fantomtype);
+		//Ship_SetFantomData(rFantom);
+		//Fantom_SetCannons(rFantom, rFantom.fantomtype);
+		//Fantom_SetSails(rFantom, rFantom.fantomtype);
 
-		rFantom.SeaAI.Group.Name = sGName;
+		//rFantom.SeaAI.Group.Name = sGName;
 
 		rFantom.Features.GeraldSails = false;
 		if (iGeraldSails > -1) rFantom.Features.GeraldSails = iGeraldSails;
 
 		if (CheckAttribute(rFantom, "after_1st_sailto")) DeleteAttribute(rFantom, "after_1st_sailto");
-		RestoreCharacter(rFantom);
+		//RestoreCharacter(rFantom);
 
 		// add fantom
+		if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: Add character to group "+sGName);
 		Group_AddCharacter(sGName, rFantom.id);
 
 		// add to sea
@@ -1475,77 +1483,28 @@ void SetCoastTraffic(string islandstr)
 			}
 			if(bgennew)
 			{
-				ClearCharacter(cr); // PB: Clear ALL attributes from previous character
-
-				cr.crmonth	= environment.date.month;
-				cr.crday	= environment.date.day;
-				cr.nation	= crnation;						//nation for character
-// KK -->
-				if (crnation == PIRATE) {
-					sFantomType = "pirate"; // NK 04-09-12 because for QC pirates are coastguard!
-				}
-				//trstr = "New dates!m" + cr.crmonth + " d" + cr.crday + ".";
-				// NK <--
-
-				cr.location = PChar.location; //Levis so they are logged in at the right location
-				cr.location.group = "";
-				cr.location.locator = "";
-// <-- KK
-
-				cr.quest.officertype = GetCaptainType(cr); // NK 04-08-27
-				cr.FantomType = sFantomType;
-
-				// PRS3 new get ship call
+				//Determine the minclass
 				int minclass = MIN_CLASS;
 				//scale minclass between 7 and CR_MAX_MINCLASS based on PChar level
 				if(GetLevel(&Pchar) < (MIN_CLASS-CR_MAX_MINCLASS)*CR_MINCLASS_PERLEVEL) minclass = (MIN_CLASS - makeint(makefloat(GetLevel(&Pchar)) / CR_MINCLASS_PERLEVEL));
+				
+				//Determine the maxclass
 				int maxclass = MAX_CLASS;
-
-				switch(sFantomType)
-				{
-					case "pirate": maxclass = CR_MAXPIRATECLASS; break;
-					case "trade": maxclass = MAXMERCHANTCLASS; break;
-					case "war": if(crnation == sti(CurIsland.smuggling_nation)) { maxclass = MAXCOASTGUARDCLASS; } break;
-				}
-				// cap if GetShipCap()
 				if(GetShipCap() && maxclass < GetCharacterShipClass(Pchar) - CR_CLASS_ABOVE_PCHAR) maxclass = GetCharacterShipClass(Pchar) - CR_CLASS_ABOVE_PCHAR;
 				if(GetShipCap() && maxclass < (MIN_CLASS+1)-GetLevel(Pchar) - CR_CLASS_ABOVE_PCHAR) maxclass = (MIN_CLASS+1) - GetLevel(Pchar) - CR_CLASS_ABOVE_PCHAR;
 				if(maxclass < MAX_CLASS) maxclass = MAX_CLASS;
-				//trstr += " Maxclass " + maxclass + ", minclass " + minclass;
-				crship = Force_GetShipType(maxclass, minclass, sFantomType, crnation);
-				//trstr += ". Ship ID " + GetShipID(crship);
-// KK -->
-				Ship_CreateForCharacter(cr, GetShipID(crship), "Coaster");
-
-				string sFantomTypeTmp = sFantomType;
-				if (GetCharacterShipClass(cr) <= 3 && sti(ShipsTypes[crship].type.war) == true && sti(cr.nation) != PIRATE) sFantomTypeTmp = "war";
-				Fantom_SetRandomModel(cr, sFantomTypeTmp);
-				SetRandomNameToCharacter(cr);
-// <-- KK
-				// NK PRS3 getshiptype <--
-
-				//equip ship
-				cr.rank = GetCaptainRank(cr); //Levis
-				LAi_NPC_Equip(cr, sti(cr.rank), true, 0.5); // PB: Weapons needed
-				Ship_SetFantomData(cr);
-				Fantom_SetCannons(cr, sFantomType);
-				Fantom_SetSails(cr, sFantomType);
-				Fantom_ClearCargo(cr); // TIH clear out prior slot cargo
-				Fantom_SetBalls(cr, sFantomType);
-				Fantom_SetGoods(cr, sFantomType);
-				Fantom_SetRandomMoney(cr, sFantomType);
-
-				SetRandomNameToShip(cr);
-
-				if (crnation == PIRATE)
-				{
-					cr.perks.list.ShipSpeedUp = true;
-					cr.Ship.crew.quantity = GetMaxCrewQuantity(cr);
-				}
 				
-				InitAutoSkillsSystem(cr,false); //Levis
-				// move down - SetCharacterRelationBoth(sti(cr.index), GetMainCharacterIndex(), GetRMRelationType(GetRMRelation(PChar, sti(cr.nation)))); // NK set base relation to avoid gray icon
-				//trace(trstr);
+				//Generate the ship
+				crship = Force_GetShipType(maxclass, minclass, sFantomType, crnation);
+				
+				//Generate the captain
+				if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: In function SetCoastTraffic");
+				cr = LAi_Create_Captain(cr, sFantomType, crship, crnation); //Levis new function to create a captain
+				
+				//Some extra data for coasters
+				cr.crmonth	= environment.date.month;
+				cr.crday	= environment.date.day;
+				cr.nation	= crnation;						//nation for character
 			}
 			else {
 				crship = GetCharacterShipType(cr);

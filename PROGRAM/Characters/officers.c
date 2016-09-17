@@ -26,6 +26,7 @@ extern void eInitOfficerTypes();
 
 void InitOfficerTypes()
 {
+	DeleteAttribute(&OfficerTypes,"");
 	if(LoadSegment("Characters\officertypes\init_officertypes.c"))
 	{
 		eInitOfficerTypes();

@@ -302,8 +302,9 @@ void StartStoryLine()
 
 
 		Pchar.quest.WR_start = "1";	//normal quest start
-	//	Pchar.quest.WR_start = "30";	//Eden passage
-	//	Pchar.quest.WR_start = "35";	//Eden estate
+
+	//	Pchar.quest.WR_start = "35";	//Eden estate, maze
+	//	Pchar.quest.WR_start = "38";	//Eden tunnel
 
 	//	Pchar.quest.WR_start = "47";	//french surgeons Tortuga
 	//	Pchar.quest.WR_start = "48";	//Richards monastary
@@ -364,17 +365,7 @@ void StartStoryLine()
 			break;
 
 			case "30":
-				//Eden passage
-
-				Pchar.quest.disable_rebirth = true;
-
-				sTeleportLocName = "bb_Eden_passage";
-			
-				rldGroup = "reload";
-				rldLocator = "reload1_back";
-
-				SetCurrentTime(12, 0);
-				SetNextWeather("Clear");
+				
 			break;
 
 			case "35":
@@ -384,12 +375,9 @@ void StartStoryLine()
 				Pchar.quest.disable_rebirth = true;
 
 				rldGroup = "reload";
-			//	sTeleportLocName = "bb_Eden_estate";
-			//	rldLocator = "reload1";
+				sTeleportLocName = "bb_Eden_estate";
+				rldLocator = "reload1";
 
-				sTeleportLocName = "bb_Eden_tunnel";
-				rldLocator = "reload2_back";
-				
 				SetCurrentTime(12, 0);
 				SetNextWeather("Clear");
 				Pchar.quest.JRH_rain = "Clear";
@@ -399,8 +387,13 @@ void StartStoryLine()
 			GiveItem2Character(Pchar, "bladeX4");
 			EquipCharacterByItem(Pchar, "bladeX4");
 
+				LAi_QuestDelay("maze_gate1_down_check", 0.5);
+				LAi_QuestDelay("maze_gate2_down_check", 0.5);
+		
 
 
+
+			/*
 			ChangeCharacterAddressGroup(CharacterFromID("Teach"), "BB_Eden_tunnel", "reload", "reload2_back");
 
 				pchar.quest.Eden_elevator1.win_condition.l1 = "locator";
@@ -432,8 +425,67 @@ void StartStoryLine()
 				pchar.quest.Eden_gate2_stop.win_condition.l1.locator_group = "goto";
 				pchar.quest.Eden_gate2_stop.win_condition.l1.locator = "gate2_stop";
 				pchar.quest.Eden_gate2_stop.win_condition = "Eden_gate2_stop";
+			*/
 			break;
 		
+			case "38":
+				//Eden tunnel
+		LAi_SetImmortal(pchar, true);		//temp
+		GiveItem2Character(Pchar, "map");	//temp
+				Pchar.quest.disable_rebirth = true;
+
+				rldGroup = "reload";
+				sTeleportLocName = "bb_Eden_tunnel";
+				rldLocator = "reload2_back";
+				
+				SetCurrentTime(12, 0);
+				SetNextWeather("Clear");
+				Pchar.quest.JRH_rain = "Clear";
+
+				Pchar.estate_direction = "Teach_house";
+			
+			GiveItem2Character(Pchar, "bladeX4");
+			EquipCharacterByItem(Pchar, "bladeX4");
+
+			ChangeCharacterAddressGroup(CharacterFromID("Teach"), "BB_Eden_tunnel", "reload", "reload2_back");
+
+
+
+				LAi_QuestDelay("Eden_steplocks", 0.1);
+			/*
+				pchar.quest.Eden_elevator1.win_condition.l1 = "locator";
+				pchar.quest.Eden_elevator1.win_condition.l1.location = "BB_Eden_tunnel";
+				pchar.quest.Eden_elevator1.win_condition.l1.locator_group = "goto";
+				pchar.quest.Eden_elevator1.win_condition.l1.locator = "elevator1";
+				pchar.quest.Eden_elevator1.win_condition = "Eden_elevator_steplock1";
+
+				pchar.quest.Eden_elevator2.win_condition.l1 = "locator";
+				pchar.quest.Eden_elevator2.win_condition.l1.location = "BB_Eden_tunnel";
+				pchar.quest.Eden_elevator2.win_condition.l1.locator_group = "goto";
+				pchar.quest.Eden_elevator2.win_condition.l1.locator = "elevator2";
+				pchar.quest.Eden_elevator2.win_condition = "Eden_elevator_steplock2";
+
+				pchar.quest.Eden_gate_stop1.win_condition.l1 = "locator";
+				pchar.quest.Eden_gate_stop1.win_condition.l1.location = "BB_Eden_tunnel";
+				pchar.quest.Eden_gate_stop1.win_condition.l1.locator_group = "goto";
+				pchar.quest.Eden_gate_stop1.win_condition.l1.locator = "gate_stop1";
+				pchar.quest.Eden_gate_stop1.win_condition = "Eden_gate_stop1";
+
+				pchar.quest.Eden_gate_stop2.win_condition.l1 = "locator";
+				pchar.quest.Eden_gate_stop2.win_condition.l1.location = "BB_Eden_tunnel";
+				pchar.quest.Eden_gate_stop2.win_condition.l1.locator_group = "goto";
+				pchar.quest.Eden_gate_stop2.win_condition.l1.locator = "gate_stop2";
+				pchar.quest.Eden_gate_stop2.win_condition = "Eden_gate_stop2";
+			
+				pchar.quest.Eden_gate2_stop.win_condition.l1 = "locator";
+				pchar.quest.Eden_gate2_stop.win_condition.l1.location = "BB_Eden_tunnel";
+				pchar.quest.Eden_gate2_stop.win_condition.l1.locator_group = "goto";
+				pchar.quest.Eden_gate2_stop.win_condition.l1.locator = "gate2_stop";
+				pchar.quest.Eden_gate2_stop.win_condition = "Eden_gate2_stop";
+			*/
+			break;
+
+
 			case "47":
 				//french surgeons Tortuga
 				

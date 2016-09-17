@@ -892,6 +892,7 @@ void Ship_Add2Sea(int iCharacterIndex, bool bFromCoast, string sFantomType)
 		//return; // NK 04-09-12 fix so you never crash on bad ship type. -->
 		if(!LAi_IsDead(rCharacter))
 		{
+			if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: Resetting stuff for "+rCharacter.id+" because it isn't dead");
 			if(sti(rCharacter.nation) == PIRATE) rCharacter.fantomtype = "pirate"; //SCREWFACE : PIRATE is a nation - type is "pirate";
 			string ftype = "war"; if(CheckAttribute(rCharacter,"fantomtype")) ftype = rCharacter.fantomtype;
 			rCharacter.ship.type = GetShipID(Force_GetShipType(GetCharacterShipClass(GetMainCharacter()) - 1, GetCharacterShipClass(GetMainCharacter()) +1, ftype, sti(rCharacter.nation)));
@@ -907,6 +908,7 @@ void Ship_Add2Sea(int iCharacterIndex, bool bFromCoast, string sFantomType)
 
 	if (iCharacterIndex >= FANTOM_CHARACTERS && !CheckAttribute(&rCharacter, "skipsetfantom")) // WM to not do this for fantoms already done.
 	{
+		if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: set stuff again because skipsetfantom isn't set ");
 		SetBaseShipData(rCharacter);
 		Ship_SetFantomData(rCharacter);
 
@@ -918,7 +920,7 @@ void Ship_Add2Sea(int iCharacterIndex, bool bFromCoast, string sFantomType)
 
 	rCharacter.TmpPerks.Turn = false;
 
-	CharacterUpdateShipFromBaseShip(iCharacterIndex);
+	//CharacterUpdateShipFromBaseShip(iCharacterIndex);
 	//trace("updated ship from base");
 
 //	rCharacter.Ship.Ang.y = 0.0;
@@ -946,6 +948,7 @@ void Ship_Add2Sea(int iCharacterIndex, bool bFromCoast, string sFantomType)
 // KK -->
 void Ship_Login(int iCharacterIndex)
 {
+	if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: In function Ship_Login");
 	// logit("Ship_Login");
 	if (iCharacterIndex < 0) return;
 	ref rCharacter = GetCharacter(iCharacterIndex);

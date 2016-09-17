@@ -525,6 +525,14 @@ void ProcessDialogEvent()
         DeleteAttribute(refOfficer,"perks.list.AdvancedCommerce");
         DeleteAttribute(refOfficer,"perks.list.BasicLandOwner");
 		DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.ImproveAiming");
+		DeleteAttribute(refOfficer,"perks.list.ImproveSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.AdvanceSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.ImprovePotions");
+		DeleteAttribute(refOfficer,"perks.list.DefendPoison");
+		DeleteAttribute(refOfficer,"perks.list.Cooking");
+		DeleteAttribute(refOfficer,"perks.list.HighStakes");
+		DeleteAttribute(refOfficer,"perks.list.Disguiser");
         
 		intOfficer = sti(GetOfficersIndex(PChar,2));
 	refOfficer = GetCharacter(intOfficer);
@@ -577,7 +585,15 @@ void ProcessDialogEvent()
         DeleteAttribute(refOfficer,"perks.list.BasicCommerce");
         DeleteAttribute(refOfficer,"perks.list.AdvancedCommerce");
         DeleteAttribute(refOfficer,"perks.list.BasicLandOwner");
-        DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.ImproveAiming");
+		DeleteAttribute(refOfficer,"perks.list.ImproveSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.AdvanceSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.ImprovePotions");
+		DeleteAttribute(refOfficer,"perks.list.DefendPoison");
+		DeleteAttribute(refOfficer,"perks.list.Cooking");
+		DeleteAttribute(refOfficer,"perks.list.HighStakes");
+		DeleteAttribute(refOfficer,"perks.list.Disguiser");
 		
 
 		intOfficer = sti(GetOfficersIndex(PChar,3));
@@ -631,7 +647,15 @@ void ProcessDialogEvent()
         DeleteAttribute(refOfficer,"perks.list.BasicCommerce");
         DeleteAttribute(refOfficer,"perks.list.AdvancedCommerce");
         DeleteAttribute(refOfficer,"perks.list.BasicLandOwner");
-        DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.ImproveAiming");
+		DeleteAttribute(refOfficer,"perks.list.ImproveSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.AdvanceSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.ImprovePotions");
+		DeleteAttribute(refOfficer,"perks.list.DefendPoison");
+		DeleteAttribute(refOfficer,"perks.list.Cooking");
+		DeleteAttribute(refOfficer,"perks.list.HighStakes");
+		DeleteAttribute(refOfficer,"perks.list.Disguiser");
 		
 		DialogExit();		
 		PlayStereoSound("INTERFACE\ITTB.wav");			
@@ -700,6 +724,14 @@ void ProcessDialogEvent()
         DeleteAttribute(refOfficer,"perks.list.AdvancedCommerce");
         DeleteAttribute(refOfficer,"perks.list.BasicLandOwner");
 		DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.ImproveAiming");
+		DeleteAttribute(refOfficer,"perks.list.ImproveSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.AdvanceSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.ImprovePotions");
+		DeleteAttribute(refOfficer,"perks.list.DefendPoison");
+		DeleteAttribute(refOfficer,"perks.list.Cooking");
+		DeleteAttribute(refOfficer,"perks.list.HighStakes");
+		DeleteAttribute(refOfficer,"perks.list.Disguiser");
         
 		intOfficer = sti(GetOfficersIndex(PChar,2));
 	refOfficer = GetCharacter(intOfficer);
@@ -752,7 +784,15 @@ void ProcessDialogEvent()
         DeleteAttribute(refOfficer,"perks.list.BasicCommerce");
         DeleteAttribute(refOfficer,"perks.list.AdvancedCommerce");
         DeleteAttribute(refOfficer,"perks.list.BasicLandOwner");
-        DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.ImproveAiming");
+		DeleteAttribute(refOfficer,"perks.list.ImproveSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.AdvanceSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.ImprovePotions");
+		DeleteAttribute(refOfficer,"perks.list.DefendPoison");
+		DeleteAttribute(refOfficer,"perks.list.Cooking");
+		DeleteAttribute(refOfficer,"perks.list.HighStakes");
+		DeleteAttribute(refOfficer,"perks.list.Disguiser");
 		
 
 		intOfficer = sti(GetOfficersIndex(PChar,3));
@@ -806,7 +846,15 @@ void ProcessDialogEvent()
         DeleteAttribute(refOfficer,"perks.list.BasicCommerce");
         DeleteAttribute(refOfficer,"perks.list.AdvancedCommerce");
         DeleteAttribute(refOfficer,"perks.list.BasicLandOwner");
-        DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.ImproveAiming");
+		DeleteAttribute(refOfficer,"perks.list.ImproveSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.AdvanceSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.ImprovePotions");
+		DeleteAttribute(refOfficer,"perks.list.DefendPoison");
+		DeleteAttribute(refOfficer,"perks.list.Cooking");
+		DeleteAttribute(refOfficer,"perks.list.HighStakes");
+		DeleteAttribute(refOfficer,"perks.list.Disguiser");
 		
 	
 	// -- Scheffnow -- 2004-01-14 -- ResetCharacterMod -- end -------------	
@@ -857,9 +905,15 @@ void ProcessDialogEvent()
         DeleteAttribute(PChar,"perks.list.BasicCommerce");
         DeleteAttribute(PChar,"perks.list.AdvancedCommerce");
         DeleteAttribute(PChar,"perks.list.BasicLandOwner");
- 		DeleteAttribute(PChar,"perks.list.Toughness");
-		
-        ResetHP(&PChar);
+ 		DeleteAttribute(PChar,"perks.list.Toughness");	
+		DeleteAttribute(PChar,"perks.list.ImproveAiming");
+        DeleteAttribute(PChar,"perks.list.ImproveSmuggling");
+        DeleteAttribute(PChar,"perks.list.AdvanceSmuggling");
+        DeleteAttribute(PChar,"perks.list.ImprovePotions");
+        DeleteAttribute(PChar,"perks.list.DefendPoison");
+        DeleteAttribute(PChar,"perks.list.Cooking");
+        DeleteAttribute(PChar,"perks.list.HighStakes");
+ 		DeleteAttribute(PChar,"perks.list.Disguiser");
 		
         DialogExit();	
 		PlayStereoSound("INTERFACE\ITTB.wav");			
@@ -916,9 +970,15 @@ void ProcessDialogEvent()
         DeleteAttribute(PChar,"perks.list.BasicCommerce");
         DeleteAttribute(PChar,"perks.list.AdvancedCommerce");
         DeleteAttribute(PChar,"perks.list.BasicLandOwner");
- 		DeleteAttribute(PChar,"perks.list.Toughness");
-		
-        ResetHP(&PChar);
+ 		DeleteAttribute(PChar,"perks.list.Toughness");	
+		DeleteAttribute(PChar,"perks.list.ImproveAiming");
+        DeleteAttribute(PChar,"perks.list.ImproveSmuggling");
+        DeleteAttribute(PChar,"perks.list.AdvanceSmuggling");
+        DeleteAttribute(PChar,"perks.list.ImprovePotions");
+        DeleteAttribute(PChar,"perks.list.DefendPoison");
+        DeleteAttribute(PChar,"perks.list.Cooking");
+        DeleteAttribute(PChar,"perks.list.HighStakes");
+ 		DeleteAttribute(PChar,"perks.list.Disguiser");
 		
         DialogExit();		
 		PlayStereoSound("INTERFACE\ITTB.wav");			
@@ -1028,6 +1088,14 @@ void ProcessDialogEvent()
         DeleteAttribute(refOfficer,"perks.list.AdvancedCommerce");
         DeleteAttribute(refOfficer,"perks.list.BasicLandOwner");
 		DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.ImproveAiming");
+		DeleteAttribute(refOfficer,"perks.list.ImproveSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.AdvanceSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.ImprovePotions");
+		DeleteAttribute(refOfficer,"perks.list.DefendPoison");
+		DeleteAttribute(refOfficer,"perks.list.Cooking");
+		DeleteAttribute(refOfficer,"perks.list.HighStakes");
+		DeleteAttribute(refOfficer,"perks.list.Disguiser");
         
         ResetHP(&refOfficer);
 	
@@ -1111,7 +1179,15 @@ void ProcessDialogEvent()
         DeleteAttribute(refOfficer,"perks.list.BasicCommerce");
         DeleteAttribute(refOfficer,"perks.list.AdvancedCommerce");
         DeleteAttribute(refOfficer,"perks.list.BasicLandOwner");
-        DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.ImproveAiming");
+		DeleteAttribute(refOfficer,"perks.list.ImproveSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.AdvanceSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.ImprovePotions");
+		DeleteAttribute(refOfficer,"perks.list.DefendPoison");
+		DeleteAttribute(refOfficer,"perks.list.Cooking");
+		DeleteAttribute(refOfficer,"perks.list.HighStakes");
+		DeleteAttribute(refOfficer,"perks.list.Disguiser");
 		
         ResetHP(&refOfficer);
 	
@@ -1195,7 +1271,15 @@ void ProcessDialogEvent()
         DeleteAttribute(refOfficer,"perks.list.BasicCommerce");
         DeleteAttribute(refOfficer,"perks.list.AdvancedCommerce");
         DeleteAttribute(refOfficer,"perks.list.BasicLandOwner");
-        DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.ImproveAiming");
+		DeleteAttribute(refOfficer,"perks.list.ImproveSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.AdvanceSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.ImprovePotions");
+		DeleteAttribute(refOfficer,"perks.list.DefendPoison");
+		DeleteAttribute(refOfficer,"perks.list.Cooking");
+		DeleteAttribute(refOfficer,"perks.list.HighStakes");
+		DeleteAttribute(refOfficer,"perks.list.Disguiser");
 		
         ResetHP(&refOfficer);
 		
@@ -1289,6 +1373,14 @@ void ProcessDialogEvent()
         DeleteAttribute(refOfficer,"perks.list.AdvancedCommerce");
         DeleteAttribute(refOfficer,"perks.list.BasicLandOwner");
 		DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.ImproveAiming");
+		DeleteAttribute(refOfficer,"perks.list.ImproveSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.AdvanceSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.ImprovePotions");
+		DeleteAttribute(refOfficer,"perks.list.DefendPoison");
+		DeleteAttribute(refOfficer,"perks.list.Cooking");
+		DeleteAttribute(refOfficer,"perks.list.HighStakes");
+		DeleteAttribute(refOfficer,"perks.list.Disguiser");
         
         ResetHP(&refOfficer);
 	
@@ -1372,7 +1464,15 @@ void ProcessDialogEvent()
         DeleteAttribute(refOfficer,"perks.list.BasicCommerce");
         DeleteAttribute(refOfficer,"perks.list.AdvancedCommerce");
         DeleteAttribute(refOfficer,"perks.list.BasicLandOwner");
-        DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.ImproveAiming");
+		DeleteAttribute(refOfficer,"perks.list.ImproveSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.AdvanceSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.ImprovePotions");
+		DeleteAttribute(refOfficer,"perks.list.DefendPoison");
+		DeleteAttribute(refOfficer,"perks.list.Cooking");
+		DeleteAttribute(refOfficer,"perks.list.HighStakes");
+		DeleteAttribute(refOfficer,"perks.list.Disguiser");
 		
         ResetHP(&refOfficer);
 	
@@ -1456,7 +1556,15 @@ void ProcessDialogEvent()
         DeleteAttribute(refOfficer,"perks.list.BasicCommerce");
         DeleteAttribute(refOfficer,"perks.list.AdvancedCommerce");
         DeleteAttribute(refOfficer,"perks.list.BasicLandOwner");
-        DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.Toughness");
+		DeleteAttribute(refOfficer,"perks.list.ImproveAiming");
+		DeleteAttribute(refOfficer,"perks.list.ImproveSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.AdvanceSmuggling");
+		DeleteAttribute(refOfficer,"perks.list.ImprovePotions");
+		DeleteAttribute(refOfficer,"perks.list.DefendPoison");
+		DeleteAttribute(refOfficer,"perks.list.Cooking");
+		DeleteAttribute(refOfficer,"perks.list.HighStakes");
+		DeleteAttribute(refOfficer,"perks.list.Disguiser");
 		
         ResetHP(&refOfficer);
 	
@@ -1537,7 +1645,15 @@ void ProcessDialogEvent()
         DeleteAttribute(PChar,"perks.list.BasicCommerce");
         DeleteAttribute(PChar,"perks.list.AdvancedCommerce");
         DeleteAttribute(PChar,"perks.list.BasicLandOwner");
- 		DeleteAttribute(PChar,"perks.list.Toughness");
+ 		DeleteAttribute(PChar,"perks.list.Toughness");	
+		DeleteAttribute(PChar,"perks.list.ImproveAiming");
+        DeleteAttribute(PChar,"perks.list.ImproveSmuggling");
+        DeleteAttribute(PChar,"perks.list.AdvanceSmuggling");
+        DeleteAttribute(PChar,"perks.list.ImprovePotions");
+        DeleteAttribute(PChar,"perks.list.DefendPoison");
+        DeleteAttribute(PChar,"perks.list.Cooking");
+        DeleteAttribute(PChar,"perks.list.HighStakes");
+ 		DeleteAttribute(PChar,"perks.list.Disguiser");
 		
         ResetHP(&PChar);
 		
@@ -1624,7 +1740,15 @@ void ProcessDialogEvent()
         DeleteAttribute(PChar,"perks.list.BasicCommerce");
         DeleteAttribute(PChar,"perks.list.AdvancedCommerce");
         DeleteAttribute(PChar,"perks.list.BasicLandOwner");
- 		DeleteAttribute(PChar,"perks.list.Toughness");
+ 		DeleteAttribute(PChar,"perks.list.Toughness");	
+		DeleteAttribute(PChar,"perks.list.ImproveAiming");
+        DeleteAttribute(PChar,"perks.list.ImproveSmuggling");
+        DeleteAttribute(PChar,"perks.list.AdvanceSmuggling");
+        DeleteAttribute(PChar,"perks.list.ImprovePotions");
+        DeleteAttribute(PChar,"perks.list.DefendPoison");
+        DeleteAttribute(PChar,"perks.list.Cooking");
+        DeleteAttribute(PChar,"perks.list.HighStakes");
+ 		DeleteAttribute(PChar,"perks.list.Disguiser");
 		
         ResetHP(&PChar);
 		

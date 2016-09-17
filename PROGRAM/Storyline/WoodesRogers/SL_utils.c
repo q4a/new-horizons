@@ -28,6 +28,181 @@ void OpenBoxProcedure_WR()
 
 	//Q2 -->
 
+	if(Locations[locidx].id=="BB_Eden_bedroom1")
+	{
+		switch(chr.boxname)
+		{
+			case "box1":
+				PlaySound("PEOPLE\counter_open.wav");
+				LaunchItemsBox(&ar);
+			break;
+		}
+
+		return;
+	}
+
+	if(Locations[locidx].id=="BB_Eden_kitchen")
+	{
+		switch(chr.boxname)
+		{
+			case "box1":
+				LaunchItemsBox(&ar);
+			break;
+		}
+
+		return;
+	}
+
+	if(Locations[locidx].id=="BB_Eden_attic2")
+	{
+		switch(chr.boxname)
+		{
+			case "box1":
+				PlaySound("AMBIENT\JAIL\door_003.wav");
+				LaunchItemsBox(&ar);
+			break;
+
+			case "box2":
+				PlaySound("PEOPLE\basket.wav");
+				LaunchItemsBox(&ar);
+			break;
+		}
+
+		return;
+	}
+
+	if(Locations[locidx].id=="BB_Eden_attic3")
+	{
+		switch(chr.boxname)
+		{
+			case "box1":
+				PlaySound("PEOPLE\basket.wav");
+				LaunchItemsBox(&ar);
+			break;
+		}
+
+		return;
+	}
+
+	if(Locations[locidx].id=="BB_Eden_dining_room")
+	{
+		switch(chr.boxname)
+		{
+			case "box1":
+				LaunchItemsBox(&ar);
+			break;
+		}
+
+		return;
+	}
+
+	if(Locations[locidx].id=="BB_Eden_bedroom2")
+	{
+		switch(chr.boxname)
+		{
+			case "box1":
+				LaunchItemsBox(&ar);
+			break;
+		}
+
+		return;
+	}
+
+	if(Locations[locidx].id=="BB_Eden_estate")
+	{
+		switch(chr.boxname)
+		{
+			case "box14":
+				PlaySound("INTERFACE\closet_open.wav");
+				LaunchItemsBox(&ar);
+			break;
+
+			case "box15":
+				PlaySound("INTERFACE\closet_open.wav");
+				LaunchItemsBox(&ar);
+			break;
+
+			case "box16":
+				PlaySound("INTERFACE\chart_move.wav");
+				PlaySound("INTERFACE\chart_move.wav");
+				LaunchItemsBox(&ar);
+			break;
+
+			case "box17":
+				PlaySound("PEOPLE\counter_open.wav");
+				LaunchItemsBox(&ar);
+			break;
+
+			case "box18":
+				PlaySound("PEOPLE\counter_open.wav");
+				LaunchItemsBox(&ar);
+			break;
+
+			case "box19":
+				PlaySound("INTERFACE\chart_move.wav");
+				PlaySound("INTERFACE\chart_move.wav");
+				LaunchItemsBox(&ar);
+			break;
+
+			case "box20":
+				PlaySound("AMBIENT\JAIL\door_003.wav");
+				LaunchItemsBox(&ar);
+			break;
+		}
+
+		return;
+	}
+
+	if(Locations[locidx].id=="BB_Eden_chapel")
+	{
+		switch(chr.boxname)
+		{
+			case "box1":
+				if(CheckAttribute(chr,"Eden_chapel_box1") && chr.Eden_chapel_box1 == "on") return;
+
+				chr.Eden_chapel_box1 = "on";
+				PlaySound("INTERFACE\girder_open.wav");
+				Locations[FindLocation("BB_Eden_chapel")].models.always.l1 = "girder_free";
+				SetLocatorRadius(locations[FindLocation(chr.location)], "box", "box1", 0.0001);
+				Locations[FindLocation("BB_Eden_chapel")].locators_radius.box.box1 = 0.0001;
+				Locations[FindLocation("BB_Eden_estate")].reload.l6.disable = 0;
+
+				LAi_QuestDelay("estate_girder", 2.0);	
+			break;
+		}
+
+		return;
+	}
+		
+	if(Locations[locidx].id=="BB_Eden_garden_house")
+	{
+		switch(chr.boxname)
+		{
+			case "box1":
+				LaunchItemsBox(&ar);
+				chr.GH_box1 = "checked";
+
+				LAi_QuestDelay("GH_boxes_check", 0.5);	
+			break;
+
+			case "box2":
+				LaunchItemsBox(&ar);
+				chr.GH_box2 = "checked";
+
+				LAi_QuestDelay("GH_boxes_check", 0.5);
+			break;
+
+			case "box3":
+				LaunchItemsBox(&ar);
+				chr.GH_box3 = "checked";
+
+				LAi_QuestDelay("GH_boxes_check", 0.5);
+			break;
+		}
+
+		return;
+	}
+
 	if(Locations[locidx].id=="Eleuthera_shore")
 	{
 		switch(chr.boxname)
@@ -202,7 +377,6 @@ void OpenBoxProcedure_WR()
 
 							PlaySound("OBJECTS\DUEL\man_attack1.wav");
 							LAi_SetSitType(chr);	
-						//	PlaySound("OBJECTS\DUEL\anchor.wav");
 							RemoveCharacterEquip(chr, BLADE_ITEM_TYPE);
 							GiveItem2Character(chr, "bladeanchor_big");
 							EquipCharacterByItem(chr, "bladeanchor_big");
@@ -16547,6 +16721,11 @@ void CreateLandActionsEnvironment_WR()
 			if(Pchar.boxname == "box1" || Pchar.boxname == "box2" || Pchar.boxname == "box3"
 			|| Pchar.boxname == "box4" || Pchar.boxname == "box5" || Pchar.boxname == "box6") 
 				IActions.ActiveActions.OpenBox.IconNum    = 1;
+		}
+
+		if(Pchar.location == "BB_Eden_chapel")
+		{
+			if(Pchar.boxname == "box1") IActions.ActiveActions.OpenBox.IconNum    = 2;
 		}
 
 		if(Pchar.location == "BB_Eden_tunnel")

@@ -1032,11 +1032,11 @@ void IT_AssignTypesToTrader(ref chr)
 				if ( IT_RPG_STYLE ) {// TIH
 				if(!skipqty) chr.itemtrade.qty = 1.25;
 				if(!skipsize) chr.itemtrade.size = 1.0;
-				if(!skipprice) chr.itemtrade.price = 1.2;// prices are at a premium for store merchants ( those friggen price whores! =)
+				if(!skipprice) chr.itemtrade.price = 1.05;// prices are at a premium for store merchants ( those friggen price whores! =)
 				} else {
 				if(!skipqty) chr.itemtrade.qty = 1.25;
 				if(!skipsize) chr.itemtrade.size = 1.0;
-				if(!skipprice) chr.itemtrade.price = 1.1;
+				if(!skipprice) chr.itemtrade.price = 1.05;
 				}
 				if(!skiptown) IT_AssignTownType(&chr, town);
 				if(!skipisland) IT_AssignIslandType(&chr, island);
@@ -1262,7 +1262,7 @@ void IT_AssignTypesToTrader(ref chr)
 				if ( IT_RPG_STYLE ) {// TIH
 				if(!skipqty) chr.itemtrade.qty = 0.5;	// not very many
 				if(!skipsize) chr.itemtrade.size = 0.4;	// not very many
-				if(!skipprice) chr.itemtrade.price = 0.8;// lower priced!
+				if(!skipprice) chr.itemtrade.price = 1.0;
 				} else {
 				// set to behave like "IT_TYPE_GENERAL" as that is how they used to behave
 				if(!skipqty) chr.itemtrade.qty = 0.5;

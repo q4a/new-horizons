@@ -14,6 +14,7 @@
 #include "Loc_ai\LAi_equip.c"
 #include "Loc_ai\LAi_sounds.c"
 #include "Loc_ai\LAi_CreateOfficer.c"
+#include "Loc_ai\LAi_CreateCaptain.c"
 // boal Cabin 09.09.03 --> // MAXIMUS Deck --> // KK -->
 #include "Loc_ai\LAi_deck.c"
 #include "Loc_ai\LAi_mutiny.c"

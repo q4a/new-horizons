@@ -11,7 +11,7 @@ bool TreasureFleet = false; // PB: Treasure Fleet
 int Fantom_GenerateEncounter(string sGroupName, int iEType, int iNation) // NK // KK
 {
 	aref	aWar, aMerchant;
-	ref		rEnc;
+	ref		rEnc, rCaptain;
 	int		i, iNumMerchantShips, iNumWarShips;
 	int		iWarClassMax, iWarClassMin, iMerchantClassMax, iMerchantClassMin;
 
@@ -108,7 +108,11 @@ int Fantom_GenerateEncounter(string sGroupName, int iEType, int iNation) // NK /
 		iShipType = Force_GetShipType(iMerchantClassMax, iMerchantClassMin, "Trade", iNation); // NK change to type trade, fixed to swap min,max 04-09-13. Change to Force
 		if (iShipType == INVALID_SHIP_TYPE) continue;
 		//Trace("Merchant ship class = " + ShipsTypes[iShipType].Class + ", name = " + ShipsTypes[iShipType].Name);
-		Fantom_AddFantomCharacter(sGroupName, iShipType, "trade", iEType, iNation);
+		//Fantom_AddFantomCharacter(sGroupName, iShipType, "trade", iEType, iNation);
+		if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: In function Fantom_GenerateEncounter");
+		rCaptain = LAi_Create_Captain(LAi_Find_New_Captain(), "trade", iShipType, iNation); //Levis new function to create a captain
+		//if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: add captain to group "+sGroupName);
+		//Group_AddCharacter(sGroupName, rCaptain.id); //Levis add the captain to the right group
 	}
 
 	for (i=0; i<iNumWarShips; i++)
@@ -117,7 +121,11 @@ int Fantom_GenerateEncounter(string sGroupName, int iEType, int iNation) // NK /
 		iShipType = Force_GetShipType(iWarClassMax, iWarClassMin, "War", iNation); // NK fixed to swap min,max 04-09-13 Change to Force
 		if (iShipType == INVALID_SHIP_TYPE) continue;
 		//Trace("War ship class = " + ShipsTypes[iShipType].Class + ", name = " + ShipsTypes[iShipType].Name);
-		Fantom_AddFantomCharacter(sGroupName, iShipType, "war", iEType, iNation);
+		//Fantom_AddFantomCharacter(sGroupName, iShipType, "war", iEType, iNation);
+		if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: In function Fantom_GenerateEncounter");
+		rCaptain = LAi_Create_Captain(LAi_Find_New_Captain(), "war", iShipType, iNation); //Levis new function to create a captain
+		//if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: add captain to group "+sGroupName);
+		//Group_AddCharacter(sGroupName, rCaptain.id); //Levis add the captain to the right group
 	}
 
 	return iNumWarShips + iNumMerchantShips;
@@ -196,7 +204,8 @@ int Fantom_GetShipType(int iClassMax, int iClassMin, string sShipType, int iNati
 }
 
 // return new added fantom character
-void Fantom_AddFantomCharacter(string sGroupName, int iShipType, string sFantomType, int iEncounterType, int iNation) // NK 04-09-05 add nation argument
+//Levis remove function, we now use CreateCaptain for this.
+/*void Fantom_AddFantomCharacter(string sGroupName, int iShipType, string sFantomType, int iEncounterType, int iNation) // NK 04-09-05 add nation argument
 {
 	ref rFantom = GetFantomCharacter(iNumFantoms);
 	ClearCharacter(rFantom); // PB: Clear ALL attributes from previous character
@@ -221,7 +230,7 @@ void Fantom_AddFantomCharacter(string sGroupName, int iShipType, string sFantomT
 	rFantom.shiptype = GetShipID(iShipType); // PS
 	rFantom.FantomType = sFantomType;
 	float mult = 1.0;
-	if(DEBUG_EXPERIENCE>0) TraceAndLog("Fantom_AddFantomCharacter: Set officer type for " + GetMySimpleName(rFantom));
+	if(DEBUG_EXPERIENCE>0) TraceAndLog("Fantom_AddFantomCharacter: Set officer type for " + GetMySimpleName(rFantom));*/
 	/*switch(sFantomType)
 	{
 		case "trade":
@@ -245,7 +254,7 @@ void Fantom_AddFantomCharacter(string sGroupName, int iShipType, string sFantomT
 			break;
 	}*/
 	//Levis moved this to already existing functions
-	rFantom.quest.officertype = GetCaptainType(rFantom);
+	/*rFantom.quest.officertype = GetCaptainType(rFantom);
 	rFantom.rank = GetCaptainRank(rFantom);
 	mult *= CaptainMultFromOfficerType(rFantom.quest.officertype);
 	ref Shiptype = GetShipByType(iShipType);
@@ -260,7 +269,7 @@ void Fantom_AddFantomCharacter(string sGroupName, int iShipType, string sFantomT
 // NK <--
 	InitAutoSkillsSystem(rFantom,false); //Levis: Reset this character
 	iNumFantoms++;
-}
+}*/
 
 void Fantom_SetRandomMoney(ref rFantom, string sFantomType)
 {

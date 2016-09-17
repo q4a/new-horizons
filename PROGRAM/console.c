@@ -15,8 +15,6 @@ void ExecuteConsole()
 	int i;
 	int limit;
 
-DumpAttributes(LAi_grp_relations);
-
 											// Case 0 = Enable reload (useful when you get stuck on boarding) + Set player type (if you cannot move anymore)
 	switch(0)								// Case 1 = Various test and cheat codes
 	{										// Case 2 = Location coordinate information

@@ -292,7 +292,10 @@ bool AddXPtoChar(ref chref, string expName, int _exp)
 			{
 				LevelText = GetMySimpleName(chref) + " " + TranslateString("","has gained a new level!") + " " + TranslateString("","(Now level") + " " + GetTotalRank(chref) + ")");
 				//This character has noone to choose his perks so we must do it for him.
-				SelectPerksForCharacter(chref, 2);
+				if(!bAllies(chref))
+				{
+					SelectPerksForCharacter(chref, 2);
+				}
 			}
 			// LDH 01May09
 			if(DEBUG_EXPERIENCE>0) Trace(LevelText);

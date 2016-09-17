@@ -1474,6 +1474,11 @@ void ProcessControls()
 						{
 							PostEvent("Longrifle_C_on_back", 1000, "i", PChar);
 						}
+						
+						if(IsEquipCharacterByItem(PChar, "Longrifle_H"))
+						{
+							PostEvent("Longrifle_H_on_back", 1000, "i", PChar);
+						}
 
 						if(IsEquipCharacterByItem(Pchar, "shield_hand"))
 						{
@@ -1534,6 +1539,11 @@ void ProcessControls()
 						if(IsEquipCharacterByItem(Pchar, "Longrifle_C"))
 						{
 							if(charge == 1.0) PostEvent("Longrifle_C_on_hip", 1000, "i", Pchar);
+						}
+						
+						if(IsEquipCharacterByItem(Pchar, "Longrifle_H"))
+						{
+							if(charge == 1.0) PostEvent("Longrifle_H_on_hip", 1000, "i", Pchar);
 						}
 
 						if(IsEquipCharacterByItem(Pchar, "pistolbow"))

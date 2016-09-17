@@ -709,6 +709,12 @@ itmdescr_LongRifle_WT
 This is a sniper's favourite weapon. 
 }
 
+itmname_LongRifle_H		{Long Rifle}
+itmdescr_LongRifle_H
+{
+A Baker Rifle, a flintlock rifle used by the British army during the Napoleonic wars.
+}
+
 // <-- JRH: Long Rifle end
 
 // BOP and JRH: Indian Weapons -->

@@ -135,26 +135,6 @@ int GetRandomRank(bool isfriend, string officertype, int offset)
 	return makeint(pRank);
 }
 
-int GetCaptainRank(ref SCaptain)
-{
-	int shipclass = GetCharacterShipClass(SCaptain);
-	//Class 8 ship should have a rank 1 captain. A class 1 ship should have something round a rank 40 captain.
-	int rank = (8-shipclass)*7;
-	rank = rank*0.8 + 0.3*rand(rank);
-	rank += GetOfficTypeRankBonus(SCaptain.quest.officertype);
-	if(rank < 1) rank = 1;
-	return rank;
-}
-
-int GetBoardingCrewRank(ref Crewmember)
-{
-	int crank = sti(Crewmember.rank);
-	int rank = crank*0.6 + 0.2*rand(crank);
-	rank += GetOfficTypeRankBonus(Crewmember.quest.officertype);
-	if(rank < 1) rank = 1;
-	return rank;
-}
-
 int GetBaseOfficerPrice(ref Officer)
 {
 	//Get the modifier for the officertype

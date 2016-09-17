@@ -16053,8 +16053,8 @@ void QuestComplete(string sQuestName)
 			GiveItem2Character(sld, "blade4");
 			EquipCharacterByItem(sld, "blade4");
 			TakeItemFromCharacter(sld, CheckCharacterEquipByGroup(sld, GUN_ITEM_TYPE));
-			GiveItem2Character(sld, "LongRifle_C");
-			EquipCharacterByItem(sld, "LongRifle_C");
+			GiveItem2Character(sld, "LongRifle_H");
+			EquipCharacterByItem(sld, "LongRifle_H");
 //			LAi_group_MoveCharacter(sld, "FRANCE_SOLDIERS");
 			sld.id = "voltigeur1";
 			sld = LAi_CreateFantomCharacter(false, 0, true, true, 0.25, Nations[ENGLAND].fantomModel.m2, "officers", "reload1_2");
@@ -16062,8 +16062,8 @@ void QuestComplete(string sQuestName)
 			GiveItem2Character(sld, "blade4");
 			EquipCharacterByItem(sld, "blade4");
 			TakeItemFromCharacter(sld, CheckCharacterEquipByGroup(sld, GUN_ITEM_TYPE));
-			GiveItem2Character(sld, "LongRifle_C");
-			EquipCharacterByItem(sld, "LongRifle_C");
+			GiveItem2Character(sld, "LongRifle_H");
+			EquipCharacterByItem(sld, "LongRifle_H");
 //			LAi_group_MoveCharacter(sld, "FRANCE_SOLDIERS");
 			sld.id = "voltigeur2";
 			sld = LAi_CreateFantomCharacter(false, 0, true, true, 0.25, Nations[ENGLAND].fantomModel.m3, "officers", "reload1_3");
@@ -16071,8 +16071,8 @@ void QuestComplete(string sQuestName)
 			GiveItem2Character(sld, "blade4");
 			EquipCharacterByItem(sld, "blade4");
 			TakeItemFromCharacter(sld, CheckCharacterEquipByGroup(sld, GUN_ITEM_TYPE));
-			GiveItem2Character(sld, "LongRifle_C");
-			EquipCharacterByItem(sld, "LongRifle_C");
+			GiveItem2Character(sld, "LongRifle_H");
+			EquipCharacterByItem(sld, "LongRifle_H");
 //			LAi_group_MoveCharacter(sld, "FRANCE_SOLDIERS");
 			sld.id = "voltigeur3";
 			sld = LAi_CreateFantomCharacter(false, 0, true, true, 0.25, Nations[ENGLAND].fantomModel.m4, "goto", "goto2");
@@ -16080,8 +16080,8 @@ void QuestComplete(string sQuestName)
 			GiveItem2Character(sld, "blade4");
 			EquipCharacterByItem(sld, "blade4");
 			TakeItemFromCharacter(sld, CheckCharacterEquipByGroup(sld, GUN_ITEM_TYPE));
-			GiveItem2Character(sld, "LongRifle_C");
-			EquipCharacterByItem(sld, "LongRifle_C");
+			GiveItem2Character(sld, "LongRifle_H");
+			EquipCharacterByItem(sld, "LongRifle_H");
 //			LAi_group_MoveCharacter(sld, "FRANCE_SOLDIERS");
 			sld.id = "voltigeur4";
 			LAi_QuestDelay("see_the_voltigeurs", 0.0);
@@ -16294,8 +16294,8 @@ void QuestComplete(string sQuestName)
 			GiveItem2Character(sld, "blade4");
 			EquipCharacterByItem(sld, "blade4");
 			TakeItemFromCharacter(sld, CheckCharacterEquipByGroup(sld, GUN_ITEM_TYPE));
-			GiveItem2Character(sld, "LongRifle_C");
-			EquipCharacterByItem(sld, "LongRifle_C");
+			GiveItem2Character(sld, "LongRifle_H");
+			EquipCharacterByItem(sld, "LongRifle_H");
 			LAi_group_MoveCharacter(sld, "FRANCE_SOLDIERS");
 			sld.id = "voltigeur5";
 			sld = LAi_CreateFantomCharacter(false, -10, true, true, 0.25, Nations[ENGLAND].fantomModel.m2, "goto", "goto3");
@@ -16303,8 +16303,8 @@ void QuestComplete(string sQuestName)
 			GiveItem2Character(sld, "blade4");
 			EquipCharacterByItem(sld, "blade4");
 			TakeItemFromCharacter(sld, CheckCharacterEquipByGroup(sld, GUN_ITEM_TYPE));
-			GiveItem2Character(sld, "LongRifle_C");
-			EquipCharacterByItem(sld, "LongRifle_C");
+			GiveItem2Character(sld, "LongRifle_H");
+			EquipCharacterByItem(sld, "LongRifle_H");
 			LAi_group_MoveCharacter(sld, "FRANCE_SOLDIERS");
 			sld.id = "voltigeur6";
 			sld = LAi_CreateFantomCharacter(false, -10, true, true, 0.25, Nations[ENGLAND].fantomModel.m3, "goto", "goto1");
@@ -16312,8 +16312,8 @@ void QuestComplete(string sQuestName)
 			GiveItem2Character(sld, "blade4");
 			EquipCharacterByItem(sld, "blade4");
 			TakeItemFromCharacter(sld, CheckCharacterEquipByGroup(sld, GUN_ITEM_TYPE));
-			GiveItem2Character(sld, "LongRifle_C");
-			EquipCharacterByItem(sld, "LongRifle_C");
+			GiveItem2Character(sld, "LongRifle_H");
+			EquipCharacterByItem(sld, "LongRifle_H");
 			LAi_group_MoveCharacter(sld, "FRANCE_SOLDIERS");
 			sld.id = "voltigeur7";
 			sld = LAi_CreateFantomCharacter(false, -10, true, true, 0.25, Nations[ENGLAND].fantomModel.m4, "goto", "goto2");
@@ -16321,8 +16321,8 @@ void QuestComplete(string sQuestName)
 			GiveItem2Character(sld, "blade4");
 			EquipCharacterByItem(sld, "blade4");
 			TakeItemFromCharacter(sld, CheckCharacterEquipByGroup(sld, GUN_ITEM_TYPE));
-			GiveItem2Character(sld, "LongRifle_C");
-			EquipCharacterByItem(sld, "LongRifle_C");
+			GiveItem2Character(sld, "LongRifle_H");
+			EquipCharacterByItem(sld, "LongRifle_H");
 			LAi_group_MoveCharacter(sld, "FRANCE_SOLDIERS");
 			sld.id = "voltigeur8";
 			sld = LAi_CreateFantomCharacter(false, -10, true, true, 0.25, Nations[ENGLAND].fantomModel.m5, "goto", "goto3");
@@ -16330,8 +16330,8 @@ void QuestComplete(string sQuestName)
 			GiveItem2Character(sld, "blade4");
 			EquipCharacterByItem(sld, "blade4");
 			TakeItemFromCharacter(sld, CheckCharacterEquipByGroup(sld, GUN_ITEM_TYPE));
-			GiveItem2Character(sld, "LongRifle_C");
-			EquipCharacterByItem(sld, "LongRifle_C");
+			GiveItem2Character(sld, "LongRifle_H");
+			EquipCharacterByItem(sld, "LongRifle_H");
 			LAi_group_MoveCharacter(sld, "FRANCE_SOLDIERS");
 			sld.id = "voltigeur9";
 			sld = LAi_CreateFantomCharacter(false, -10, true, true, 0.25, Nations[ENGLAND].fantomModel.m6, "goto", "goto1");
@@ -16339,8 +16339,8 @@ void QuestComplete(string sQuestName)
 			GiveItem2Character(sld, "blade4");
 			EquipCharacterByItem(sld, "blade4");
 			TakeItemFromCharacter(sld, CheckCharacterEquipByGroup(sld, GUN_ITEM_TYPE));
-			GiveItem2Character(sld, "LongRifle_C");
-			EquipCharacterByItem(sld, "LongRifle_C");
+			GiveItem2Character(sld, "LongRifle_H");
+			EquipCharacterByItem(sld, "LongRifle_H");
 			LAi_group_MoveCharacter(sld, "FRANCE_SOLDIERS");
 			sld.id = "voltigeur10";
 

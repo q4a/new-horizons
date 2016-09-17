@@ -13980,5 +13980,41 @@ void CreateTempQuestCharacters(ref n)
 	ch.questchar = true;  
 	LAi_NoRebirthEnable(ch);
 	AddGameCharacter(n, ch);
+
+			//Eden's niece
+	ch.old.name = "Margaret";
+	ch.old.lastname = "Pough";
+	ch.name = TranslateString("","Margaret");
+	ch.lastname = TranslateString("","Pough");
+	ch.id		= "Margaret_Pough";
+	ch.model = "Dan_TG3";
+	ch.sound_type = "female_citizen";
+	ch.sex = "woman";
+	ch.location	= "";
+	ch.location.group = "";
+	ch.location.locator = "";
+	ch.Dialog.Filename = "Margaret Pough_dialog.c";
+	ch.greeting = "Gr_Woman_English Citizen";
+	ch.rank 	= 1;
+	ch.reputation = "None";
+	ch.experience = "0";
+	ch.skill.Leadership = "1";
+	ch.skill.Fencing = "1";
+	ch.skill.Sailing = "1";
+	ch.skill.Accuracy = "1";
+	ch.skill.Cannons = "1";
+	ch.skill.Grappling = "1";
+	ch.skill.Repair = "1";
+	ch.skill.Defence = "1";
+	ch.skill.Commerce = "1";
+	ch.skill.Sneak = "1";
+	ch.money = "10";
+	LAi_SetCitizenType(ch);
+	LAi_SetLoginTime(ch, 0.0, 24.0);
+	LAi_group_MoveCharacter(ch, "ENGLAND_CITIZENS");
+	LAi_SetImmortal(ch, true);
+	ch.questchar = true;  
+	LAi_NoRebirthEnable(ch);
+	AddGameCharacter(n, ch);
 }
 	

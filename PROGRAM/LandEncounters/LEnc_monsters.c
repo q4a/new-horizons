@@ -1363,8 +1363,14 @@ void LEnc_MonstersLoginCorrectParams(ref location, aref chr, string group, strin
 		chr.name = VC_MUMMY_NAME; // ccc10.2
 		chr.lastname = VC_MUMMY_LNAME; // ccc10.2
 		if(VC_MUMMY_NOMONEY) chr.money = 0; // NK
-		GiveItem2Character(chr, "indian"+ makeint(1 + rand(15)) );	// jun05 booty for stealing
-		GiveItem2Character(chr, "mineral"+ makeint(1 + rand(2)) );	// jun05 booty for stealing
+		if (frnd() < 0.5) 
+		{
+			GiveItem2Character(chr, "indian"+ makeint(1 + rand(15)) ); // jun05 booty for stealing
+		}
+		if (frnd() < 0.25) 
+		{
+			GiveItem2Character(chr, "mineral"+ makeint(1 + rand(2)) ); // jun05 booty for stealing
+		}
 	}
 	// Swindler: instead use that call:
 	if(locid!="Brothel")

@@ -483,7 +483,9 @@ void InitInterface_RS(string iniName,ref itemsRef,string faceID)
 				|| Locations[FindLocation(pch.location)].id == "Cartagena_hotel_room3" || Locations[FindLocation(pch.location)].id == "Cartagena_hotel_room4"
 				|| Locations[FindLocation(pch.location)].id == "Cartagena hotel" || Locations[FindLocation(pch.location)].id == "Cartagena_hotel_office"
 				|| Locations[FindLocation(pch.location)].id == "Cartagena_hotel_private" || Locations[FindLocation(pch.location)].id == "Cartagena_hotel_attic"
-				|| Locations[FindLocation(pch.location)].id == "bb_Maltains")
+				|| Locations[FindLocation(pch.location)].id == "bb_Maltains" || Locations[FindLocation(pch.location)].id == "bb_Eden_estate"
+				|| Locations[FindLocation(pch.location)].id == "bb_Eden_bedroom1" || Locations[FindLocation(pch.location)].id == "bb_Eden_attic2"
+				|| Locations[FindLocation(pch.location)].id == "bb_Eden_attic3")
 				{
 					//sounds generated in item_logic
 				}

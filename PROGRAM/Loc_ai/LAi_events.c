@@ -585,11 +585,7 @@ void LAi_CharacterAttack()
 		{
 			if(IsMainCharacter(attack) || IsOfficer(attack) || IsOfficerType(attack))
 			{
-				if(CheckAttribute(weapon, "id") && weapon.id == "bladearrows")
-				{
-					RemoveCharacterEquip(attack, BLADE_ITEM_TYPE );
-					EquipCharacterByItem(attack, FindCharacterItemByGroup(attack, BLADE_ITEM_TYPE));
-				}
+				
 			}
 			else
 			{
@@ -602,6 +598,23 @@ void LAi_CharacterAttack()
 			}
 		}
 
+		if(CheckAttribute(weapon, "id") && weapon.id == "bladearrows")
+		{
+			if(IsMainCharacter(attack) || IsOfficer(attack) || IsOfficerType(attack))
+			{
+				
+				RemoveCharacterEquip(attack, BLADE_ITEM_TYPE );
+				EquipCharacterByItem(attack, FindCharacterItemByGroup(attack, BLADE_ITEM_TYPE));
+
+				weaponID = GetCharacterEquipByGroup(attack,BLADE_ITEM_TYPE);
+				if(weaponID == "")
+				{
+					if(!CheckCharacterItem(attack, "bladeX4")) GiveItem2Character(attack, "bladeX4");
+					EquipCharacterByItem(attack, "bladeX4");
+				}
+			}
+		}
+	
 		// CCC and PB: New attribute to weapons to allow for disarming opponents
 		bool tbool = CheckAttribute(enemy, "equip.blade");
 		if(tbool) tbool = GetCharacterEquipByGroup(enemy,BLADE_ITEM_TYPE) != "bladeX4";
@@ -783,6 +796,13 @@ void LAi_CharacterBlock()
 		{
 			RemoveCharacterEquip(attack, BLADE_ITEM_TYPE );
 			EquipCharacterByItem(attack, FindCharacterItemByGroup(attack, BLADE_ITEM_TYPE));
+	
+			BladeID = GetCharacterEquipByGroup(attack,BLADE_ITEM_TYPE);
+			if(BladeID == "")
+			{
+				if(!CheckCharacterItem(attack, "bladeX4")) GiveItem2Character(attack, "bladeX4");
+				EquipCharacterByItem(attack, "bladeX4");
+			}
 		}
 		//<--JRH
 	}
@@ -795,6 +815,13 @@ void LAi_CharacterBlock()
 		{
 			RemoveCharacterEquip(attack, BLADE_ITEM_TYPE );
 			EquipCharacterByItem(attack, FindCharacterItemByGroup(attack, BLADE_ITEM_TYPE));
+	
+			BladeID = GetCharacterEquipByGroup(attack,BLADE_ITEM_TYPE);
+			if(BladeID == "")
+			{
+				if(!CheckCharacterItem(attack, "bladeX4")) GiveItem2Character(attack, "bladeX4");
+				EquipCharacterByItem(attack, "bladeX4");
+			}	
 		}
 	}
 	//<--JRH
@@ -1202,6 +1229,7 @@ void LAi_CharacterFireExecute(aref attack, aref enemy, float kDist, int isFinded
 			if(GetAttribute(weapon,"model") == "blunder1_10")	PostEvent("bbuss_on_back", 1000, "i", attack);
 			if(GetAttribute(weapon,"model") == "pistol13")		PostEvent("pistol13_on_back", 1000, "i", attack);
 			if(GetAttribute(weapon,"model") == "LongRifle_C")	PostEvent("LongRifle_C_on_back", 1000, "i", attack);
+			if(GetAttribute(weapon,"model") == "LongRifle_H")	PostEvent("LongRifle_H_on_back", 1000, "i", attack);
 
 			if(GetAttribute(weapon,"model") == "maquahuitl")
 			{
@@ -1242,6 +1270,7 @@ void LAi_CharacterFireExecute(aref attack, aref enemy, float kDist, int isFinded
 			if(GetAttribute(weapon,"model") == "blunder1_10")	PostEvent("bbuss_on_back", 1000, "i", attack);
 			if(GetAttribute(weapon,"model") == "pistol13")		PostEvent("pistol13_on_back", 1000, "i", attack);
 			if(GetAttribute(weapon,"model") == "LongRifle_C")	PostEvent("LongRifle_C_on_back", 1000, "i", attack);
+			if(GetAttribute(weapon,"model") == "LongRifle_H")	PostEvent("LongRifle_H_on_back", 1000, "i", attack);
 
 			if(GetAttribute(weapon, "id") == "pistolwhip")
 			{
@@ -1587,15 +1616,6 @@ void LAi_CharacterFireExecute(aref attack, aref enemy, float kDist, int isFinded
 						if(gp >=2 && pb >= 2)
 						{
 							//ok
-							//additional sounds for long rifles here
-							if(CheckAttribute(weapon, "id"))
-							{
-								if(weapon.id == "LongRifle_C" || weapon.id == "LongRifle_CT"
-								|| weapon.id == "LongRifle_W" || weapon.id == "LongRifle_WT")
-								{
-									PlaySound("OBJECTS\duel\pistol_big2.wav");
-								}
-							}
 						}
 						else
 						{
@@ -1608,6 +1628,7 @@ void LAi_CharacterFireExecute(aref attack, aref enemy, float kDist, int isFinded
 
 								if(GetAttribute(weapon,"model") == "pisto13") PostEvent("pistol13_on_back", 1000, "i", attack);
 								if(GetAttribute(weapon,"model") == "LongRifle_C") PostEvent("LongRifle_C_on_back", 1000, "i", attack);
+								if(GetAttribute(weapon,"model") == "LongRifle_H") PostEvent("LongRifle_H_on_back", 1000, "i", attack);
 							}
 						}
 					}
@@ -2068,7 +2089,7 @@ void LAi_CharacterFireExecute(aref attack, aref enemy, float kDist, int isFinded
 					LAi_QuestDelay("NPC_equip_new_arrow", 0.75);
 				}
 			}
-			//<-- JRH added for NPC:s bows
+			//<-- JRH added for NPC:s bows	
 		}
 
 		//this goes for all (mainchar, officers, NPC:s)
@@ -2103,6 +2124,20 @@ void LAi_CharacterFireExecute(aref attack, aref enemy, float kDist, int isFinded
 				attack.crypt_zombie = "defeated";
 
 				LAi_QuestDelay("close_crypt1_box", 1.5);
+			}
+		}
+
+		if(weapon.id == "LongRifle_H")
+		{
+			PlaySound("OBJECTS\duel\pistol_musket2.wav");
+			PlaySound("OBJECTS\duel\pistol_musket2.wav");
+		}
+		if(CheckAttribute(weapon, "id"))
+		{
+			if(weapon.id == "LongRifle_C" || weapon.id == "LongRifle_CT"
+			|| weapon.id == "LongRifle_W" || weapon.id == "LongRifle_WT")
+			{
+				PlaySound("OBJECTS\duel\pistol_big2.wav");
 			}
 		}
 	}
@@ -2969,6 +3004,12 @@ void LAi_CharacterFireExecute(aref attack, aref enemy, float kDist, int isFinded
 	if(IsEquipCharacterByItem(attack, "LongRifle_C"))
 	{
 		PostEvent("LongRifle_C_on_back", 1000, "i", attack);
+		PostEvent("mguns_fight_check", 1000, "i", attack);
+	}
+	
+	if(IsEquipCharacterByItem(attack, "LongRifle_H"))
+	{
+		PostEvent("LongRifle_H_on_back", 1000, "i", attack);
 		PostEvent("mguns_fight_check", 1000, "i", attack);
 	}
     //<--- JRH switch rifles

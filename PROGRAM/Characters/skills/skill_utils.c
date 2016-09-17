@@ -371,6 +371,7 @@ int CalcSkillModifier(ref character, string skillName)
 {
 	int j, qty, idi;
 	float mod = 0; //Levis: changed to float
+	float modi = 0; //Levis used for single items
 	ref itm;
 	string modid = "";
 	
@@ -406,29 +407,29 @@ int CalcSkillModifier(ref character, string skillName)
 				if(itm.skill.stack == true)			//JRH
 				{
 					//they stack so we can add the mod
-					mod += sti(itm.skill.(skillName)) * qty/sti(itm.skill.num);
+					modi = sti(itm.skill.(skillName)) * qty/sti(itm.skill.num);
 				}
 				else
 				{
 					//they don't stack so just add the mod once.
-					mod += sti(itm.skill.(skillName));
+					modi = sti(itm.skill.(skillName));
 				}
 				//Levis for difficulty sake we divide the mod by the difficultylevel
-				mod = mod/GetDifficulty():
+				modi = modi/GetDifficulty();
 				//Levis let's store which item gives the boost so we can display this in the character interface
 				idi = 0;
-				while(CheckAttribute(character,"skill."+skillName+".modifier.id"+idi))
+				while(CheckAttribute(character,"itemmods."+skillName+".id"+idi))
 				{
 					idi++;
 				}
 				modid = "id"+idi;
-				character.itemmods.(skillName).(modid) = mod;
+				character.itemmods.(skillName).(modid) = modi;
 				character.itemmods.(skillName).(modid).desc = itm.id;
+				mod += modi;
            	}
 			//Levis <--
 		}
 	}
-
 //	mod = iclamp(-MAX_SKILL_INCREASE, MAX_SKILL_INCREASE, mod); // PB: Single line
 	mod = fclamp(-100, MAX_SKILL_INCREASE, mod);		//JRH for cursed coin
 	character.skill.(skillName).modifier = mod;

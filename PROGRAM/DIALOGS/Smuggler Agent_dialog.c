@@ -134,25 +134,6 @@ void ProcessDialogEvent()
 		break;
 		//Added by Levis <--
 		
-		//Levis tradebook addon -->
-		case "Tradebook":
-			//Check if they like you enough
-			if(CheckSmugglerLiking(pchar) >= 70)
-			{
-				updateIslandSmugglingStateTradebookAll(Pchar);
-				d.Text = DLG_TEXT[76];
-				Link.l1 = DLG_TEXT[21];
-				Link.l1.go = "Exit";
-			}
-			else
-			{
-				d.Text = DLG_TEXT[75];
-				Link.l1 = DLG_TEXT[62];
-				Link.l1.go = "Exit";
-			}
-		break;
-		//Levis tradebook addon <--
-		
 		case "exit":
 			Diag.CurrentNode = Diag.TempNode;
 			NPChar.quest.meeting = NPC_Meeting;
@@ -199,7 +180,7 @@ void ProcessDialogEvent()
 					Link.l3 = DLG_TEXT[57];
 					Link.l3.go = "Offer Collector";
 				}
-				if(CheckAttribute(PChar,"quest.smuggle_collector.collect_bows") && GetAttribute(PChar,"items.pistolbow") >= 10)
+				if(CheckAttribute(PChar,"quest.smuggle_collector.collect_bows") && sti(PChar.items.pistolbow) >= 10)
 				{
 					Link.l3 = DLG_TEXT[65];
 					Link.l3.go = "Collector Contact";
@@ -212,16 +193,8 @@ void ProcessDialogEvent()
 					Link.l4.go = "Report Thomas";
 				}
 				//Levis: Thomas <--
-				//Levis: Tradebook addon -->
-				//You should have smuggled at least once to ask this
-				if(CheckSmugglingAmount(PChar) > 0)
-				{
-					Link.l5 = DLG_TEXT[74];
-					Link.l5.go = "Tradebook";
-				}
-				//Levis: Tradebook addon <--
-				Link.l6 = DLG_TEXT[8];
-				Link.l6.go = "Exit";
+				Link.l5 = DLG_TEXT[8];
+				Link.l5.go = "Exit";
 			}
 		break;
 		
@@ -300,7 +273,7 @@ void ProcessDialogEvent()
 				Link.l3 = DLG_TEXT[57];
 				Link.l3.go = "Offer Collector";
 			}
-			if(CheckAttribute(PChar,"quest.smuggle_collector.collect_bows") && GetAttribute(PChar,"items.pistolbow") >= 10)
+			if(CheckAttribute(PChar,"quest.smuggle_collector.collect_bows") && sti(PChar.items.pistolbow) >= 10)
 			{
 				Link.l3 = DLG_TEXT[65];
 				Link.l3.go = "Collector Contact";
@@ -313,16 +286,8 @@ void ProcessDialogEvent()
 				Link.l4.go = "Report Thomas";
 			}
 			//Levis: Thomas <--
-			//Levis: Tradebook addon -->
-			//You should have smuggled at least once to ask this
-			if(CheckSmugglingAmount(PChar) > 0)
-			{
-				Link.l5 = DLG_TEXT[74];
-				Link.l5.go = "Tradebook";
-			}
-			//Levis: Tradebook addon <--
-			Link.l6 = DLG_TEXT[11];
-			Link.l6.go = "Exit";
+			Link.l5 = DLG_TEXT[11];
+			Link.l5.go = "Exit";
 		break;
 
 		case "Meeting_1":

@@ -356,7 +356,6 @@ void ProcessCommandExecute()
 	{
 		if(comName=="activate" || comName=="click")
 		{
-			UpdateChangedFlag(); //Levis
 			PostEvent("LaunchIAfterFrame",1,"sl", nodName, 2);
 			InterfaceStack.SelectMenu_node = nodName;
 			interfaceResultCommand = RC_INTERFACE_NATIONRELATION_EXIT;
@@ -367,7 +366,6 @@ void ProcessCommandExecute()
 	{
 		if(comName=="activate" || comName=="click")
 		{
-			UpdateChangedFlag(); //Levis
 			PostEvent("LaunchIAfterFrame",1,"sl", nodName, 2);
 			InterfaceStack.SelectMenu_node = nodName;
 			interfaceResultCommand = RC_INTERFACE_NATIONRELATION_EXIT;
@@ -378,7 +376,6 @@ void ProcessCommandExecute()
 	{
 		if(comName=="activate" || comName=="click")
 		{
-			UpdateChangedFlag(); //Levis
 			PostEvent("LaunchIAfterFrame",1,"sl", nodName, 2);
 			InterfaceStack.SelectMenu_node = nodName;
 			interfaceResultCommand = RC_INTERFACE_NATIONRELATION_EXIT;
@@ -389,7 +386,6 @@ void ProcessCommandExecute()
 	{
 		if(comName=="activate" || comName=="click")
 		{
-			UpdateChangedFlag(); //Levis
 			PostEvent("LaunchIAfterFrame",1,"sl", nodName, 2);
 			InterfaceStack.SelectMenu_node = nodName;
 			interfaceResultCommand = RC_INTERFACE_NATIONRELATION_EXIT;
@@ -400,7 +396,6 @@ void ProcessCommandExecute()
 	{
 		if(comName=="activate" || comName=="click")
 		{
-			UpdateChangedFlag(); //Levis
 			PostEvent("LaunchIAfterFrame",1,"sl", nodName, 2);
 			InterfaceStack.SelectMenu_node = nodName;
 			interfaceResultCommand = RC_INTERFACE_NATIONRELATION_EXIT;
@@ -411,7 +406,6 @@ void ProcessCommandExecute()
 	{
 		if(comName=="activate" || comName=="click")
 		{
-			UpdateChangedFlag(); //Levis
 			PostEvent("LaunchIAfterFrame",1,"sl", nodName, 2);
 			InterfaceStack.SelectMenu_node = nodName;
 			interfaceResultCommand = RC_INTERFACE_NATIONRELATION_EXIT;
@@ -422,7 +416,6 @@ void ProcessCommandExecute()
 	{
 		if(comName=="activate" || comName=="click")
 		{
-			UpdateChangedFlag(); //Levis
 			PostEvent("LaunchIAfterFrame",1,"sl", nodName, 2);
 			InterfaceStack.SelectMenu_node = nodName;
 			interfaceResultCommand = RC_INTERFACE_NATIONRELATION_EXIT;
@@ -433,7 +426,6 @@ void ProcessCommandExecute()
 	{
 		if(comName=="activate" || comName=="click")
 		{
-			UpdateChangedFlag(); //Levis
 			PostEvent("LaunchIAfterFrame",1,"sl", nodName, 2);
 			InterfaceStack.SelectMenu_node = nodName;
 			interfaceResultCommand = RC_INTERFACE_NATIONRELATION_EXIT;
@@ -461,20 +453,11 @@ void IDoExit(int exitCode)
 	DelEventHandler("ievnt_command","ProcessCommandExecute");
 	DelEventHandler("frame","ProcessFrame");
 
-	//Levis moved to function so it can be called at multiple places
-	UpdateChangedFlag(); //Levis
-
-    interfaceResultCommand = exitCode;
-// MAXIMUS interface MOD -->
-	EndCancelInterface(true);
-// MAXIMUS interface MOD <--
-	if (bSeaActive) RefreshBattleInterface(true); // TIH helps to refresh minimap colours if relation changed Aug27'06
-}
-
-void UpdateChangedFlag()
-{
 	// PB: Update Changed Flag -->
+	int compIdx, cc;
+	bool bPlayerCompanion;
 	ref PChar = GetMainCharacter();
+	ref rCharacter;
 	if (PChar.nation != PChar.NationsRelations_PreviousNation)
 	{
 		HoistFlag(PChar.nation);
@@ -484,6 +467,12 @@ void UpdateChangedFlag()
 		DeleteAttribute(PChar, "NationsRelations_PreviousNation");
 	}
 	// PB: Update Changed Flag <--
+
+    interfaceResultCommand = exitCode;
+// MAXIMUS interface MOD -->
+	EndCancelInterface(true);
+// MAXIMUS interface MOD <--
+	if (bSeaActive) RefreshBattleInterface(true); // TIH helps to refresh minimap colours if relation changed Aug27'06
 }
 
 bool IsFlagSelectable(int iNation)

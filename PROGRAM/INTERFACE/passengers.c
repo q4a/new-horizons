@@ -439,11 +439,11 @@ int XI_ChangeOfficer(int OfficerNum, int idxNew)
 		if(DynamicInterfaceLevel() > 1) GameInterface.FourImage.(attrName).str1 = ""; // PB
 
 		chref = GetCharacter(tmpIdx);
-		/*if(CheckAttribute(chref, "quest.officertype") && chref.quest.officertype == OFFIC_TYPE_ABORDAGE)
+		if(CheckAttribute(chref, "quest.officertype") && chref.quest.officertype == OFFIC_TYPE_ABORDAGE)
 		{
 			//DeleteAttribute(chref, "quest.officertype"); //Levis we give an NPC offictype now
 			chref.quest.officertype = OFFIC_TYPE_RANDCHAR;
-		}*/ //Levis: everyone has an officertype now
+		}
 	}
 	else
 	{
@@ -461,8 +461,7 @@ int XI_ChangeOfficer(int OfficerNum, int idxNew)
 		chref = GetCharacter(idxNew);
 		if(!CheckAttribute(chref, "quest.officertype"))
 		{
-			trace("ERROR: Please provide your savegame to the forums!")
-			//chref.quest.officertype = OFFIC_TYPE_ABORDAGE; //Levis: everyone has an officertype now, if not something goes very wrong!
+			chref.quest.officertype = OFFIC_TYPE_ABORDAGE;
 		}
 	}
 	SendMessage(&GameInterface,"lsl", MSG_INTERFACE_FOURIMAGE_CHANGE, "OFFICERSLIST", changeIdx);
@@ -837,9 +836,8 @@ void SetChrSkillData(ref chref)
 		ChangeStringColor(skill,color);
 	}
 // changed by MAXIMUS -->
-	//Levis: everyone has an officertype now
-	//if(CheckAttribute(chref,"quest.officertype")==true) GameInterface.strings.CharacterName = chref.name + " " + chref.lastname + " - " + XI_ConvertString("S"+chref.quest.officertype); // MAXIMUS interface MOD
-	//else GameInterface.strings.CharacterName = chref.name + " " + chref.lastname + " - " + XI_ConvertString("SComrade-In-Arms");
+	if(CheckAttribute(chref,"quest.officertype")==true) GameInterface.strings.CharacterName = chref.name + " " + chref.lastname + " - " + XI_ConvertString("S"+chref.quest.officertype); // MAXIMUS interface MOD
+	else GameInterface.strings.CharacterName = chref.name + " " + chref.lastname + " - " + XI_ConvertString("SComrade-In-Arms");
 //	GameInterface.strings.CharacterName = GetMyName(chref) + " - " + chref.quest.officertype;
 // changed by MAXIMUS <--
 }
@@ -1236,7 +1234,7 @@ void SelectQMaster()
 
 void SelectRemove()
 {
-	SetCharacterRole(GetBoardingCrewType(GetMainCharacter())); //Levis: Changed to be the officer type which is your boarding crew
+	SetCharacterRole(OFFIC_TYPE_ABORDAGE);
 }
 
 void SelectAbort()
@@ -1265,8 +1263,7 @@ void SetCharacterRole(string officerType)
 	{
 		ref chr = GetCharacter(idx);
 
-		//Levis: the arbordage type is used different now
-		/*if(officerType == OFFIC_TYPE_ABORDAGE)
+		if(officerType == OFFIC_TYPE_ABORDAGE)
 		{
 			bool del = true;
 			for(int i = 0; i < OFFICER_MAX; i++)
@@ -1285,9 +1282,9 @@ void SetCharacterRole(string officerType)
 			}
 		}
 		else
-		{*/
+		{
 			chr.quest.officertype = officerType;
-		//}
+		}
 
 		SetChrSkillData(chr);
 	}

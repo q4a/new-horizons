@@ -952,8 +952,6 @@ void NewGame_continue()
 	//Reinit officer types
 	Trace("Gauging: officertypes");
 	InitOfficerTypes();
-	Trace("Gauging: Nation bonuschances");
-	InitBonusChances();
 	ReloadProgressUpdate();
 
 	InitPeriods();

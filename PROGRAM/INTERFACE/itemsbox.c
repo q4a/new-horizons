@@ -482,8 +482,7 @@ void InitInterface_RS(string iniName,ref itemsRef,string faceID)
 				|| Locations[FindLocation(pch.location)].id == "Cartagena_hotel_room1" || Locations[FindLocation(pch.location)].id == "Cartagena_hotel_room2"	
 				|| Locations[FindLocation(pch.location)].id == "Cartagena_hotel_room3" || Locations[FindLocation(pch.location)].id == "Cartagena_hotel_room4"
 				|| Locations[FindLocation(pch.location)].id == "Cartagena hotel" || Locations[FindLocation(pch.location)].id == "Cartagena_hotel_office"
-				|| Locations[FindLocation(pch.location)].id == "Cartagena_hotel_private" || Locations[FindLocation(pch.location)].id == "Cartagena_hotel_attic"
-				|| Locations[FindLocation(pch.location)].id == "bb_Maltains")
+				|| Locations[FindLocation(pch.location)].id == "Cartagena_hotel_private" || Locations[FindLocation(pch.location)].id == "Cartagena_hotel_attic")
 				{
 					//sounds generated in item_logic
 				}
@@ -1709,16 +1708,8 @@ void ChangeItemsSlot()
 	{
 		if(itm1=="Money")
 		{
-			if(itm2=="Malta_outfit" || itm2=="Malta_syringe" || itm2=="Malta_icon" || itm2=="Malta_poison" || itm2=="Malta_medkit"
-			|| itm2=="Malta_statue" || itm2=="Malta_box" || itm2=="Malta_cross" || itm2=="Malta_censer")
-			{
-				iq1 = 0;
-			}
-			else
-			{
-				mchref.Money = 0;
-				g_refItems.Money = iq1+sti(g_refItems.Money);
-			}
+			mchref.Money = 0;
+			g_refItems.Money = iq1+sti(g_refItems.Money);
 		}
 		else
 		{ // --> Sulan 07/2010: Check for quantity limits
@@ -1727,11 +1718,6 @@ void ChangeItemsSlot()
 			{
 				limit = HowManyItemsCanITake(itm1, g_refitems);
 				if (limit < iq1) iq1 = limit;
-			}
-			if(itm2=="Malta_outfit" || itm2=="Malta_syringe" || itm2=="Malta_icon" || itm2=="Malta_poison" || itm2=="Malta_medkit"
-			|| itm2=="Malta_statue" || itm2=="Malta_box" || itm2=="Malta_cross" || itm2=="Malta_censer")
-			{
-				iq1 = 0;
 			}
 			if(iq1 >0)
 			{
@@ -1753,13 +1739,6 @@ void ChangeItemsSlot()
 			|| itm2=="blade_mKnife" || itm2=="pistolmket" || itm2=="pistolmketB")
 			{
 				limit = HowManyItemsCanITake(itm2, mchref);
-				if (limit < iq2) iq2 = limit;
-			}
-			if(itm2=="Malta_outfit" || itm2=="Malta_syringe" || itm2=="Malta_icon" || itm2=="Malta_poison" || itm2=="Malta_medkit"
-			|| itm2=="Malta_statue" || itm2=="Malta_box" || itm2=="Malta_cross" || itm2=="Malta_censer")
-			{
-				PlaySound("VOICE\ENGLISH\blaze_hah.wav");
-				limit = 0;
 				if (limit < iq2) iq2 = limit;
 			}
 			if(iq2>0)
@@ -2367,13 +2346,6 @@ void TakeItems(bool bMoreThanOneItem)
 				amount = 1;
 				if(amount >0) takeitem = true;
 			}
-		}
-
-		if(itm2=="Malta_outfit" || itm2=="Malta_syringe" || itm2=="Malta_icon" || itm2=="Malta_poison" || itm2=="Malta_medkit"
-		|| itm2=="Malta_statue" || itm2=="Malta_box" || itm2=="Malta_cross" || itm2=="Malta_censer")
-		{
-			PlaySound("VOICE\ENGLISH\blaze_hah.wav");
-			amount = 0; if(amount >0) takeitem = false;
 		}
 
 		switch(itm2)

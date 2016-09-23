@@ -31,6 +31,197 @@ void BothQuestComplete(string sQuestName)
 	switch(sQuestName)
 	{
 
+		////////////////////////////////////////////////////////////////////////
+		//   вест про прокл€тые монетки
+		////////////////////////////////////////////////////////////////////////
+
+		case "Story_CursedCoinsStarted":
+			GiveItem2Character(PChar,"Chest");
+
+			Locations[FindLocation("Redmond_town_01")].locators_radius.goto.goto17 = 5.0;
+
+			ChangeCharacterAddressGroup(CharacterFromID("Cursed_Pirate_01"), "Redmond_town_01", "goto", "goto54");
+			ChangeCharacterAddressGroup(CharacterFromID("Cursed_Pirate_02"), "Redmond_town_01", "goto", "goto55");
+			
+			PChar.quest.Story_CursedCoinsEncounter.win_condition.l1 = "locator";
+			PChar.quest.Story_CursedCoinsEncounter.win_condition.l1.location = "Redmond_town_01";
+			PChar.quest.Story_CursedCoinsEncounter.win_condition.l1.locator_group = "goto";
+			PChar.quest.Story_CursedCoinsEncounter.win_condition.l1.locator = "goto17";
+			PChar.quest.Story_CursedCoinsEncounter.win_condition = "Story_CursedCoinsEncounter";
+		break;
+
+		case "Story_CursedCoinsEncounter":
+			LAi_SetActorType(PChar);
+			LAi_SetActorType(CharacterFromID("Cursed_Pirate_01"));
+			LAi_SetActorType(CharacterFromID("Cursed_Pirate_02"));
+			LAi_ActorTurnToCharacter(PChar, CharacterFromID("Cursed_Pirate_01"));
+			LAi_ActorWaitDialog(PChar, CharacterFromID("Cursed_Pirate_01"));
+			LAi_ActorDialog(CharacterFromID("Cursed_Pirate_01"), PChar, "", 20.0, 1.0);
+			LAi_ActorFollow(CharacterFromID("Cursed_Pirate_02"), PChar, "", 30.0);
+			LAi_group_MoveCharacter(CharacterFromID("Cursed_Pirate_01"), "CURSED_PIRATES");
+			LAi_group_MoveCharacter(CharacterFromID("Cursed_Pirate_02"), "CURSED_PIRATES");
+
+			LAi_group_SetRelation("ENGLAND_SOLDIERS", LAI_GROUP_PLAYER, LAI_GROUP_NEUTRAL);
+			LAi_group_SetAlarmReaction("ENGLAND_SOLDIERS", LAI_GROUP_PLAYER, LAI_GROUP_ENEMY, LAI_GROUP_FRIEND);
+		break;
+
+		case "Story_CursedCoinsGiveOutChest":
+			LAi_SetPlayerType(PChar);
+			LAi_SetActorType(CharacterFromID("Cursed_Pirate_01"));
+			LAi_SetActorType(CharacterFromID("Cursed_Pirate_02"));
+			Characters[GetCharacterIndex("Cursed_Pirate_01")].location = "None";
+			Characters[GetCharacterIndex("Cursed_Pirate_02")].location = "None";
+			LAi_ActorRunToLocation(CharacterFromID("Cursed_Pirate_01"), "Reload", "Reload_2_4_back", "None", "", "", "", 120);
+			LAi_ActorRunToLocation(CharacterFromID("Cursed_Pirate_02"), "Reload", "Reload_2_4_back", "None", "", "", "", 120);
+
+			LAi_group_SetAlarmReaction("ENGLAND_SOLDIERS", LAI_GROUP_PLAYER, LAI_GROUP_ENEMY, LAI_GROUP_FRIEND);
+			LAi_group_SetRelation("ENGLAND_SOLDIERS", LAI_GROUP_PLAYER, LAI_GROUP_FRIEND);
+		break;
+
+		case "Story_CursedCoinsFirstFightWithPirates":
+			LAi_SetPlayerType(PChar);
+			LAi_QuestDelay("Story_CursedCoinsImmortalPirates", 7.0);
+			LAi_group_MoveCharacter(CharacterFromID("Cursed_Pirate_01"), "CURSED_PIRATES");
+			LAi_group_MoveCharacter(CharacterFromID("Cursed_Pirate_02"), "CURSED_PIRATES");
+			LAi_group_FightGroups("CURSED_PIRATES", LAI_GROUP_PLAYER, true);
+		break;
+
+		case "Story_CursedCoinsImmortalPirates":
+			LAi_SetActorType(PChar);
+			LAi_SetActorType(CharacterFromID("Cursed_Pirate_01"));
+			LAi_SetActorType(CharacterFromID("Cursed_Pirate_02"));
+
+			LAi_type_actor_Reset(CharacterFromID("Cursed_Pirate_01"));
+			LAi_type_actor_Reset(CharacterFromID("Cursed_Pirate_02"));
+
+			Characters[GetCharacterIndex("Cursed_Pirate_01")].Dialog.CurrentNode = "We_are_immortal";
+			LAi_ActorWaitDialog(PChar, CharacterFromID("Cursed_Pirate_01"));
+			LAi_ActorDialog(CharacterFromID("Cursed_Pirate_01"), PChar, "Story_CursedCoinsCloseQuestMovie", 20.0, 1.0);
+		break;
+
+		case "Story_CursedCoinsCloseQuestMovie":
+			EndQuestMovie();TrackQuestMovie("end","Story_CursedCoinsCloseQuestMovie");
+		break;
+
+		case "Story_CursedCoinsFightPiratesAgain":
+			StartQuestMovie(true, true, false);TrackQuestMovie("start","Story_CursedCoinsFightPiratesAgain");
+			LAi_SetPlayerType(PChar);
+			PChar.quest.disable_rebirth = true; // PB
+			Characters[getCharacterIndex("Cursed_Pirate_01")].skill.fencing = 10;
+			Characters[getCharacterIndex("Cursed_Pirate_02")].skill.fencing = 10;
+			LAi_group_MoveCharacter(CharacterFromID("Cursed_Pirate_01"), "CURSED_PIRATES");
+			LAi_group_MoveCharacter(CharacterFromID("Cursed_Pirate_02"), "CURSED_PIRATES");
+			LAi_group_FightGroups("CURSED_PIRATES", LAI_GROUP_PLAYER, true);
+		break;
+
+		case "Seen_Black_Pearl":
+			Log_SetStringToLog(QUEST_MESSAGE7);
+
+			Group_CreateGroup("Big Boss");
+			Group_AddCharacter("Big Boss", "Barbossa");
+			Group_SetGroupCommander("Big Boss", "Barbossa");
+			Group_SetPursuitGroup("Big Boss", PLAYER_GROUP);
+			Group_SetAddress("Big Boss", "FalaiseDeFleur", "", "");
+			Group_SetTaskMove("Big Boss", 10000, 10000);
+			Group_LockTask("Big Boss");
+
+			SetCharacterRelationBoth(GetCharacterIndex("Barbossa"),GetMainCharacterIndex(),RELATION_FRIEND);
+// KK -->
+			// prevent companions from attacking Black Pearl (for now)
+			for(i = 0; i < COMPANION_MAX; i++) {
+				if (GetCompanionIndex(PChar, i) >= 0 && GetRemovable(GetCharacter(GetCompanionIndex(PChar, i))))
+				{
+					SetCharacterRelationBoth(GetCharacterIndex("Barbossa"),GetCompanionIndex(PChar, i),RELATION_FRIEND);
+				}
+			}
+// <-- KK
+
+// KK -->
+			PChar.previous_relation = GetRMRelation(PChar, PIRATE);
+			PChar.previous_flag = GetCurrentFlag();
+			SetRMRelation(PChar, PIRATE, REL_NEUTRAL);
+			HoistFlag(PERSONAL_NATION); // PB: Otherwise the below doesn't work
+
+			iForceDetectionFalseFlag = -1;
+// <-- KK
+
+			// PB: Disabled because this triggers TOO EARLY when using DirectSail -->
+		//	PChar.quest.seen_black_pearl_away1.win_condition.l1 = "MapEnter";
+		//	PChar.quest.seen_black_pearl_away1.win_condition = "seen_black_pearl_away";
+			// PB: Disabled because this triggers TOO EARLY when using DirectSail <--
+
+			PChar.quest.seen_black_pearl_away2.win_condition.l1 = "location";
+			PChar.quest.seen_black_pearl_away2.win_condition.l1.location = "Falaise_De_Fleur_port_01";
+			PChar.quest.seen_black_pearl_away2.win_condition = "seen_black_pearl_away";
+
+			PChar.quest.seen_black_pearl_away3.win_condition.l1 = "location";
+			PChar.quest.seen_black_pearl_away3.win_condition.l1.location = "Falaise_de_fleur_shore";
+			PChar.quest.seen_black_pearl_away3.win_condition = "seen_black_pearl_away";
+		break;
+
+		case "seen_black_pearl_away":
+// KK -->
+			HoistFlag(PChar.previous_flag);
+			SetRMRelation(PChar, PIRATE, stf(PChar.previous_relation));
+			iForceDetectionFalseFlag = 0;
+			DeleteAttribute(PChar, "previous_relation");
+			DeleteAttribute(PChar, "previous_flag");
+// <-- KK
+			PChar.quest.seen_black_pearl_away2.over = "yes";
+			PChar.quest.seen_black_pearl_away3.over = "yes";
+			Group_SetAddress("Big Boss", "none", "", "");
+			PChar.quest.seen_black_pearl_away1.over = "yes";
+			PChar.quest.seen_black_pearl_away2.over = "yes";
+			PChar.quest.seen_black_pearl_away3.over = "yes";
+		break;
+
+		case "about_ruby":
+			PChar.quest.Carpenter.over = "yes";
+			PChar.quest.Carpenter1.over = "yes";
+
+			SetCharacterToNearLocatorFromMe("Gordon Carpenter", 10);
+			LAi_SetActorType(CharacterFromID("Gordon Carpenter"));
+			LAi_ActorDialog(CharacterFromID("Gordon Carpenter"), PChar, "", 1.0, 1.0);
+		break;
+
+		case "talk_about_ruby":
+			LAi_Fade("talk_about_ruby1", "talk_about_ruby2");
+		break;
+
+		case "talk_about_ruby1":
+			DoQuestReloadToLocation("Falaise_De_Fleur_tavern", "sit", "sit4", "_");
+			ChangeCharacterAddressGroup(CharacterFromID("Gordon Carpenter"), "Falaise_De_Fleur_tavern", "sit", "sit8");
+			LAi_SetActorType(PChar);
+			LAi_ActorSetSitMode(PChar);
+			LAi_SetActorType(CharacterFromID("Gordon Carpenter"));
+			LAi_ActorSetSitMode(CharacterFromID("Gordon Carpenter"));
+		break;
+
+		case "talk_about_ruby2":
+			Lai_ActorWaitDialog(PChar, CharacterFromID("Gordon Carpenter"));
+			LAi_ActorDialog(CharacterFromID("Gordon Carpenter"), PChar, "", 1.0, 1.0);
+		break;
+
+		case "Story_CursedCoinsFinished":
+			LAI_SetPlayerType(PChar);
+			DoReloadCharacterToLocation("Falaise_De_Fleur_tavern", "goto", "goto3");
+			Characters[GetCharacterIndex("Gordon Carpenter")].location = "None";
+
+			SafePortLeave(GetCurrentLocationNation(), false); // KK
+
+			CloseQuestHeader("chest");
+		break;
+
+		case "Story_CursedCoinsShit":
+			Lai_SetActorType(CharacterFromID("Henry Peat"));
+			LAi_ActorSetSitMode(CharacterFromID("Henry Peat"));
+		break;
+
+		case "Story_CursedCoinsPeatSilent":
+			AddQuestRecord("Chest", 6);
+			LAi_CharacterDisableDialog(CharacterFromID("Henry Peat"));
+		break;
+
 		// NK 05-07-14 to disable model selection while in tut -->
 		case "EnableModelSelect":
 			DeleteAttribute(&PChar, "DisableModelSelect");
@@ -48,10 +239,11 @@ void BothQuestComplete(string sQuestName)
 		break;
 
 		case "After_French_Invasion_Of_Oxbay":
-		/*	ChangeCharacterAddressGroup(CharacterFromID("John Clifford Brin"), "none", "", "");
+			characters[GetCharacterIndex("John Clifford Brin")].Dialog.Filename = "Robert Christopher Silehard_dialog.c";
+			ChangeCharacterAddressGroup(CharacterFromID("John Clifford Brin"), "none", "", "");
 			ChangeCharacterAddressGroup(CharacterFromID("Robert Christopher Silehard"), "Redmond_Residence", "goto", "goto8");
 			Towns[GetTownIndex("Redmond")].gov = "Robert Christopher Silehard";
-			characters[GetCharacterIndex("Robert Christopher Silehard")].Dialog.CurrentNode = "AtRedmondAfterInvasion";*/
+			characters[GetCharacterIndex("Robert Christopher Silehard")].Dialog.CurrentNode = "AtRedmondAfterInvasion";
 
    //JRH ammo mod --->
 			if(ENABLE_AMMOMOD)
@@ -104,9 +296,10 @@ void BothQuestComplete(string sQuestName)
 			if(PChar.location=="Tutorial_deck")//MAXIMUS
 			{
 				questRec = 1;
-			/*	ChangeCharacterAddressGroup(CharacterFromID("John Clifford Brin"), "none", "", "");
+				characters[GetCharacterIndex("John Clifford Brin")].Dialog.Filename = "Robert Christopher Silehard_dialog.c";
+				ChangeCharacterAddressGroup(CharacterFromID("John Clifford Brin"), "none", "", "");
 				ChangeCharacterAddressGroup(CharacterFromID("Robert Christopher Silehard"), "Redmond_Residence", "goto", "goto8");
-				Towns[GetTownIndex("Redmond")].gov = "Robert Christopher Silehard";*/
+				Towns[GetTownIndex("Redmond")].gov = "Robert Christopher Silehard";
 
 				PChar.DisableModelSelect = true;
 				PChar.quest.EnableModelSelect.win_condition.l1 = "ExitFromLocation";
@@ -141,7 +334,7 @@ void BothQuestComplete(string sQuestName)
 				LAi_group_SetAlarmReaction("tutorial", LAI_GROUP_PLAYER, LAI_GROUP_ENEMY, LAI_GROUP_ENEMY);
 				LAi_SetImmortal(CharacterFromID("Malcolm Hatcher"), false);
 // KK -->
-				if (GetCharacterShipCabin(PChar) == "Cabin_none" && CharPlayerType != PLAYER_TYPE_CASTAWAY)
+				if (GetCharacterShipCabin(PChar) == "Cabin_none")
 					Characters[GetCharacterIndex("Malcolm Hatcher")].Dialog.CurrentNode = "OnMalcolmShip";
 				else
 					Characters[GetCharacterIndex("Malcolm Hatcher")].Dialog.CurrentNode = "start";
@@ -152,7 +345,8 @@ void BothQuestComplete(string sQuestName)
 					locations[FindLocation(PChar.location)].box1.items.(playerGun) = 1;
 				locations[FindLocation(PChar.location)].box1.items.spyglass1 = 1;
 
-				locations[FindLocation(PChar.location)].box1.money = 2500;
+				locations[FindLocation(PChar.location)].box1.items.medical1 = 2; // PB
+				locations[FindLocation(PChar.location)].box1.money = 1000;
 				locations[FindLocation(PChar.location)].box1.items.relationbook = 1; // PB
 				if(ENABLE_AMMOMOD)
 				{
@@ -231,72 +425,7 @@ void BothQuestComplete(string sQuestName)
 			}
 			Locations[FindLocation(loadPort)].locators_radius.goto.(gotoLocator) = 3.0;
 			SetQuestHeader(questRecord);
-			if (CharPlayerType == PLAYER_TYPE_REBEL)
-			{
-				AddQuestRecord(questRecord, 3);
-
-				if (GetMySimpleName(PChar) == "Julian McAllister" && GetRMRelation(PChar, ENGLAND) == REL_MIN)
-				{
-					//Levis setting up the officers right:
-
-					// First Mate
-					NPChar = characterFromID("William Sullivan");
-					NPChar.location = PChar.location; //To allow init to complete
-					InitCharacterSkills(NPChar);
-					AddPassenger(pchar, NPChar, -1);
-					LAi_SetOfficerType(NPChar);
-					if(GetDifficulty() < DIFFICULTY_SEADOG) NPChar.quest.OfficerPrice = 0; //Levis easier difficulty starts with cheap officers
-
-					// Navigator
-					NPChar = characterFromID("David O'Hara");
-					NPChar.location = PChar.location; //To allow init to complete
-					InitCharacterSkills(NPChar);
-					AddPassenger(pchar, NPChar, -1);
-					LAi_SetOfficerType(NPChar);
-					if(GetDifficulty() < DIFFICULTY_SEADOG) NPChar.quest.OfficerPrice = 0; //Levis easier difficulty starts with cheap officers
-
-					// Gunner
-					NPChar = characterFromID("Brian Darcy");
-					NPChar.location = PChar.location; //To allow init to complete
-					InitCharacterSkills(NPChar);
-					AddPassenger(pchar, NPChar, -1);
-					LAi_SetOfficerType(NPChar);
-					if(GetDifficulty() < DIFFICULTY_SEADOG) NPChar.quest.OfficerPrice = 0; //Levis easier difficulty starts with cheap officers
-
-					// Boatswain
-					NPChar = characterFromID("Killian Kildare");
-					NPChar.location = PChar.location; //To allow init to complete
-					InitCharacterSkills(NPChar);
-					AddPassenger(pchar, NPChar, -1);
-					LAi_SetOfficerType(NPChar);
-					if(GetDifficulty() < DIFFICULTY_SEADOG) NPChar.quest.OfficerPrice = 0; //Levis easier difficulty starts with cheap officers
-
-					// Surgeon
-					NPChar = characterFromID("Emily Butler");
-					NPChar.location = PChar.location; //To allow init to complete
-					InitCharacterSkills(NPChar);
-					AddPassenger(pchar, NPChar, -1);
-					LAi_SetOfficerType(NPChar);
-					if(GetDifficulty() < DIFFICULTY_SEADOG) NPChar.quest.OfficerPrice = 0; //Levis easier difficulty starts with cheap officers
-
-					// Carpenter
-					NPChar = characterFromID("Uriah O'Bannon");
-					NPChar.location = PChar.location; //To allow init to complete
-					InitCharacterSkills(NPChar);
-					AddPassenger(pchar, NPChar, -1);
-					LAi_SetOfficerType(NPChar);
-					if(GetDifficulty() < DIFFICULTY_SEADOG) NPChar.quest.OfficerPrice = 0; //Levis easier difficulty starts with cheap officers
-
-					// Quartermaster
-					NPChar = characterFromID("Angus Calhoun");
-					NPChar.location = PChar.location; //To allow init to complete
-					InitCharacterSkills(NPChar);
-					AddPassenger(pchar, NPChar, -1);
-					LAi_SetOfficerType(NPChar);
-					if(GetDifficulty() < DIFFICULTY_SEADOG) NPChar.quest.OfficerPrice = 0; //Levis easier difficulty starts with cheap officers
-				}
-			}
-			else										AddQuestRecord(questRecord, 1);
+			AddQuestRecord(questRecord, 1);
 			//Preprocessor_Remove("island"); // KK
 // added by MAXIMUS [choose character mod] <--
 
@@ -2512,259 +2641,11 @@ void BothQuestComplete(string sQuestName)
 // added by MAXIMUS [choose character mod] <--
 
 			LAi_QuestDelay("TavernSitWaiting", 0.0);		// lets Malcolm disappear
-			bool CustomStart = false;
-			switch(CharPlayerType)
-			{
-				case PLAYER_TYPE_NAVAL_OFFICER:	CustomStart = true;	break;
-				case PLAYER_TYPE_ROGUE:			CustomStart = true;	break;
-				case PLAYER_TYPE_GAMBLER:		CustomStart = true;	break;
-				case PLAYER_TYPE_AGENT:			CustomStart = true;	break;
-				case PLAYER_TYPE_SMUGGLER:		CustomStart = true;	break;
-				case PLAYER_TYPE_CURSED:		CustomStart = true;	break;
-				case PLAYER_TYPE_CORSAIR:
-					if (NationNoIsland(GetCurrentFlag(), GetCurrentPeriod()))	CustomStart = true;
-				break;
-			}
-			if (CustomStart)
-			{
-				LAi_QuestDelay("Custom_Start",1.0);
-			}
-			else
-			{
-				LAi_QuestDelay("stormystart2", 1.0);		// starts the next case
-			}
+			LAi_QuestDelay("stormystart2", 1.0);			// starts the next case
 			LAi_SetPlayerType(pchar);						// ensures you're free to move after the reload
+
 		break;
 
-		case "Custom_Start":
-			DeleteQuestHeader("Tutorial_AppearedOnIsland"); // PB: No need
-			DeleteAttribute(&PChar,"vcskip"); // NK 04-06
-
-			if(CheckCharacterItem(PChar, "Spyglass1") == 0)					GiveItem2Character(PChar, "Spyglass1");
-			if(CheckCharacterItem(PChar, "medical1") == 0)					TakeNItems(PChar, "medical1", 2); // PB
-			if(CheckCharacterItem(PChar, PChar.start_weapon.blade) == 0)	GiveItem2Character(PChar, PChar.start_weapon.blade);
-			if(CheckCharacterItem(PChar, PChar.start_weapon.gun) == 0)		GiveItem2Character(PChar, PChar.start_weapon.gun);
-			DeleteAttribute(PChar, "start_weapon");
-
-			EquiPCharacterbyItem(PChar, FindCharacterItemByGroup(&PChar, BLADE_ITEM_TYPE));
-			EquiPCharacterbyItem(PChar, FindCharacterItemByGroup(&PChar, GUN_ITEM_TYPE));
-			EquiPCharacterbyItem(PChar, FindCharacterItemByGroup(&PChar, SPYGLASS_ITEM_TYPE));
-
-			//JRH ammo mod --->
-			if (ENABLE_AMMOMOD) {	// LDH change
-				if(CheckCharacterItem(PChar, "gunpowder") > 0)		TakeNItems(PChar, "gunpowder", -12);
-				if(CheckCharacterItem(PChar, "gunpowder") == 0)		TakeNItems(PChar, "gunpowder", 6);
-				if(CheckCharacterItem(PChar, "pistolbullets") > 0)	TakeNItems(PChar, "pistolbullets", -12);
-				if(CheckCharacterItem(PChar, "pistolbullets") == 0)	TakeNItems(PChar, "pistolbullets", 6);
-			}
-			//JRH ammo mod <---
-
-			// Define Start Nation Port and Questbook Header
-			iNation = GetServedNation();
-			bool GiveShip = true;
-			switch(CharPlayerType)
-			{
-				case PLAYER_TYPE_NAVAL_OFFICER:
-					questRecord = "Navy_Continue";
-					GiveShip = false;														// Already done elsewhere
-				break;
-
-				case PLAYER_TYPE_ROGUE:
-					questRecord = "embora";
-					iNation = PERSONAL_NATION;												// Triggers La Croix opening further down
-				break;
-
-				case PLAYER_TYPE_GAMBLER:
-					questRecord = "embora";
-					iNation = PERSONAL_NATION;												// Triggers La Croix opening further down
-				break;
-
-				case PLAYER_TYPE_AGENT:
-					questRecord = "Agent_Continue";
-					if (GetMySimpleName(PChar) == "Jean Lafitte" && GetCurrentPeriod() >= PERIOD_REVOLUTIONS)
-					{
-						iNation = AMERICA;
-						SetServedNation(iNation);
-						SetRMRelation(PChar, iNation, REP_LEAVEMIN);						// Encourage play for America
-					}
-					iNation = FindEnemyNation2Nation(iNation);
-				break;
-
-				case PLAYER_TYPE_SMUGGLER:
-					questRecord = "Smuggler_Continue";
-					if (GetMySimpleName(PChar) == "Jean Lafitte" && GetCurrentPeriod() >= PERIOD_REVOLUTIONS)
-					{
-						iNation = AMERICA;
-						SetServedNation(iNation);
-						SetRMRelation(PChar, iNation, REP_LEAVEMIN);						// Encourage play for America
-						TakeNItems(pchar,"opium", 3);										// Levis, PB: Only for Jean Lafitte
-					}
-					iNation  = FindFriendlyNation2Nation(iNation);
-					GiveShip = false;														// Extra challenge
-					LAi_QuestDelay("learn about smugglers", 0.0);							// Levis
-				break;
-
-				case PLAYER_TYPE_CURSED:
-					questRecord = "Cursed_Continue";
-					if(CheckCharacterItem(PChar, "Davy_Chest"))
-						iNation = PERSONAL_NATION;
-					else
-					{
-						iNation  = rand(NATIONS_QUANTITY-1);
-						GiveShip = false;													// Extra challenge
-					}
-				break;
-
-				case PLAYER_TYPE_CORSAIR:
-					questRecord = "Corsair_Continue";
-				break;
-			}
-
-			// Reload to Appropriate Port
-			bool bOverride = false;
-			if (NationNoIsland(iNation, GetCurrentPeriod()))
-			{
-				loadPort = "Tortuga_Port";
-				gotoGroup = "reload";
-				rldLocator = "reload2_back";
-				if (GetNationRelation(iNation, GetTownNation("Tortuga")) == RELATION_ENEMY)
-				{
-					bOverride = true;
-					iNation = PIRATE;
-				}
-			}
-			else
-			{
-				switch(iNation)
-				{
-					case ENGLAND:
-						loadPort = "Redmond_port";
-						gotoGroup = "reload";
-						rldLocator = "Sea_2_back";
-						break;
-					case FRANCE:
-						loadPort = "Falaise_de_fleur_port_01";
-						gotoGroup = "reload";
-						rldLocator = "sea";
-						break;
-					case SPAIN:
-						loadPort = "Muelle_port";
-						gotoGroup = "reload";
-						rldLocator = "reload1_back";
-						break;
-					case PIRATE:
-						loadPort = "QC_port";
-						gotoGroup = "reload";
-						rldLocator = "reload1";
-						break;
-					case HOLLAND:
-						loadPort = "Douwesen_port";
-						gotoGroup = "reload";
-						rldLocator = "reload2";
-						break;
-					case PORTUGAL:
-						loadPort = "Conceicao_port";
-						gotoGroup = "reload";
-						rldLocator = "reload2";
-						break;
-					case AMERICA:
-						loadPort = "Eleuthera_Port";
-						gotoGroup = "reload";
-						rldLocator = "reload1_back";
-						break;
-					case PERSONAL_NATION:
-						switch(CharPlayerType)
-						{
-							case PLAYER_TYPE_CURSED:
-								loadPort = "KhaelRoa_port";
-								gotoGroup = "Quest_Ships";
-								rldLocator = "Quest_Ship_5";
-							break;
-							//default:
-							loadPort = "Cuba_shore_03";
-							gotoGroup = "reload";
-							rldLocator = "locator5";
-						}
-					break;
-				}
-			}
-			loadTown = FindIslandByLocation(loadPort);
-			PlaceFleetNearShore(loadPort);
-
-			SafePortLeave(iNation, bOverride); // Hoist False Flag if Required
-			if(GiveShip)
-			{
-				GiveShip2Character(PChar,PChar.ship.type,PChar.ship.name,-1,GetServedNation(),true,true); // PB: Instantly repair and resupply ship
-			}
-			else
-			{
-				if (CharPlayerType != PLAYER_TYPE_NAVAL_OFFICER)
-				{
-					SetCharacterGoods(PChar, CharGood1, 0); // dumps your cargo // KK
-					SetCharacterGoods(PChar, CharGood2, 0); // KK
-					i = getRandomContrabandGood(GetIslandByID(loadTown));
-					if (i > 0) AddCharacterGoods(PChar, i, (2.0+rand(2))/10.0 * GetCharacterFreeSpace(PChar, i) ); // PB&Levis: Between 20%-40% contraband
-				}
-			}
-			
-			if (gotoGroup == "Quest_Ships")
-			{
-				LAi_QuestDelay(questRecord, 0.0);		// starts the next case
-				QuestToSeaLogin_PrepareLoc(loadTown, gotoGroup, rldLocator, true);
-				QuestToSeaLogin_Launch();
-			}
-			else
-				DoQuestReloadToLocation(loadPort, gotoGroup, rldLocator, questRecord);
-		break;
-
-		case "Navy_Continue":
-			Preprocessor_AddQuestData("town", FindTownName(GetCurrentTownID()));
-			SetQuestHeader("Beginning_Navy");
-			AddQuestRecord("Beginning_Navy", 1);
-			CloseQuestHeader("Beginning_Navy");
-			Preprocessor_Remove("town");
-		break;
-
-		case "Agent_Continue":
-			Preprocessor_AddQuestData("town", FindTownName(GetCurrentTownID()));
-			Preprocessor_AddQuestData("island", FindIslandName(FindIslandByLocation(pchar.location)));
-			SetQuestHeader("Beginning_Agent");
-			if (PChar.sex == "man") AddQuestRecord("Beginning_Agent", 1);
-			else AddQuestRecord("Beginning_Agent", 2);
-			CloseQuestHeader("Beginning_Agent");
-			Preprocessor_Remove("town");
-			Preprocessor_Remove("island");
-		break;
-
-		case "Smuggler_Continue":
-			Preprocessor_AddQuestData("town", FindTownName(GetCurrentTownID()));
-			Preprocessor_AddQuestData("island", FindIslandName(FindIslandByLocation(pchar.location)));
-			SetQuestHeader("Beginning_Smuggler");
-			AddQuestRecord("Beginning_Smuggler", 1);
-			CloseQuestHeader("Beginning_Smuggler");
-			Preprocessor_Remove("town");
-			Preprocessor_Remove("island");
-		break;
-
-		case "Cursed_Continue":
-			SetQuestHeader("Beginning_Cursed");
-			if(CheckCharacterItem(PChar, "Davy_Chest"))
-				AddQuestRecord("Beginning_Cursed", 2);
-			else
-				AddQuestRecord("Beginning_Cursed", 1);
-			CloseQuestHeader("Beginning_Cursed");
-		break;
-
-		case "Corsair_Continue":
-			SetQuestHeader("Beginning_Corsair");
-			AddQuestRecord("Beginning_Corsair", 1);
-			CloseQuestHeader("Beginning_Corsair");
-		break;
-
-		case "Castaway_Continue":
-			AddQuestRecord("Beginning_Castaway", 2);
-			CloseQuestHeader("Beginning_Castaway");
-		break;
 
 		case "stormystart2":	// this case is only seperate to show the video uninterrupted
 			bMainMenuLaunchAfterVideo = true; //TIH - makes black screen after movie, not cabin scene
@@ -2776,61 +2657,44 @@ void BothQuestComplete(string sQuestName)
 			SetCharacterGoods(PChar, CharGood1, 0); // dumps your cargo // KK
 			SetCharacterGoods(PChar, CharGood2, 0); // KK
 
-			if (CharPlayerType == PLAYER_TYPE_CASTAWAY) {
-				// The Diamond: Evil Stormy Start -->
-				// an optional add-on to CCC's original Stormy Start mod, designed to make the early game more challenging
-				PChar.money = 0;
-				PChar.wealth = 0;
+			PChar.ship.hp =     GetCharacterShipHP(PChar) * (rand(6)+2)/10;		// PB Storm Damage: between 20% and 80% of previous number
+			SetCrewQuantity(PChar, GetCrewQuantity(PChar) * (rand(6)+2)/10);	// PB Storm Damage: between 20% and 80% of previous number
 
-				TakeNItems(PChar, "pistolrock", rand(3)+1);
-				GiveItem2Character(PChar, "Spyglass1");
-				EquipCharacterByItem(PChar, "bladeX4");
-				EquipCharacterByItem(PChar, "pistolrock");
-
-				PChar.ship.sp =     GetCharacterShipSP(PChar) * 3 / 5);				// Evil Stormy Start further damages sails
-				PChar.ship.hp =     GetCharacterShipHP(PChar) * (rand(4)+1)/10;		// PB Storm Damage: Between 10% and 50% of previous number
-				SetCrewQuantity(PChar, 1);											// This is intentionally EVIL
-				// The Diamond: Evil Stormy Start <--
-			} else {
-				PChar.ship.hp =     GetCharacterShipHP(PChar) * (rand(6)+2)/10;		// PB Storm Damage: between 20% and 80% of previous number
-				SetCrewQuantity(PChar, GetCrewQuantity(PChar) * (rand(6)+2)/10);	// PB Storm Damage: between 20% and 80% of previous number
-
-				// next section gives you a random amount of money and equipment
-				GiveItem2Character(PChar, "blade"+ (1+ rand(9)) );				// gives you blade1, blade2... or blade10
-				EquipCharacterByItem(PChar, FindCharacterItemByGroup(PChar,BLADE_ITEM_TYPE));	// PB: equips your blade
-				GiveItem2Character(PChar, "PISTOL"+ (1+ rand(1)) );				// PB: added to give you a default pistol too
-				EquipCharacterByItem(PChar, FindCharacterItemByGroup(PChar,GUN_ITEM_TYPE));	// PB: equips your pistol
-				GiveItem2Character(PChar, "Spyglass" + (1+rand(2)) );
-				EquipCharacterByItem(PChar, FindCharacterItemByGroup(PChar,SPYGLASS_ITEM_TYPE));// PB: equips your spyglass
-				AddMoneyToCharacter(PChar, rand(4000));
-				GiveItem2Character(PChar, "Jewelry" + (1+rand(9)) );
-				GiveItem2Character(PChar, "Mineral" + (1+rand(2)) );
-				TakeNItems(PChar, "medical1", 1 + rand(2)); // PB
+			// next section gives you a random amount of money and equipment
+			GiveItem2Character(PChar, "blade"+ (1+ rand(9)) );				// gives you blade1, blade2... or blade10
+			EquipCharacterByItem(PChar, FindCharacterItemByGroup(PChar,BLADE_ITEM_TYPE));	// PB: equips your blade
+			GiveItem2Character(PChar, "PISTOL"+ (1+ rand(1)) );				// PB: added to give you a default pistol too
+			EquipCharacterByItem(PChar, FindCharacterItemByGroup(PChar,GUN_ITEM_TYPE));	// PB: equips your pistol
+			GiveItem2Character(PChar, "Spyglass" + (1+rand(2)) );
+			EquipCharacterByItem(PChar, FindCharacterItemByGroup(PChar,SPYGLASS_ITEM_TYPE));// PB: equips your spyglass
+			AddMoneyToCharacter(PChar, rand(4000));
+			GiveItem2Character(PChar, "Jewelry" + (1+rand(9)) );
+			GiveItem2Character(PChar, "Mineral" + (1+rand(2)) );
+			TakeNItems(PChar, "medical1", 1 + rand(2)); // PB
 
      		// ccc special weapons, SW assembly kit must be installed !
-				TakeNItems(PChar, "pistolbbuss", rand(1));	
-				TakeNItems(PChar, "bladeX1", rand(1));
-				TakeNItems(PChar, "bladeX2", rand(1));
-				TakeNItems(PChar, "bladeX3", 1);
-				TakeNItems(PChar, "pistolpdart", rand(3));
-				TakeNItems(PChar, "pistolgrenade", rand(3));
-				TakeNItems(PChar, "pistolgas", rand(3));
-				TakeNItems(PChar, "pistolrock", rand(3));
-				TakeNItems(PChar, "pistolstink", rand(3));
+			TakeNItems(PChar, "pistolbbuss", rand(1));	
+			TakeNItems(PChar, "bladeX1", rand(1));
+			TakeNItems(PChar, "bladeX2", rand(1));
+			TakeNItems(PChar, "bladeX3", 1);
+			TakeNItems(PChar, "pistolpdart", rand(3));
+			TakeNItems(PChar, "pistolgrenade", rand(3));
+			TakeNItems(PChar, "pistolgas", rand(3));
+			TakeNItems(PChar, "pistolrock", rand(3));
+			TakeNItems(PChar, "pistolstink", rand(3));
 
 		    //JRH ammo mod --->
-				if (ENABLE_AMMOMOD) {	// LDH change
-					TakeNItems(PChar, "gunpowder", 3 + rand(3));
-					if (CheckCharacterItem(PChar,"pistolbbuss")) {
-						TakeNItems(PChar, "pistolgrapes", 3 + rand(3));	
-						RemoveCharacterEquip(PChar, GUN_ITEM_TYPE );
-						EquipCharacterByItem(PChar, "pistolbbuss");					
-					} else {
-						TakeNItems(PChar, "pistolbullets", 3 + rand(3));
-					}
+			if (ENABLE_AMMOMOD) {	// LDH change
+				TakeNItems(PChar, "gunpowder", 3 + rand(3));
+				if (CheckCharacterItem(PChar,"pistolbbuss")) {
+					TakeNItems(PChar, "pistolgrapes", 3 + rand(3));	
+					RemoveCharacterEquip(PChar, GUN_ITEM_TYPE );
+					EquipCharacterByItem(PChar, "pistolbbuss");					
+				} else {
+					TakeNItems(PChar, "pistolbullets", 3 + rand(3));
 				}
-		    //JRH ammo mod <---
 			}
+		    //JRH ammo mod <---
 
 			DeleteAttribute(PChar,"vcskip"); // NK 04-06
 			SetNextWeather("Day Storm");	// Sets stormy weather
@@ -2838,37 +2702,37 @@ void BothQuestComplete(string sQuestName)
 			switch(rand(STORMY_START_CHOICES) )	// ccc mar 06  New islands
 			{
 				case 0:
-					loadPort = "Douwesen_shore_02"; // PB (separated from ship)
+					loadPort = "Douwesen_shore_01";
 					loadTown = "Douwesen_shore_01";
 					rldLocator = "reload1";
 				break;
 
 				case 1:
-					loadPort = "Conceicao_shore_02"; // PB (separated from ship)
+					loadPort = "Conceicao_shore_01";
 					loadTown = "Conceicao_shore_01";
 					rldLocator = "reload1";
 				break;
 
 				case 2:
-					loadPort = "Falaise_de_fleur_port_01"; // PB (separated from ship)
+					loadPort = "Falaise_de_fleur_shore";
 					loadTown = "Falaise_de_fleur_shore";
 					rldLocator = "reload1";
 				break;
 
 				case 3:
-					loadPort = "Muelle_port"; // PB (separated from ship)
+					loadPort = "Muelle_shore";
 					loadTown = "Muelle_shore";
 					rldLocator = "reload3";
 				break;
 
 				case 4:
-					loadPort = "QC_Shore1"; // PB (separated from ship)
+					loadPort = "QC_port";
 					loadTown = "QC_port";
 					rldLocator = "reload1";
 				break;
 
 				case 5:
-					loadPort = "Redmond_shore_02"; // PB (separated from ship)
+					loadPort = "Redmond_shore_01";
 					loadTown = "Redmond_shore_01";
 					rldLocator = "reload1";
 				break;
@@ -2892,13 +2756,13 @@ void BothQuestComplete(string sQuestName)
 				break;
 
 				case 9:
-					loadPort = "Antigua_port"; // KK (separated from ship)
+					loadPort = "Antigua_shore";
 					loadTown = "Antigua_shore";
 					rldLocator = "reload1";
 				break;
 
 				case 10:
-					loadPort = "Cayman_Shore_01"; // PB (separated from ship)
+					loadPort = "Cayman_Shore_02";
 					loadTown = "Cayman_Shore_02";
 					rldLocator = "see"; // ccc Nov06, was wrong,"reload2";
 				break;
@@ -2910,7 +2774,7 @@ void BothQuestComplete(string sQuestName)
 				break;
 
 				case 12:
-					loadPort = "Hispaniola_shore_04"; // PB (separated from ship)
+					loadPort = "Hispaniola_shore_01";
 					loadTown = "Hispaniola_shore_01";
 					rldLocator = "reload1";
 				break;
@@ -2922,19 +2786,19 @@ void BothQuestComplete(string sQuestName)
 				break;
 
 				case 14:
-					loadPort = "Cuba_Shore_04"; // PB (separated from ship)
+					loadPort = "Cuba_shore_01";
 					loadTown = "Cuba_shore_01";
 					rldLocator = "reload1";
 				break;
 
 				case 15:
-					loadPort = "Guadeloupe_Port"; // PB (separated from ship)
+					loadPort = "Guadeloupe_shore_01";
 					loadTown = "Guadeloupe_shore_01";
 					rldLocator = "see";
 				break;
 
 				case 16:
-					loadPort = "SaintMartin_shore_02"; // PB (separated from ship)
+					loadPort = "SaintMartin_shore_01";
 					loadTown = "SaintMartin_shore_01";
 					rldLocator = "reload1";
 				break;
@@ -2952,7 +2816,7 @@ void BothQuestComplete(string sQuestName)
 				break;
 
 				case 19:
-					loadPort = "Oxbay_shore_02"; // PB (separated from ship)
+					loadPort = "Oxbay_shore_01";
 					loadTown = "Oxbay_shore_01";
 					rldLocator = "see";
 				break;
@@ -2963,41 +2827,16 @@ void BothQuestComplete(string sQuestName)
 				rldLocator = "reload1";
 			}
 			i = getRandomContrabandGood(GetIslandByID(FindIslandByLocation(loadTown)));
-			if (CharPlayerType == PLAYER_TYPE_CASTAWAY)
-			{
-				if (i > 0) AddCharacterGoods(PChar, i, 2);	// contraband
-				SetQuestHeader("Beginning_Castaway");
-				AddQuestRecord("Beginning_Castaway", 1);
-			}
-			else
-			{
-				if (i > 0) AddCharacterGoods(PChar, i, (2.0+rand(2))/10.0 * GetCharacterFreeSpace(PChar, i) ); // PB&Levis: Between 20%-40% contraband
-				SetQuestHeader("StormyStart");
-				AddQuestRecord("StormyStart", 1);
-			}
+			if (i > 0) AddCharacterGoods(PChar, i, (2.0+rand(2))/10.0 * GetCharacterFreeSpace(PChar, i) ); // PB&Levis: Between 20%-40% contraband
+			SetQuestHeader("StormyStart");
+			AddQuestRecord("StormyStart", 1);
+			AddQuestRecord("StormyStart", 2);
+			CloseQuestHeader("StormyStart");
+
 			DoQuestReloadToLocation(loadTown, "reload", rldLocator, "stormystart4");
 			PlaceFleetNearShore(loadPort); // KK
 
 			PostEvent("DoInfoShower",500,"s","");	//TIH - clears black screen
-		break;
-
-		case "stormystart4":
-			PChar.quest.stormystart5.win_condition.l1 = "ExitFromLocation";
-			PChar.quest.stormystart5.win_condition.l1.location = PChar.location;
-			PChar.quest.stormystart5.win_condition = "stormystart5";
-		break;
-
-		case "stormystart5":
-			if (CharPlayerType == PLAYER_TYPE_CASTAWAY)
-			{
-				AddQuestRecord("Beginning_Castaway", 2);
-				CloseQuestHeader("Beginning_Castaway");
-			}
-			else
-			{
-				AddQuestRecord("StormyStart", 2);
-				CloseQuestHeader("StormyStart");
-			}
 		break;
 // ccc end stormy start mod
 

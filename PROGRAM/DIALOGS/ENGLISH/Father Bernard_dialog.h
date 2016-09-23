@@ -1,4 +1,4 @@
-string DLG_TEXT[170] = {// -- Scheffnow -- 2004-01-14 -- ResetCharacterMod --
+string DLG_TEXT[182] = {// -- Scheffnow -- 2004-01-14 -- ResetCharacterMod --
 ", my son! How may this humble servant of our Lord help you?", 
 "I'm ",
 ", captain and owner of the ship '",
@@ -169,5 +169,16 @@ string DLG_TEXT[170] = {// -- Scheffnow -- 2004-01-14 -- ResetCharacterMod --
 " gold pieces.",
 "Welcome my son and thank you for saving us. They're waitng for you in the shipyard.",
 "Nothing to talk about, the shipyard you say...",
-
+"It's about the marriage of #sromance# and #svillain#.", // 170
+"Yes, a most joyous occasion as all marriages are.",
+"Not for #sromance#, it wasn't.  #spronoun# was kidnapped and forced into the marriage against #spronoun2# will.",
+"You understand that I can not simply take your word for that? Vows were exchanged in this church and are not to be taken lightly.",
+"Perhaps #sromance# could go somewhere private and explain in #spronoun# own words what has happened?",
+"Yes, I can do that. Join me in the confession chamber, my child.",
+"#sromance# has explained how #spronoun# was kidnapped, forced into the marriage and then imprisoned. And how #spronoun# was rescued by you, apparently not for the first time.",
+"#sromance# has explained how #spronoun# was kidnapped, forced into the marriage and then imprisoned. And how #spronoun# was rescued by you - #spronoun# was most surprised by that!",
+"So can the marriage be cancelled?",
+"That is beyond my power. All I can do is write to the Holy Father in Rome. This sort of thing is not unheard of, and where it is shown that consent was not freely given, the marriage may be annulled.\nIt will be as if the marriage never happened. But it will take time, and there will be expenses.",
+"Very well. I shall write to Rome explaining the situation. Unfortunately, #sromance# is still married to #svillain#. But I can absolve you both of the sin of #sromance# leaving #svillain# with you, given the circumstances.", // 180
+"Thank you, Father.",
 };

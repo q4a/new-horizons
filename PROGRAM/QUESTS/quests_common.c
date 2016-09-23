@@ -19,6 +19,10 @@ void GenerateQuestShip(string character_id, int iNation) // KK
 	//Get the captain which is only half setup
 	ref rCaptain = characterFromID(character_id);
 	
+	//Determine the nation of the ship etc
+	if(isEnemy) iNation = LotHostileNation(iNation);
+	else		iNation = iNation;
+	
 	//Extract the nation and fantomtype from it
 	string sFantomType = "war";
 	if( iNation >= NATIONS_QUANTITY)	iNation = PIRATE;
@@ -98,35 +102,36 @@ int GenerateNationTrade(int nation)
 // NK -->
 int GenerateGoodForTrade(int FromNat, int ToNat, ref fromprice, ref toprice) // NK add prices 05-05-12
 {
-	//int fstoreidx = GetTownStoreIndex(GetTownIDFromGroup(Stores[GetCharacterCurrentStore(GetMainCharacter())].group));
-	int fstoreidx = GetTownStoreIndex(GetCurrentTownID());
-	//trace("from " + fstoreidx + " of " + GetCurrentTownID());
-	string destCol;
-	string friendlyTowns = "";
-	for(int j=0; j<TOWNS_QUANTITY; j++)
-	{
-		if(!CheckAttribute(&Towns[j],"id")) continue;
-		if(!CheckAttribute(&Towns[j],"nation")) continue;
-		if(CheckAttribute(&Towns[j],"skiptrade") && Towns[j].skiptrade==true) continue;//MAXIMUS: added for some towns (such as St. John's on Antigua)
-		if(Towns[j].nation!=ToNat) continue;
-		friendlyTowns = StoreString(friendlyTowns,Towns[j].id);
-	}
-	if(friendlyTowns!="")
-	{
-		destCol = GetRandSubString(friendlyTowns);
-		while(destCol=="" || HasSubStr(destCol,",") || GetIslandIDFromTown(destCol)==GetIslandIDFromTown(GetCurrentTownId())) { destCol = GetRandSubString(friendlyTowns); }
-	}
-	else
-	{
-		switch (ToNat)
-		{
-			case FRANCE: destCol = FRA_COLONY; break;
-			case SPAIN: destCol = SPA_COLONY; break;
-			case HOLLAND: destCol = HOL_COLONY; break;
-			case PORTUGAL: destCol = POR_COLONY; break;
-			case ENGLAND:  destCol = RED_COLONY; break;
-		}
-	}
+   //int fstoreidx = GetTownStoreIndex(GetTownIDFromGroup(Stores[GetCharacterCurrentStore(GetMainCharacter())].group));
+   int fstoreidx = GetTownStoreIndex(GetCurrentTownID());
+   //trace("from " + fstoreidx + " of " + GetCurrentTownID());
+   string destCol;
+   string friendlyTowns = "";
+   for(int j=0; j<TOWNS_QUANTITY; j++)
+   {
+     if(!CheckAttribute(&Towns[j],"id")) continue;
+     if(!CheckAttribute(&Towns[j],"nation")) continue;
+     if(CheckAttribute(&Towns[j],"skiptrade") && Towns[j].skiptrade==true) continue;//MAXIMUS: added for some towns (such as St. John's on Antigua)
+     if(Towns[j].nation!=ToNat) continue;
+     if(GetIslandIDFromTown(Towns[j].id) == GetIslandIDFromTown(GetCurrentTownID())) continue;
+     friendlyTowns = StoreString(friendlyTowns,Towns[j].id);
+   }
+   if(friendlyTowns!="")
+   {
+     destCol = GetRandSubString(friendlyTowns);
+     while(destCol=="" || HasSubStr(destCol,",")) { destCol = GetRandSubString(friendlyTowns); }
+   }
+   else
+   {
+     switch (ToNat)
+     {
+       case FRANCE: destCol = FRA_COLONY; break;
+       case SPAIN: destCol = SPA_COLONY; break;
+       case HOLLAND: destCol = HOL_COLONY; break;
+       case PORTUGAL: destCol = POR_COLONY; break;
+       case ENGLAND:  destCol = RED_COLONY; break;
+     }
+   }
 	int tstoreidx = GetTownStoreIndex(destCol);
 	//trace("to " + tstoreidx + " of " + destCol);
 	ref sfrom, sto;
@@ -737,7 +742,8 @@ string RandomCaptain(int iNation) // KK
 
 // LDH --> Added 05Sep06 to get rid of problems with uninitialized data
 // Taken from Characters_init.c and StoryCharacters.c
-void InitQuestCaptain(string QuestCharacter, int iNation, bool isEnemy)
+//Levis: not used anymore, now used generic create_captain function
+/*void InitQuestCaptain(string QuestCharacter, int iNation, bool isEnemy)
 {
 	ref ch = CharacterFromID(QuestCharacter);
 	int idx = sti(ch.index);
@@ -843,7 +849,7 @@ void InitQuestCaptain(string QuestCharacter, int iNation, bool isEnemy)
 	LAi_SetLoginTime(ch, 0.0, 24.0);
 	LAi_SetHP(ch, 80.0, 80.0);
 	LAi_NoRebirthEnable(ch);
-}
+}*/
 // LDH <--
 
 // KK -->

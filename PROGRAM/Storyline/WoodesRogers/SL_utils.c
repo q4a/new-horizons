@@ -3576,9 +3576,36 @@ void OpenBoxProcedure_WR()
 				{
 					chr.quest.BB_isl1_ladder = "temp_off";
 					PlaySound("PEOPLE\creak2.wav");
-					ChangeCharacterAddressGroup(chr, "BB_island1", "goto", "box3");
-				
-					LAi_QuestDelay("BB_island1_ladder_up", 2.0);		//was 1.0
+
+					if(CheckAttribute(chr, "BB_isl1_tunnel") && chr.BB_isl1_tunnel == "open")
+					{
+						ChangeCharacterAddressGroup(chr, "BB_island1", "goto", "box3");
+					}
+					else 
+					{
+						chr.BB_isl1_box4 = "on";		//no action before turn around
+						if(CheckCharacterItem(chr,"bladeBB"))
+						{
+							if(!IsEquipCharacterByItem(chr, "bladeBB"))
+							{
+								RemoveCharacterEquip(chr, BLADE_ITEM_TYPE);
+								EquipCharacterByItem(chr, "bladeBB");
+							}
+							
+							LAi_LocationFightDisable(&Locations[FindLocation("BB_island1")], true);
+						} 
+						if(CheckCharacterItem(chr,"pistolbladeBB"))
+						{
+							if(!IsEquipCharacterByItem(chr, "pistolbladeBB"))
+							{
+								RemoveCharacterEquip(chr, GUN_ITEM_TYPE);
+								EquipCharacterByItem(chr, "pistolbladeBB");
+							}	
+						}
+						ChangeCharacterAddressGroup(chr, "BB_island1", "goto", "box4");
+					}
+
+					LAi_QuestDelay("BB_island1_ladder_up", 2.0);
 				}
 
 				if(CheckAttribute(chr, "quest.BB_isl1_ladder") && chr.quest.BB_isl1_ladder == "way_down")
@@ -3590,7 +3617,7 @@ void OpenBoxProcedure_WR()
 			break;
 
 			case "box3":
-				//top platform
+				//top platform when door is open
 
 				if(CheckAttribute(chr, "quest.BB_isl1_ladder") && chr.quest.BB_isl1_ladder == "way_up")
 				{
@@ -3605,9 +3632,40 @@ void OpenBoxProcedure_WR()
 				}
 			break;
 
+			case "box4":
+				//top platform before door is open
 
+				if(CheckAttribute(chr, "BB_isl1_box4") && chr.BB_isl1_box4 == "on") return;
+				chr.BB_isl1_box4 = "on";
 
+				if(CheckCharacterItem(chr,"bladeBB"))
+				{
+					if(LAi_IsFightMode(chr))
+					{
+						//this is your 2:nd 'open box'
 
+						PlaySound("OBJECTS\DUEL\sabre_sh.wav");
+						
+						chr.quest.BB_isl1_ladder = "temp_off";			//stops action at box3
+						LAi_QuestDelay("key_unlock2", 1.5);
+						LAi_QuestDelay("BB_island1_unlock_tunnel", 3.0);	
+					}
+					else
+					{
+						LAi_LocationFightDisable(&Locations[FindLocation("BB_island1")], false);
+						LAi_SetFightMode(chr, true);
+
+						LAi_QuestDelay("BB_isl1_box4_off", 1.0);
+					}
+				}
+				else
+				{
+					PlaySound("INTERFACE\knock2.wav");
+					Logit(TranslateString("","I guess a lever should be placed here."));
+
+					LAi_QuestDelay("BB_island1_ladder_down_to_box2", 2.0);	
+				}
+			break;
 		}
 		return;
 	}
@@ -3619,7 +3677,17 @@ void OpenBoxProcedure_WR()
 			case "box1":
 				PlaySound("PEOPLE\run_stone.wav");
 				PlaySound("PEOPLE\creak2.wav");
-				ChangeCharacterAddressGroup(chr, "BB_island2", "reload", "reload4");
+
+				if(CheckAttribute(chr, "BB_tower_entrance") && chr.BB_tower_entrance == "open")
+				{
+					ChangeCharacterAddressGroup(chr, "BB_island2", "reload", "reload4");
+				}
+				else 
+				{
+					LAi_LocationFightDisable(&Locations[FindLocation("BB_island2")], true);
+					ChangeCharacterAddressGroup(chr, "BB_island2", "goto", "box7");
+				}
+
 				SetNextWind("N",30);
 			break;
 
@@ -3631,7 +3699,9 @@ void OpenBoxProcedure_WR()
 
 			case "box3":
 				//SPYGLASS
+				if(CheckAttribute(chr, "BB_spyglass") && chr.BB_spyglass == "on") return;
 
+				chr.BB_spyglass = "on";
 				if(CheckCharacterItem(chr,"cursedcoin"))
 				{
 					PlaySound("INTERFACE\coin_drop.wav");
@@ -3644,28 +3714,40 @@ void OpenBoxProcedure_WR()
 				{
 					Logit(TranslateString("","Insert coin."));					
 
-					LAi_QuestDelay("move_to_BB_flagpole", 1.0);		
+					LAi_QuestDelay("move_to_BB_hatch", 1.0);		
 				}
 			break;
 
 			case "box4":
 				//FLAG
+				SetNextWind("N",30);
+
+				if(CheckAttribute(chr, "BB_isl2_box4") && chr.BB_isl2_box4 == "on") return;
+				chr.BB_isl2_box4 = "on";
 
 				if(Locations[FindLocation(chr.location)].models.always.locators == "jungle01_l_JRH")
 				{
 					//empty pole
 
-					if(IsEquipCharacterByItem(chr, "bladeflag_pir") || IsEquipCharacterByItem(chr, "bladeflag_pir1")
-					|| IsEquipCharacterByItem(chr, "bladeflag_pir2") || IsEquipCharacterByItem(chr, "bladeflag_pir3")	
-					|| IsEquipCharacterByItem(chr, "bladeflag_pir4") || IsEquipCharacterByItem(chr, "bladeflag_pir5")
-					|| IsEquipCharacterByItem(chr, "bladeflag_pir6"))
+					if(IsEquipCharacterByItem(chr, "bladeflag_pir") || IsEquipCharacterByItem(chr, "bladeflag_pir2")
+					|| IsEquipCharacterByItem(chr, "bladeflag_HOL") || IsEquipCharacterByItem(chr, "bladeflag_ENG")	
+					|| IsEquipCharacterByItem(chr, "bladeflag_FRA") || IsEquipCharacterByItem(chr, "bladeflag_POR")
+					|| IsEquipCharacterByItem(chr, "bladeflag_SPA") || IsEquipCharacterByItem(chr, "bladeflag_PRE")
+					|| IsEquipCharacterByItem(chr, "bladeflag_IRE") || IsEquipCharacterByItem(chr, "bladeflag_SWE")
+					|| IsEquipCharacterByItem(chr, "bladeflag_HOL2") || IsEquipCharacterByItem(chr, "bladeflag_AME")	
+					|| IsEquipCharacterByItem(chr, "bladeflag_SPA2"))
 					{
 						LAi_SetPlayerType(chr);
 						LAi_SetFightMode(chr, true);
 
 						LAi_QuestDelay("raise_BBflag", 1.0);
 					}
-					else DoQuestReloadToLocation("BB_tower", "goto", "goto1", "Pchar_playertype");
+					else
+					{
+						PlaySound("PEOPLE\run_stone.wav");
+						ChangeCharacterAddressGroup(chr, "BB_island2", "goto", "spyglass");
+						chr.BB_isl2_box4 = "off";
+					}
 				}
 				else
 				{
@@ -3673,10 +3755,15 @@ void OpenBoxProcedure_WR()
 					{
 						//flag raised
 
-						if(IsEquipCharacterByItem(chr, "bladeflag_pir") || IsEquipCharacterByItem(chr, "bladeflag_pir1")
-						|| IsEquipCharacterByItem(chr, "bladeflag_pir2") || IsEquipCharacterByItem(chr, "bladeflag_pir3")	
-						|| IsEquipCharacterByItem(chr, "bladeflag_pir4") || IsEquipCharacterByItem(chr, "bladeflag_pir5")
-						|| IsEquipCharacterByItem(chr, "bladeflag_pir6"))
+						if(chr.new.flag.sequence == 6) return;
+
+						if(IsEquipCharacterByItem(chr, "bladeflag_pir") || IsEquipCharacterByItem(chr, "bladeflag_pir2")
+						|| IsEquipCharacterByItem(chr, "bladeflag_HOL") || IsEquipCharacterByItem(chr, "bladeflag_ENG")	
+						|| IsEquipCharacterByItem(chr, "bladeflag_FRA") || IsEquipCharacterByItem(chr, "bladeflag_POR")
+						|| IsEquipCharacterByItem(chr, "bladeflag_SPA") || IsEquipCharacterByItem(chr, "bladeflag_PRE")
+						|| IsEquipCharacterByItem(chr, "bladeflag_IRE") || IsEquipCharacterByItem(chr, "bladeflag_SWE")
+						|| IsEquipCharacterByItem(chr, "bladeflag_HOL2") || IsEquipCharacterByItem(chr, "bladeflag_AME")	
+						|| IsEquipCharacterByItem(chr, "bladeflag_SPA2"))
 						{
 							LAi_SetPlayerType(chr);
 							LAi_SetFightMode(chr, true);
@@ -3690,15 +3777,27 @@ void OpenBoxProcedure_WR()
 							EquipCharacterByItem(chr, "bladeX4");
 
 							LAi_SetPlayerType(chr);
-							LAi_SetFightMode(chr, true);
 
-							LAi_QuestDelay("lower_BBflag", 1.0);
+							PlaySound("PEOPLE\run_stone.wav");
+							ChangeCharacterAddressGroup(chr, "BB_island2", "goto", "spyglass");
+							chr.BB_isl2_box4 = "off";
 						}
 					}
 				}
 			break;
 
 			case "box5":
+				PlaySound("PEOPLE\run_stone.wav");
+				if(chr.new.flag.sequence == 6) 
+				{
+					ChangeCharacterAddressGroup(chr, "BB_island2", "goto", "spyglass");
+				}
+				else ChangeCharacterAddressGroup(chr, "BB_island2", "goto", "flagpole");
+				
+
+
+
+		/*
 				if(CheckAttribute(chr, "quest.BB_tower_spyglass") && chr.quest.BB_tower_spyglass == "done")
 				{
 					PlaySound("PEOPLE\run_stone.wav");
@@ -3709,12 +3808,37 @@ void OpenBoxProcedure_WR()
 					PlaySound("PEOPLE\run_stone.wav");
 					ChangeCharacterAddressGroup(chr, "BB_island2", "goto", "spyglass");
 				}
+		*/
 			break;
 
 			case "box6":
 				LAi_SetPlayerType(chr);
 
-				DoQuestReloadToLocation("BB_tower", "goto", "goto1", "");
+				DoQuestReloadToLocation("BB_tower", "goto", "goto1", "_");
+			break;
+
+			case "box7":
+				if(CheckAttribute(chr, "BB_isl2_box7") && chr.BB_isl2_box7 == "on") return;
+				chr.BB_isl2_box7 = "on";
+
+				if(CheckCharacterItem(chr,"pistolbladeBB"))
+				{
+					if(!LAi_IsFightMode(chr))
+					{
+						chr.bb_isl2_position = "bridge";
+						LAi_LocationFightDisable(&Locations[FindLocation("BB_island2")], false);
+						LAi_SetFightMode(chr, true);
+
+			//			LAi_QuestDelay("BB_isl2_box7_off", 1.0);
+					}
+				}
+				else
+				{
+					PlaySound("INTERFACE\knock2.wav");
+					Logit(TranslateString("","I guess the other blade should be placed here."));
+
+					LAi_QuestDelay("BB_island2_still_locked", 2.0);	
+				}
 			break;
 		}
 		return;
@@ -3736,11 +3860,11 @@ void OpenBoxProcedure_WR()
 
 				DoQuestReloadToLocation("BB_lower_cave", "goto", "goto2", "");
 			break;
-
+//pär tower
 			case "box4":
 				LAi_SetStayType(chr);
 
-				DoQuestReloadToLocation("BB_island2", "goto", "box5", "");
+				DoQuestReloadToLocation("BB_island2", "goto", "box5", "_");
 			break;
 		}
 		return;
@@ -3813,7 +3937,7 @@ void OpenBoxProcedure_WR()
 				{
 					if(CheckCharacterItem(chr,"bladelever3"))
 					{
-						if(!IsEquipCharacterByItem(chr, "bladelevr3"))
+						if(!IsEquipCharacterByItem(chr, "bladelever3"))
 						{
 							RemoveCharacterEquip(chr, BLADE_ITEM_TYPE);
 							EquipCharacterByItem(chr, "bladelever3");
@@ -4067,6 +4191,66 @@ void OpenBoxProcedure_WR()
 		}
 		return;
 	}
+
+	if(Locations[locidx].id=="BB_isle_passage")
+	{
+		switch(chr.boxname)
+		{
+			case "box1":
+				LaunchItemsBox(&ar);
+			break;
+		}
+		return;
+	}
+
+	if(Locations[locidx].id=="BB_isle_hut")
+	{
+		switch(chr.boxname)
+		{
+			case "box1":
+				LaunchItemsBox(&ar);
+			break;
+
+			case "box2":
+				PlaySound("PEOPLE\creak2.wav");
+				ChangeCharacterAddressGroup(chr, "BB_isle_hut", "box", "box3");	
+			break;
+
+			case "box3":
+				PlaySound("PEOPLE\run_wood.wav");
+				ChangeCharacterAddressGroup(chr, "BB_isle_hut", "box", "box4");	
+			break;
+
+			case "box4":
+				PlaySound("PEOPLE\run_wood.wav");
+				ChangeCharacterAddressGroup(chr, "BB_isle_hut", "box", "box5");	
+			break;
+
+			case "box5":
+				PlaySound("PEOPLE\run_wood.wav");
+				ChangeCharacterAddressGroup(chr, "BB_isle_hut", "box", "box6");	
+			break;
+
+			case "box6":
+				PlaySound("PEOPLE\run_wood.wav");
+				ChangeCharacterAddressGroup(chr, "BB_isle_hut", "box", "box7");	
+			break;
+
+			case "box7":
+				PlaySound("PEOPLE\run_wood.wav");
+				ChangeCharacterAddressGroup(chr, "BB_isle_hut", "box", "box8");	
+			break;
+
+			case "box8":
+				LaunchItemsBox(&ar);
+				ChangeCharacterAddressGroup(chr, "BB_isle_hut", "goto", "jump");
+
+				LAi_QuestDelay("BB_isle_hut_jump", 0.7);	
+			break;
+		}
+		return;
+	}
+
 
     //<-- Q2
 
@@ -16765,6 +16949,39 @@ void CreateLandActionsEnvironment_WR()
 			if(Pchar.boxname == "box1") IActions.ActiveActions.OpenBox.IconNum  	= 63;
 			if(Pchar.boxname == "box2") IActions.ActiveActions.OpenBox.IconNum  	= 5;
 		}
+//BB tower
+		if(Pchar.location == "BB_island1")
+		{
+			if(Pchar.boxname == "box1" || Pchar.boxname == "box2") IActions.ActiveActions.OpenBox.IconNum  	= 63;
+			if(Pchar.boxname == "box3")
+			{
+				if(CheckAttribute(Pchar, "quest.BB_isl1_ladder") && Pchar.quest.BB_isl1_ladder == "way_up")
+				IActions.ActiveActions.OpenBox.IconNum  	= 1;
+
+				if(CheckAttribute(Pchar, "quest.BB_isl1_ladder") && Pchar.quest.BB_isl1_ladder == "way_down")
+				IActions.ActiveActions.OpenBox.IconNum  	= 63;
+
+				if(CheckAttribute(Pchar, "quest.BB_isl1_ladder") && Pchar.quest.BB_isl1_ladder == "temp_off")
+				IActions.ActiveActions.OpenBox.IconNum  	= 3;
+			}
+			if(Pchar.boxname == "box4")
+			{
+				if(CheckCharacterItem(Pchar,"bladeBB"))
+				{
+					IActions.ActiveActions.OpenBox.IconNum  	= 2;
+				}
+				else IActions.ActiveActions.OpenBox.IconNum  	= 0;
+			}
+		}
+
+		if(Pchar.location == "BB_island2")
+		{
+			if(Pchar.boxname == "box1" || Pchar.boxname == "box2" || Pchar.boxname == "box5")
+				{IActions.ActiveActions.OpenBox.IconNum  	= 63;}
+			if(Pchar.boxname == "box6") IActions.ActiveActions.OpenBox.IconNum  	= 1;
+			if(Pchar.boxname == "box4") IActions.ActiveActions.OpenBox.IconNum  	= 2;
+			if(Pchar.boxname == "box3") IActions.ActiveActions.OpenBox.IconNum  	= 3;
+		}
 
 		if(Pchar.location == "swamp_island1")
 		{
@@ -19464,6 +19681,26 @@ void LAi_CharacterFireExecute_WR(aref attack, aref enemy, float kDist, int isFin
 				}
 
 				return;
+			}
+		}
+		else
+		{
+			if(attack.location == "BB_island2")
+			{
+				if(CheckAttribute(attack,"bb_isl2_position") && attack.bb_isl2_position == "bridge")
+				{
+					if(LAi_IsFightMode(attack))
+					{
+						if(CheckAttribute(attack, "BB_isl2_box7_gun") && attack.BB_isl2_box7_gun == "on") return;
+						attack.BB_isl2_box7_gun = "on";
+						//this is your 2:nd 'open box'
+
+						PlaySound("OBJECTS\DUEL\sabre_sh.wav");
+						
+						LAi_QuestDelay("key_unlock2", 1.5);
+						LAi_QuestDelay("BB_island2_unlock_tower", 3.0);
+					}
+				}
 			}
 		}
 	}

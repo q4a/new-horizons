@@ -724,4 +724,402 @@ void CreateTempQuestEnemyCharacters(ref n)
 	ch.skipRM = true; // PB: Skip Relations Mod
 	ch.questchar = true;//MAXIMUS: identifier for captives
 	AddGameCharacter(n, ch);
+
+// French Guard 1
+	ch.old.name = "Guard";
+	ch.old.lastname = "1";
+	ch.name = TranslateString("","Guard");
+	ch.lastname = "1";
+	ch.id		= "French_guard1";
+	ch.model	= "Soldier_Fra_17";
+	ch.sound_type = "soldier";
+	ch.sex = "man";
+	ch.nation = FRANCE;
+	GiveItem2Character(ch, "pistolmket");
+	ch.equip.gun = "pistolmket";
+	//JRH ammo mod -->
+	if (ENABLE_AMMOMOD) {	// LDH change
+		TakenItems(ch, "gunpowder", 1 + rand(2));
+		TakenItems(ch, "musketbullets", 1 + rand(2)); }
+	//JRH ammo mod <--	
+	GiveItem2Character(ch, "blade4");
+	ch.equip.blade = "blade4";
+	ch.location	= "";
+	ch.location.group = "";
+	ch.location.locator = "";
+	ch.Dialog.Filename = "Falaise De Fleur Soldier_dialog.c";
+	ch.rank 	= 1;
+	ch.reputation = "None";
+	ch.experience = "0";
+	ch.skill.Leadership = "1";
+	ch.skill.Fencing = "7";
+	ch.skill.Sailing = "1";
+	ch.skill.Accuracy = "1";
+	ch.skill.Cannons = "1";
+	ch.skill.Grappling = "1";
+	ch.skill.Repair = "1";
+	ch.skill.Defence = "1";
+	ch.skill.Commerce = "1";
+	ch.skill.Sneak = "1";
+	ch.money = "10";
+//	LAi_NoRebirthEnable(ch);
+	LAi_SetGuardianType(ch);
+	LAi_SetLoginTime(ch, 0.0, 24.0);
+	LAi_SetHP(ch, 240.0, 240.0);
+	ch.questchar = true;
+	LAi_group_MoveCharacter(ch, "FRANCE_SOLDIERS");
+	ch.greeting = "Gr_falaise de fleur soldier";
+	AddGameCharacter(n, ch);
+
+// French Guard 2
+	ch.old.name = "Guard";
+	ch.old.lastname = "2";
+	ch.name = TranslateString("","Guard");
+	ch.lastname = "2";
+	ch.id		= "French_guard2";
+	ch.model	= "Soldier_Fra3_17";
+	ch.sound_type = "soldier";
+	ch.sex = "man";
+	ch.nation = FRANCE;
+	GiveItem2Character(ch, "pistolmket");
+	ch.equip.gun = "pistolmket";
+	//JRH ammo mod -->
+	if (ENABLE_AMMOMOD) {	// LDH change
+		TakenItems(ch, "gunpowder", 1 + rand(2));
+		TakenItems(ch, "musketbullets", 1 + rand(2)); }
+	//JRH ammo mod <--	
+	GiveItem2Character(ch, "blade4");
+	ch.equip.blade = "blade4";
+	ch.location	= "";
+	ch.location.group = "";
+	ch.location.locator = "";
+	ch.Dialog.Filename = "Falaise De Fleur Soldier_dialog.c";
+	ch.rank 	= 1;
+	ch.reputation = "None";
+	ch.experience = "0";
+	ch.skill.Leadership = "1";
+	ch.skill.Fencing = "7";
+	ch.skill.Sailing = "1";
+	ch.skill.Accuracy = "1";
+	ch.skill.Cannons = "1";
+	ch.skill.Grappling = "1";
+	ch.skill.Repair = "1";
+	ch.skill.Defence = "1";
+	ch.skill.Commerce = "1";
+	ch.skill.Sneak = "1";
+	ch.money = "10";
+//	LAi_NoRebirthEnable(ch);
+	LAi_SetGuardianType(ch);
+	LAi_SetLoginTime(ch, 0.0, 24.0);
+	LAi_SetHP(ch, 240.0, 240.0);
+	ch.questchar = true;
+	LAi_group_MoveCharacter(ch, "FRANCE_SOLDIERS");
+	ch.greeting = "Gr_falaise de fleur soldier";
+	AddGameCharacter(n, ch);
+
+// French Guard 3
+	ch.old.name = "Guard";
+	ch.old.lastname = "3";
+	ch.name = TranslateString("","Guard");
+	ch.lastname = "3";
+	ch.id		= "French_guard3";
+	ch.model	= "Soldier_Fra5_17";
+	ch.sound_type = "soldier";
+	ch.sex = "man";
+	ch.nation = FRANCE;
+	GiveItem2Character(ch, "pistolmket");
+	ch.equip.gun = "pistolmket";
+	//JRH ammo mod -->
+	if (ENABLE_AMMOMOD) {	// LDH change
+		TakenItems(ch, "gunpowder", 1 + rand(2));
+		TakenItems(ch, "musketbullets", 1 + rand(2)); }
+	//JRH ammo mod <--	
+	GiveItem2Character(ch, "blade4");
+	ch.equip.blade = "blade4";
+	ch.location	= "";
+	ch.location.group = "";
+	ch.location.locator = "";
+	ch.Dialog.Filename = "Falaise De Fleur Soldier_dialog.c";
+	ch.rank 	= 1;
+	ch.reputation = "None";
+	ch.experience = "0";
+	ch.skill.Leadership = "1";
+	ch.skill.Fencing = "7";
+	ch.skill.Sailing = "1";
+	ch.skill.Accuracy = "1";
+	ch.skill.Cannons = "1";
+	ch.skill.Grappling = "1";
+	ch.skill.Repair = "1";
+	ch.skill.Defence = "1";
+	ch.skill.Commerce = "1";
+	ch.skill.Sneak = "1";
+	ch.money = "10";
+//	LAi_NoRebirthEnable(ch);
+	LAi_SetGuardianType(ch);
+	LAi_SetLoginTime(ch, 0.0, 24.0);
+	LAi_SetHP(ch, 240.0, 240.0);
+	ch.questchar = true;
+	LAi_group_MoveCharacter(ch, "FRANCE_SOLDIERS");
+	ch.greeting = "Gr_falaise de fleur soldier";
+	AddGameCharacter(n, ch);
+
+	ch.old.name = "Guinemant";
+	ch.old.lastname = "Lavignen";
+	ch.name = TranslateString("","Guinemant");
+	ch.lastname = TranslateString("","Lavignen");
+	ch.id		= "French_Lieutenant";
+	ch.nation	= FRANCE;
+	ch.model	= "Offic_fra_17";
+	ch.sound_type = "soldier";
+//	LAi_NoRebirthEnable(ch);
+	ch.sex = "man";
+	GiveItem2Character(ch, "blade9+1");
+	ch.equip.blade = "blade9";
+	GiveItem2Character(ch, "pistol8+1");
+	ch.equip.gun = "pistol8";
+	ch.questchar = true;
+     //JRH ammo mod -->
+	if (ENABLE_AMMOMOD) {	// LDH change
+		TakenItems(ch, "gunpowder", 1 + rand(2));
+		TakenItems(ch, "pistolbullets", 1 + rand(2));
+	}
+     //JRH ammo mod <--
+	ch.nodisarm	= 1;				// PB: Disable disarming
+	ch.location	= "";
+	ch.location	= "";
+	ch.location.group = "";
+	ch.location.locator = "";
+	ch.Dialog.Filename = "French_Captain1_dialog.c";
+	ch.rank 	= 4;
+	ch.reputation = "55";
+	ch.experience = "0";
+	ch.skill.Leadership = "5";
+	ch.skill.Fencing = "8";
+	ch.skill.Sailing = "8";
+	ch.skill.Accuracy = "4";
+	ch.skill.Cannons = "4";
+	ch.skill.Grappling = "1";
+	ch.skill.Repair = "1";
+	ch.skill.Defence = "3";
+	ch.skill.Commerce = "1";
+	ch.skill.Sneak = "1";
+	ch.money = "1000";
+	LAi_SetCivilianGuardianType(ch);
+	LAi_SetLoginTime(ch, 0.0, 24.0);
+	ch.Ship.Name = "Joli";
+	ch.Ship.Type = "RN_RaaFrigate";
+	ch.Ship.Stopped = true;
+	LAi_SetHP(ch, 300.0, 300.0);
+	ch.questchar = true;//MAXIMUS: identifier for captives
+	SetRank(ch, FRANCE, 3);
+	AddGameCharacter(n, ch);
+
+	ch.old.name = "Valerian";
+	ch.old.lastname = "Decaux";
+	ch.name = TranslateString("","Valerian");
+	ch.lastname = TranslateString("","Decaux");
+	ch.id		= "French_Captain1";
+	ch.nation	= FRANCE;
+	ch.model	= "Gener_fra_16";
+	ch.sound_type = "soldier";
+//	LAi_NoRebirthEnable(ch);
+	ch.sex = "man";
+	GiveItem2Character(ch, "blade25+2");
+	ch.equip.blade = "blade25";
+	GiveItem2Character(ch, "pistol2+3");
+	ch.equip.gun = "pistol2";
+	GiveItem2Character(ch, "commonarmor");
+	ch.questchar = true;
+     //JRH ammo mod -->
+	if (ENABLE_AMMOMOD) {	// LDH change
+		TakenItems(ch, "gunpowder", 1 + rand(2));
+		TakenItems(ch, "pistolbullets", 1 + rand(2));
+	}
+     //JRH ammo mod <--
+	ch.nodisarm	= 1;				// PB: Disable disarming
+	ch.location	= "";
+	ch.location	= "";
+	ch.location.group = "";
+	ch.location.locator = "";
+	ch.Dialog.Filename = "French_Captain1_dialog.c";
+	ch.rank 	= 4;
+	ch.reputation = "45";
+	ch.experience = "0";
+	ch.skill.Leadership = "7";
+	ch.skill.Fencing = "10";
+	ch.skill.Sailing = "8";
+	ch.skill.Accuracy = "4";
+	ch.skill.Cannons = "4";
+	ch.skill.Grappling = "1";
+	ch.skill.Repair = "1";
+	ch.skill.Defence = "7";
+	ch.skill.Commerce = "1";
+	ch.skill.Sneak = "1";
+	ch.money = "4000";
+	LAi_SetCivilianGuardianType(ch);
+	LAi_SetLoginTime(ch, 0.0, 24.0);
+	LAi_SetHP(ch, 400.0, 400.0);
+	ch.questchar = true;//MAXIMUS: identifier for captives
+	SetRank(ch, FRANCE, 5);
+	AddGameCharacter(n, ch);
+
+	ch.old.name = "Arnald";
+	ch.old.lastname = "Rimeaux";
+	ch.name = TranslateString("","Arnald");
+	ch.lastname = TranslateString("","Rimeaux");
+	ch.id		= "French_Captain2";
+	ch.nation	= FRANCE;
+	ch.model	= "Gener_fra_16";
+	ch.sound_type = "soldier";
+//	LAi_NoRebirthEnable(ch);
+	ch.sex = "man";
+	GiveItem2Character(ch, "blade9+1");
+	ch.equip.blade = "blade25";
+	GiveItem2Character(ch, "pistol7+2");
+	ch.equip.gun = "pistol2";
+	ch.questchar = true;
+     //JRH ammo mod -->
+	if (ENABLE_AMMOMOD) {	// LDH change
+		TakenItems(ch, "gunpowder", 1 + rand(2));
+		TakenItems(ch, "pistolbullets", 1 + rand(2));
+	}
+     //JRH ammo mod <--
+	ch.nodisarm	= 1;				// PB: Disable disarming
+	ch.location	= "";
+	ch.location	= "";
+	ch.location.group = "";
+	ch.location.locator = "";
+	ch.Dialog.Filename = "French_Captain1_dialog.c";
+	ch.rank 	= 4;
+	ch.reputation = "45";
+	ch.experience = "0";
+	ch.skill.Leadership = "5";
+	ch.skill.Fencing = "8";
+	ch.skill.Sailing = "8";
+	ch.skill.Accuracy = "5";
+	ch.skill.Cannons = "5";
+	ch.skill.Grappling = "1";
+	ch.skill.Repair = "1";
+	ch.skill.Defence = "5";
+	ch.skill.Commerce = "1";
+	ch.skill.Sneak = "1";
+	ch.money = "4000";
+	LAi_SetCivilianGuardianType(ch);
+	LAi_SetLoginTime(ch, 0.0, 24.0);
+	ch.Ship.Name = "Bolontaire";
+	ch.Ship.Type = "FR_Frigate";
+	ch.Ship.Stopped = true;
+	LAi_SetHP(ch, 300.0, 300.0);
+	ch.questchar = true;//MAXIMUS: identifier for captives
+	SetRank(ch, FRANCE, 5);
+	AddGameCharacter(n, ch);
+
+	ch.old.name = "Bruyant";
+	ch.old.lastname = "Moncoutie";
+	ch.name = TranslateString("","Bruyant");
+	ch.lastname = TranslateString("","Moncoutie");
+	ch.id		= "French_Captain3";
+	ch.nation	= FRANCE;
+	ch.model	= "Gener_fra_16";
+	ch.sound_type = "soldier";
+//	LAi_NoRebirthEnable(ch);
+	ch.sex = "man";
+	GiveItem2Character(ch, "blade9+1");
+	ch.equip.blade = "blade25";
+	GiveItem2Character(ch, "pistol6+2");
+	ch.equip.gun = "pistol2";
+	ch.questchar = true;
+     //JRH ammo mod -->
+	if (ENABLE_AMMOMOD) {	// LDH change
+		TakenItems(ch, "gunpowder", 1 + rand(2));
+		TakenItems(ch, "pistolbullets", 1 + rand(2));
+	}
+     //JRH ammo mod <--
+	ch.nodisarm	= 1;				// PB: Disable disarming
+	ch.location	= "";
+	ch.location	= "";
+	ch.location.group = "";
+	ch.location.locator = "";
+	ch.Dialog.Filename = "French_Captain1_dialog.c";
+	ch.rank 	= 4;
+	ch.reputation = "45";
+	ch.experience = "0";
+	ch.skill.Leadership = "5";
+	ch.skill.Fencing = "8";
+	ch.skill.Sailing = "8";
+	ch.skill.Accuracy = "5";
+	ch.skill.Cannons = "5";
+	ch.skill.Grappling = "1";
+	ch.skill.Repair = "1";
+	ch.skill.Defence = "5";
+	ch.skill.Commerce = "1";
+	ch.skill.Sneak = "1";
+	ch.money = "4000";
+	LAi_SetCivilianGuardianType(ch);
+	LAi_SetLoginTime(ch, 0.0, 24.0);
+	ch.Ship.Name = "Salamine";
+	ch.Ship.Type = "FR_Frigate";
+	ch.Ship.Stopped = true;
+	LAi_SetHP(ch, 300.0, 300.0);
+	ch.questchar = true;//MAXIMUS: identifier for captives
+	SetRank(ch, FRANCE, 5);
+	AddGameCharacter(n, ch);
+
+	ch.old.name = "Philip";
+	ch.old.lastname = "de Malvoisin";
+	ch.name = TranslateString("","Philip");
+	ch.lastname = TranslateString("","de Malvoisin");
+	ch.id		= "French_Contre-Amiral";
+	SetRankTitle(ch, TranslateString("", "Chevalier"));
+	ch.nation	= FRANCE;
+	ch.model	= "Gener_fra_16";
+	ch.sound_type = "soldier";
+//	LAi_NoRebirthEnable(ch);
+	ch.sex = "man";
+	GiveItem2Character(ch, "blade9+1");
+	ch.equip.blade = "blade25";
+	GiveItem2Character(ch, "pistol5+3");
+	ch.equip.gun = "pistol2";
+	GiveItem2Character(ch, "goldarmor");
+	ch.questchar = true;
+     //JRH ammo mod -->
+	if (ENABLE_AMMOMOD) {	// LDH change
+		TakenItems(ch, "gunpowder", 1 + rand(2));
+		TakenItems(ch, "pistolbullets", 1 + rand(2));
+	}
+     //JRH ammo mod <--
+	ch.nodisarm	= 1;				// PB: Disable disarming
+	ch.location	= "";
+	ch.location	= "";
+	ch.location.group = "";
+	ch.location.locator = "";
+	ch.Dialog.Filename = "French_Captain1_dialog.c";
+	ch.rank 	= 4;
+	ch.reputation = "35";
+	ch.experience = "0";
+	ch.skill.Leadership = "8";
+	ch.skill.Fencing = "10";
+	ch.skill.Sailing = "10";
+	ch.skill.Accuracy = "10";
+	ch.skill.Cannons = "10";
+	ch.skill.Grappling = "8";
+	ch.skill.Repair = "10";
+	ch.skill.Defence = "10";
+	ch.skill.Commerce = "1";
+	ch.skill.Sneak = "10";
+	ch.perks.list.BasicDefence = true;
+	ch.perks.list.AdvancedDefence = true;
+	ch.perks.list.SwordplayProfessional = true;
+	ch.perks.list.CriticalHit = true;
+	Ch.Perks.list.Toughness = true;
+	ch.money = "40000";
+	LAi_SetCivilianGuardianType(ch);
+	LAi_SetLoginTime(ch, 0.0, 24.0);
+	ch.Ship.Name = "Conquérante";
+	ch.Ship.Type = "FR_Fleuron";
+	ch.Ship.Stopped = true;
+	LAi_SetHP(ch, 1000.0, 1000.0);
+	ch.questchar = true;//MAXIMUS: identifier for captives
+	SetRank(ch, FRANCE, 7);
+	AddGameCharacter(n, ch);
 }

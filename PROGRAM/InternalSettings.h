@@ -894,7 +894,7 @@ Set all to -1 to disable this mod
 #define OFFICER_TO_TARGET_DIST			10.0 	// FLOAT - was 30, stock
 
 // ARMOR --------------------------------
-#define ARMOR_LUCK_SCALAR				0.025	// FLOAT - armor coverage scaled by 1.0 + luck * armor_luck_scalar
+#define ARMOR_FENCING_SCALAR			0.025	// FLOAT - armor coverage scaled by 1.0 + fencing * armor_fencing_scalar
 #define ARMOR_DEFAULT_FRAC				0.8		// FLOAT - (no description)
 #define ARMOR_DEFAULT_STOP				0.01	// FLOAT - (no description)
 

@@ -59,6 +59,13 @@ void ProcessDialogEvent()
 				link.l2 = DLG_TEXT[85];
 				link.l2.go = "gov_5";
 			}
+			if (CheckQuestAttribute("abduction_status", "rescue_pirate") && !CheckCharacterItem(PChar, "PrisonPass"))
+			{
+				dialog.snd = "Voice\REGR\REGR007";
+				dialog.Text = DLG_TEXT[70];
+				link.l1 = DLG_TEXT[86] + GetMySimpleName(characterFromID("Wilfred Roscoe")) + ".";
+				link.l1.go = "ardent_abduction_prison_pass";
+			}
 			link.l99 = DLG_TEXT[13];
 			link.l99.go = "exit";
 		break;
@@ -114,6 +121,49 @@ void ProcessDialogEvent()
 			pchar.quest.santiago = "preparation";
 			AddDialogExitQuest("txikilibre");
 			AddQuestRecord("Santiago", 6);
+		break;
+
+		case "ardent_abduction_prison_pass":
+			Preprocessor_Add("crime", PChar.quest.background);
+			dialog.text = DLG_TEXT[87];
+			link.l1 = DLG_TEXT[88];
+			link.l1.go = "ardent_abduction_prison_pass2";
+		break;
+
+		case "ardent_abduction_prison_pass2":
+			dialog.text = DLG_TEXT[89];
+			link.l1 = DLG_TEXT[90];
+			link.l1.go = "ardent_abduction_prison_pass3";
+		break;
+
+		case "ardent_abduction_prison_pass3":
+			dialog.text = DLG_TEXT[91];
+			if (makeint(pchar.money >= 10000))
+			{
+				link.l1 = DLG_TEXT[92];
+				link.l1.go = "ardent_abduction_prison_pass4";
+			}
+			link.l2 = DLG_TEXT[93];
+			link.l2.go = "Exit";
+		break;
+
+		case "ardent_abduction_prison_pass4":
+			PlayStereoSound("INTERFACE\took_item.wav");
+			AddMoneyToCharacter(pchar, -10000);
+			GiveItem2Character(PChar, "PrisonPass");
+			AddQuestRecord("Abduction", 10);
+			dialog.text = DLG_TEXT[94];
+			link.l1 = DLG_TEXT[95];
+			link.l1.go = "Exit";
+		break;
+
+		case "ardent_abduction_return":
+			if (PChar.sex == "man") Preprocessor_Add("person", "man");
+			else Preprocessor_Add("person", "woman");
+			dialog.text = DLG_TEXT[96];
+			link.l1 = DLG_TEXT[97];
+			link.l1.go = "Exit";
+			AddDialogExitQuest("abduction_governor_arrest");
 		break;
 
 		case "Exit":

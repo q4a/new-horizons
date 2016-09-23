@@ -26,8 +26,8 @@ void StartStoryLine()
 	
 	ref ch = CharacterFromID("Swedish Guy");
 	ch.nation = PERSONAL_NATION;
-	ch.Flags.Personal = 3;
-	ch.Flags.Personal.texture = 4;
+	ch.Flags.Personal = 3;				//was 3
+	ch.Flags.Personal.texture = 4;			//was 4
 	Towns[GetTownIndex("Khael Roa")].gov = "Swedish Guy";
 
 	Locations[FindLocation("IslaMona_port_exit")].models.always.locators = "QCexit_l_wr2";
@@ -53,9 +53,7 @@ void StartStoryLine()
 	GiveItem2Character(characterFromID("gm_crew11"), "bladeA2"); EquipCharacterbyItem(characterFromID("gm_crew11"), "bladeA2");
 	GiveItem2Character(characterFromID("wr_bri"), "bladeA5"); EquipCharacterbyItem(characterFromID("wr_bri"), "bladeA5");
 	GiveItem2Character(characterFromID("Woodes Rogers"), "bladeA5"); EquipCharacterbyItem(characterFromID("Woodes Rogers"), "bladeA5");
-	GiveItem2Character(characterFromID("wr_cor3"), "pistol_armchair"); EquipCharacterbyItem(characterFromID("wr_cor3"), "pistol_armchair");
 	GiveItem2Character(characterFromID("wr_fralut"), "blade3carpets"); EquipCharacterbyItem(characterFromID("wr_fralut"), "blade3carpets");
-	GiveItem2Character(characterFromID("wr_fsh"), "bladearmchair"); EquipCharacterbyItem(characterFromID("wr_fsh"), "bladearmchair");
 	GiveItem2Character(characterFromID("wr_mong"), "bladebarrel"); EquipCharacterbyItem(characterFromID("wr_mong"), "bladebarrel");
 	GiveItem2Character(characterFromID("gm_crew14"), "bladebarrel"); EquipCharacterbyItem(characterFromID("gm_crew14"), "bladebarrel");
 	GiveItem2Character(characterFromID("wr_mong"), "pistolbarrel"); EquipCharacterbyItem(characterFromID("wr_mong"), "pistolbarrel");
@@ -179,12 +177,8 @@ void StartStoryLine()
 	EquipCharacterbyItem(CharacterFromID("wr_bri"), "bladeA5");
 	GiveItem2Character(CharacterFromID("Woodes Rogers"), "bladeA5");
 	EquipCharacterbyItem(CharacterFromID("Woodes Rogers"), "bladeA5");
-	GiveItem2Character(characterFromID("wr_cor3"), "pistol_armchair");		
-	EquipCharacterbyItem(characterFromID("wr_cor3"), "pistol_armchair");
 	GiveItem2Character(characterFromID("wr_fralut"), "blade3carpets");		
 	EquipCharacterbyItem(characterFromID("wr_fralut"), "blade3carpets");
-	GiveItem2Character(characterFromID("wr_fsh"), "bladearmchair");		
-	EquipCharacterbyItem(characterFromID("wr_fsh"), "bladearmchair");
 	GiveItem2Character(characterFromID("wr_mong"), "bladebarrel");		
 	EquipCharacterbyItem(characterFromID("wr_mong"), "bladebarrel");
 	GiveItem2Character(characterFromID("gm_crew14"), "bladebarrel");		
@@ -320,7 +314,9 @@ void StartStoryLine()
 	//	Pchar.quest.WR_start = "68";	//Hands prison2
 
 	//	Pchar.quest.WR_start = "90";	//Kristiania canyon
-	//	Pchar.quest.WR_start = "91";	//BB island1	
+	//	Pchar.quest.WR_start = "91";	//BB island1
+	//	Pchar.quest.WR_start = "92";	//BB tower top
+	//	Pchar.quest.WR_start = "95";	//BB Isle	
 				
 	//	Pchar.quest.WR_start = "100";	//alchemy
 
@@ -886,6 +882,8 @@ void StartStoryLine()
 			//	ChangeCharacterAddressGroup(CharacterFromID("Teach"), "BB_island1", "goto", "citizen03");			
 				GiveItem2Character(Pchar, "blade1");
 				EquipCharacterByItem(Pchar, "blade1");
+				GiveItem2Character(Pchar, "bladelever3");
+				EquipCharacterByItem(Pchar, "bladelever3");
 
 				AddCharacterGoods(Pchar, GOOD_COTTON, 1);
 				AddCharacterGoods(Pchar, GOOD_CHOCOLATE, 145);
@@ -905,6 +903,7 @@ void StartStoryLine()
 			case "91":
 				//Q2: BB_island1
 		
+			LAi_SetImmortal(pchar, true);		//temp
 				Pchar.quest.disable_rebirth = true;
 
 				sTeleportLocName = "BB_island1";
@@ -918,16 +917,23 @@ void StartStoryLine()
 				
 				SetModel(PChar, "Howard_Pyle", Pchar.model.animation, PChar.sex, stf(PChar.model.height), true);
 
-				GiveItem2Character(Pchar, "bladelever3");		
-				EquipCharacterbyItem(Pchar, "bladelever3");
-				GiveItem2Character(Pchar, "bladeflag_pir"); 
-				GiveItem2Character(Pchar, "bladeflag_pir1");
-			//	GiveItem2Character(Pchar, "bladeflag_pir2"); 
-			//	GiveItem2Character(Pchar, "bladeflag_pir3");
-			//	GiveItem2Character(Pchar, "bladeflag_pir4"); 
-			//	GiveItem2Character(Pchar, "bladeflag_pir5");
-				GiveItem2Character(Pchar, "bladeflag_pir6");
-
+			//	GiveItem2Character(Pchar, "bladeX4");
+			//	GiveItem2Character(Pchar, "blade5"); 
+				GiveItem2Character(Pchar, "bladeBB"); 
+				EquipCharacterbyItem(Pchar, "bladeBB");
+				GiveItem2Character(Pchar, "pistolbladeBB"); 
+				EquipCharacterbyItem(Pchar, "pistolbladeBB");
+			//	GiveItem2Character(Pchar, "pistolwhip"); 
+			//	EquipCharacterbyItem(Pchar, "pistolwhip");
+			//	TakeNItems(Pchar,"gunpowder", 24);
+			//	TakeNItems(Pchar,"pistolbullets", 24);
+			//	GiveItem2Character(Pchar, "pistol5"); 
+			//	EquipCharacterbyItem(Pchar, "pistol5");
+				GiveItem2Character(Pchar, "bladelever3");
+				
+			
+				Pchar.skill.Defence = "5";
+				
 				ChangeCharacterAddressGroup(CharacterFromID("Teach"), "BB_island1", "goto", "citizen03");
 
 				AddMoneyToCharacter(Pchar,-10000);
@@ -954,6 +960,80 @@ void StartStoryLine()
 				LAi_QuestDelay("BB_lower_cave_deathtrap", 0.1);
 			break;
 
+			case "92":
+				//Q2: BB tower top
+		
+				Pchar.quest.disable_rebirth = true;
+
+				sTeleportLocName = "BB_tower";
+				rldGroup = "reload";
+				rldLocator = "reload6";
+
+				SetCurrentTime(12, 0);
+				SetNextWeather("Clear");
+				Pchar.quest.JRH_rain = "Clear";
+				
+				SetModel(PChar, "Howard_Pyle", Pchar.model.animation, PChar.sex, stf(PChar.model.height), true);
+
+				ChangeCharacterAddressGroup(CharacterFromID("Teach"), "BB_tower", "goto", "goto4");
+
+				GiveItem2Character(Pchar, "bladelever3");		
+				EquipCharacterbyItem(Pchar, "bladelever3");
+				GiveItem2Character(Pchar, "bladeflag_pir"); 
+				GiveItem2Character(Pchar, "bladeflag_pir2");
+				GiveItem2Character(Pchar, "bladeflag_HOL"); 
+				GiveItem2Character(Pchar, "bladeflag_ENG");
+				GiveItem2Character(Pchar, "bladeflag_FRA"); 
+				GiveItem2Character(Pchar, "bladeflag_POR");
+				GiveItem2Character(Pchar, "bladeflag_SPA"); 
+				GiveItem2Character(Pchar, "bladeflag_PRE");
+				GiveItem2Character(Pchar, "bladeflag_IRE"); 
+				GiveItem2Character(Pchar, "bladeflag_SWE");
+				GiveItem2Character(Pchar, "bladeflag_HOL2"); 
+				GiveItem2Character(Pchar, "bladeflag_AME");
+				GiveItem2Character(Pchar, "bladeflag_SPA2"); 
+				GiveItem2Character(Pchar, "cursedcoin"); 
+				
+
+				AddMoneyToCharacter(Pchar,-10000);
+
+				AddCharacterGoods(Pchar, GOOD_GOLD, 1);
+				AddCharacterGoods(Pchar, GOOD_SILVER, 1);
+
+				AddCharacterGoods(Pchar, GOOD_COTTON, 1);
+				AddCharacterGoods(Pchar, GOOD_CHOCOLATE, 145);
+				AddCharacterGoods(Pchar, GOOD_SUGAR, 250);
+				
+				
+				LAi_QuestDelay("KR_center_backloop1", 0.1);
+				LAi_QuestDelay("KR_center_backloop2", 0.1);
+				LAi_QuestDelay("KR_church", 0.1);
+				LAi_QuestDelay("BB_tower_top_backloop", 0.1);
+				//LAi_QuestDelay("BB_tower_backloop", 0.1);	//only if door to upper cave is locked
+				
+				LAi_QuestDelay("BB_upper_cave_backloop", 0.1);
+				LAi_QuestDelay("BB_lower_cave_backloop", 0.1);
+				LAi_QuestDelay("pick_up_grotto_boom", 0.1);
+				LAi_QuestDelay("BB_lower_cave_steplock", 0.1);
+				LAi_QuestDelay("BB_lower_cave_fill_chests", 0.1);
+				LAi_QuestDelay("BB_lower_cave_deathtrap", 0.1);
+
+				LAi_QuestDelay("start_BB_flag", 0.1);
+			break;
+
+			case "95":
+				//Q2: BB Isle
+		
+				Pchar.quest.disable_rebirth = true;
+
+				sTeleportLocName = "BB_isle";
+				rldGroup = "reload";
+				rldLocator = "reload1";
+
+				SetCurrentTime(12, 0);
+				SetNextWeather("Clear");
+				Pchar.quest.JRH_rain = "Clear";
+			break;
 			
 			case "100":
 				//Q2: alchemy

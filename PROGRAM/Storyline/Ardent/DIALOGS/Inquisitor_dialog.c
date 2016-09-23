@@ -46,6 +46,7 @@ void ProcessDialogEvent()
 
 		case "helen":
 			GiveModel2Player("Ardent_F", true);
+			DeleteAttribute(PChar, "clothes.ardent");	
 			PChar.sex = "woman";
 			PChar.old.name = "Helen";
 			PChar.name = TranslateString("","Helen");
@@ -78,6 +79,7 @@ void ProcessDialogEvent()
 
 		case "pirate":
 			SetServedNation(PIRATE);
+			PChar.quest.background = "pirate";
 			dialog.text = DLG_TEXT[11];
 			link.l1 = DLG_TEXT[12];
 			link.l1.go = "exit";
@@ -85,6 +87,7 @@ void ProcessDialogEvent()
 
 		case "personal":
 			SetServedNation(PERSONAL_NATION);
+			PChar.quest.background = "smuggler";
 			dialog.text = DLG_TEXT[11];
 			link.l1 = DLG_TEXT[12];
 			link.l1.go = "exit";

@@ -1859,3 +1859,5 @@ Order of Malta{Order of Malta}
 It's not time for any meal now.{It's not time for any meal now.}
 Hey, it's occupied.{Hey, it's occupied.}
 No, I'm only allowed to take books and documents.{No, I'm only allowed to take books and documents.}
+I guess a lever should be placed here.{I guess a lever should be placed here.}
+I guess the other blade should be placed here.{I guess the other blade should be placed here.}

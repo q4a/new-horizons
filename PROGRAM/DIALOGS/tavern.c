@@ -93,7 +93,8 @@ void ProcessDialogEvent()
 			d.Text = DLG_TEXT[11];
 			Link.l1 = DLG_TEXT[12];
 			Link.l1.go = "exit";
-			CreateOfficerType(OFFIC_TYPE_BOATSWAIN, sti(PChar.skill.Leadership));
+			if(iRealismMode == 0) {CreateOfficerType(OFFIC_TYPE_BOATSWAIN, sti(PChar.skill.Leadership));}
+			else{CreateOfficerType(OFFIC_TYPE_BOATSWAIN, 0);}
 		break;
 
 		case "Find_Cannoneer":
@@ -101,7 +102,8 @@ void ProcessDialogEvent()
 			d.Text = DLG_TEXT[11];
 			Link.l1 = DLG_TEXT[12];
 			Link.l1.go = "exit";
-			CreateOfficerType(OFFIC_TYPE_CANNONEER, sti(PChar.skill.Leadership));
+			if(iRealismMode == 0) {CreateOfficerType(OFFIC_TYPE_CANNONEER, sti(PChar.skill.Leadership));}
+			else{CreateOfficerType(OFFIC_TYPE_CANNONEER, 0);}
 		break;
 
 		case "Find_Quartermaster":
@@ -109,7 +111,8 @@ void ProcessDialogEvent()
 			d.Text = DLG_TEXT[11];
 			Link.l1 = DLG_TEXT[12];
 			Link.l1.go = "exit";
-			CreateOfficerType(OFFIC_TYPE_QMASTER, sti(PChar.skill.Leadership));
+			if(iRealismMode == 0) {CreateOfficerType(OFFIC_TYPE_QMASTER, sti(PChar.skill.Leadership));}
+			else{CreateOfficerType(OFFIC_TYPE_QMASTER, 0);}
 		break;
 
 		case "Find_Navigator":
@@ -117,7 +120,8 @@ void ProcessDialogEvent()
 			d.Text = DLG_TEXT[11];
 			Link.l1 = DLG_TEXT[12];
 			Link.l1.go = "exit";
-			CreateOfficerType(OFFIC_TYPE_NAVIGATOR, sti(PChar.skill.Leadership));
+			if(iRealismMode == 0) {CreateOfficerType(OFFIC_TYPE_NAVIGATOR, sti(PChar.skill.Leadership));}
+			else{CreateOfficerType(OFFIC_TYPE_NAVIGATOR, 0);}
 		break;
 
 		case "Find_FirstMate":
@@ -125,7 +129,8 @@ void ProcessDialogEvent()
 			d.Text = DLG_TEXT[11];
 			Link.l1 = DLG_TEXT[12];
 			Link.l1.go = "exit";
-			CreateOfficerType(OFFIC_TYPE_FIRSTMATE, sti(PChar.skill.Leadership));
+			if(iRealismMode == 0) {CreateOfficerType(OFFIC_TYPE_FIRSTMATE, sti(PChar.skill.Leadership));}
+			else{CreateOfficerType(OFFIC_TYPE_FIRSTMATE, 0);}
 		break;
 
 		case "Find_Carpenter":
@@ -133,7 +138,8 @@ void ProcessDialogEvent()
 			d.Text = DLG_TEXT[11];
 			Link.l1 = DLG_TEXT[12];
 			Link.l1.go = "exit";
-			CreateOfficerType(OFFIC_TYPE_CARPENTER, sti(PChar.skill.Leadership));
+			if(iRealismMode == 0) {CreateOfficerType(OFFIC_TYPE_CARPENTER, sti(PChar.skill.Leadership));}
+			else{CreateOfficerType(OFFIC_TYPE_CARPENTER, 0);}
 		break;
 
 		case "Find_Doctor":
@@ -141,7 +147,8 @@ void ProcessDialogEvent()
 			d.Text = DLG_TEXT[11];
 			Link.l1 = DLG_TEXT[12];
 			Link.l1.go = "exit";
-			CreateOfficerType(OFFIC_TYPE_DOCTOR, sti(PChar.skill.Leadership));
+			if(iRealismMode == 0) {CreateOfficerType(OFFIC_TYPE_DOCTOR, sti(PChar.skill.Leadership));}
+			else{CreateOfficerType(OFFIC_TYPE_DOCTOR, 0);}
 		break;
 
 		case "Find_DeckFighter":
@@ -149,7 +156,8 @@ void ProcessDialogEvent()
 			d.Text = DLG_TEXT[11];
 			Link.l1 = DLG_TEXT[12];
 			Link.l1.go = "exit";
-			CreateOfficerType(OFFIC_TYPE_ABORDAGE, sti(PChar.skill.Leadership));
+			if(iRealismMode == 0) {CreateOfficerType(OFFIC_TYPE_ABORDAGE, sti(PChar.skill.Leadership));}
+			else{CreateOfficerType(OFFIC_TYPE_ABORDAGE, 0);}
 		break;
 	}
 

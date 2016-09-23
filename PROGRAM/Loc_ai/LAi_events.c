@@ -1247,6 +1247,11 @@ void LAi_CharacterFireExecute(aref attack, aref enemy, float kDist, int isFinded
 				LAi_QuestDelay("reset_whip_rolled_pchar", 1.0);
 			}
 
+			if(GetAttribute(weapon, "id") == "pistolbladeBB")
+			{
+				PlaySound("OBJECTS\duel\sword_wind.wav");
+			}
+
 			if(GetAttribute(weapon, "id") == "pistolcenser")
 			{
 				PlaySound("OBJECTS\DUEL\censer.wav");
@@ -2017,6 +2022,62 @@ void LAi_CharacterFireExecute(aref attack, aref enemy, float kDist, int isFinded
 
 						LAi_QuestDelay("reset_whip_rolled_officer", 1.0);
 					}
+				}
+
+				if(GetAttribute(weapon, "id") == "pistolbladeBB")
+				{
+					if(dist <= 3.0)		//this value corresponds best to the range of a right hand blade
+					{
+						If(enemy_blade != "bladearrows" && enemy_blade != "bladeX4" && LAi_IsFightMode(enemy) && !IsMainCharacter(enemy) && !IsOfficer(enemy))
+						{
+							int fenc = makeint(enemy.skill.Fencing);
+							int BlockChance = fenc + 2;
+							if(BlockChance > 9) BlockChance = 9;
+
+							if(rand(10) <= BlockChance)
+							{
+								//no dmg
+								switch(rand(2))
+								{
+									case 0: PlaySound("OBJECTS\duel\sword_hit1.wav"); PlaySound("OBJECTS\duel\sword_wind.wav"); break;
+									case 1: PlaySound("OBJECTS\duel\sword_hit2.wav"); PlaySound("OBJECTS\duel\sword_wind.wav"); break;
+									case 2: PlaySound("OBJECTS\duel\sword_hit3.wav"); PlaySound("OBJECTS\duel\sword_wind.wav"); break;
+								}
+							}
+							else
+							{
+								LAi_ApplyCharacterDamage(enemy, 22.0 + rand(15));
+								switch(rand(2))
+								{
+									case 0: PlaySound("OBJECTS\duel\sword_inbody.wav"); break;
+									case 1: PlaySound("OBJECTS\duel\sword_inbody.wav"); break;
+									case 2: PlaySound("OBJECTS\duel\sword_inbody2.wav"); break;
+								}
+							}
+						}
+
+						if(!LAi_IsFightMode(enemy))
+						{
+							LAi_ApplyCharacterDamage(enemy, 22.0 + rand(15));
+							switch(rand(2))
+							{
+								case 0: PlaySound("OBJECTS\duel\sword_inbody.wav"); break;
+								case 1: PlaySound("OBJECTS\duel\sword_inbody.wav"); break;
+								case 2: PlaySound("OBJECTS\duel\sword_inbody2.wav"); break;
+							}
+						}
+
+						if(LAi_IsDead(enemy)) 
+						{
+							if(!IsOfficer(enemy)) LAi_KillCharacter(enemy);
+						}
+					}
+					else 
+					{
+						PlaySound("OBJECTS\duel\sword_wind.wav");
+					}
+				
+					return;		//yes: skips the extra 1 dmg always this way
 				}
 			}
 		}

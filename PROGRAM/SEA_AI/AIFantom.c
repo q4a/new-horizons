@@ -107,12 +107,9 @@ int Fantom_GenerateEncounter(string sGroupName, int iEType, int iNation) // NK /
 		if(iNumShips + i >= MAX_SHIPS_ON_SEA) return i; // NK bugfix
 		iShipType = Force_GetShipType(iMerchantClassMax, iMerchantClassMin, "Trade", iNation); // NK change to type trade, fixed to swap min,max 04-09-13. Change to Force
 		if (iShipType == INVALID_SHIP_TYPE) continue;
-		//Trace("Merchant ship class = " + ShipsTypes[iShipType].Class + ", name = " + ShipsTypes[iShipType].Name);
-		//Fantom_AddFantomCharacter(sGroupName, iShipType, "trade", iEType, iNation);
 		if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: In function Fantom_GenerateEncounter");
 		rCaptain = LAi_Create_Captain(LAi_Find_New_Captain(), "trade", iShipType, iNation); //Levis new function to create a captain
-		//if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: add captain to group "+sGroupName);
-		//Group_AddCharacter(sGroupName, rCaptain.id); //Levis add the captain to the right group
+		ReloadProgressUpdate(); //Let show some progress on screen
 	}
 
 	for (i=0; i<iNumWarShips; i++)
@@ -120,12 +117,9 @@ int Fantom_GenerateEncounter(string sGroupName, int iEType, int iNation) // NK /
 		if(iNumShips + iNumMerchantShips + i >= MAX_SHIPS_ON_SEA) return iNumMerchantShips + i; // NK bugfix
 		iShipType = Force_GetShipType(iWarClassMax, iWarClassMin, "War", iNation); // NK fixed to swap min,max 04-09-13 Change to Force
 		if (iShipType == INVALID_SHIP_TYPE) continue;
-		//Trace("War ship class = " + ShipsTypes[iShipType].Class + ", name = " + ShipsTypes[iShipType].Name);
-		//Fantom_AddFantomCharacter(sGroupName, iShipType, "war", iEType, iNation);
 		if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: In function Fantom_GenerateEncounter");
 		rCaptain = LAi_Create_Captain(LAi_Find_New_Captain(), "war", iShipType, iNation); //Levis new function to create a captain
-		//if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: add captain to group "+sGroupName);
-		//Group_AddCharacter(sGroupName, rCaptain.id); //Levis add the captain to the right group
+		ReloadProgressUpdate(); //Let show some progress on screen
 	}
 
 	return iNumWarShips + iNumMerchantShips;

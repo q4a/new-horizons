@@ -281,9 +281,18 @@ void CreateCharacters()
 			GiveItem2Character(ch, "jewelry7");
 		break;
 		case PLAYER_TYPE_SWORD_MASTER:
-			ch.shiplog.Entry.log0 = "I have done well for myself training the well-to-do how to master the sword in personal combat. I have studied the great masters and imparted their wisdom to my own students in turn but I have frankly become bored of this quiet life. Besides, what true master of the martial arts hides behind walls away from the danger of angry steel? I have used my considerable savings to invest in a ship and decided to make my way to the Caribbean to seek adventure and an even greater fortune.";
-			if(ENABLE_WEAPONSMOD)	GiveItem2Character(ch, "bladeC30+3");
-			else					GiveItem2Character(ch, "bladeC30");
+			if (GetMySimpleName(ch) == "Kaverin Aleskeevich" && ch.nation == PERSONAL_NATION)
+			{
+				ch.shiplog.Entry.log0 = "Ten years since the death of our leader, Stenka Rasin, some of us have finally made it to the Caribbean. We have gathered our possessions and sold them to raise money to buy a ship. I have been chosen as the captain. Now we shall seek our fortune on the seas, and perhaps one day return to our beloved motherland.";
+				if(ENABLE_WEAPONSMOD) GiveItem2Character(ch, "blade41+3");
+				else GiveItem2Character(ch, "blade41");
+			}
+			else
+			{
+				ch.shiplog.Entry.log0 = "I have done well for myself training the well-to-do how to master the sword in personal combat. I have studied the great masters and imparted their wisdom to my own students in turn but I have frankly become bored of this quiet life. Besides, what true master of the martial arts hides behind walls away from the danger of angry steel? I have used my considerable savings to invest in a ship and decided to make my way to the Caribbean to seek adventure and an even greater fortune.";
+				if(ENABLE_WEAPONSMOD)	GiveItem2Character(ch, "bladeC30+3");
+				else					GiveItem2Character(ch, "bladeC30");
+			}
 			GiveItem2Character(ch, "goldarmor");
 		break;
 		case PLAYER_TYPE_CURSED:
@@ -332,6 +341,9 @@ void CreateCharacters()
 	// PB: Apply Player Type <--
 
 	ch.Ship.Type = CharShipType;
+	ch.Ship.cannons.borts = true; //Levis: making sure cannons are set up right
+	ResetCannons(ch); //Levis: making sure cannons are set up right
+	
 // KK -->
 	if (CharShipType != SHIP_NOTUSED_TYPE_NAME) {
 		ch.Ship.Name = CharShipName;

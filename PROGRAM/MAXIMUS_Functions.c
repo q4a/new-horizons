@@ -163,30 +163,31 @@ string GenerateMR(ref PChar, ref NPChar)
 
 string GenerateTradeQuest(ref pchar, int iTradeNation, int iTradeGoods, float fprice, float tprice, bool bMain)// moved here from traders dialogs
 {
-	int i, iQuantityGoods, iMoney, iTradeExp, iDaysExpired, chridx;
-	float fDistance, fWeight, pricediff;
-	string sTown = "";
+   int i, iQuantityGoods, iMoney, iTradeExp, iDaysExpired, chridx;
+   float fDistance, fWeight, pricediff;
+   string sTown = "";
 //MAXIMUS -[such functions must be universal (IMHO), if we are planning to make a real Caribbean in the future]->
-	string friendlyTowns = "";
-	string pirateTowns = "";
-	ref chr;
-	for(i = 0; i < TOWNS_QUANTITY; i++)
-	{
-		if(!CheckAttribute(&Towns[i],"id")) continue;
-		if(!CheckAttribute(&Towns[i],"nation")) continue;
-		if(GetAttribute(&Towns[i],"skiptrade") == true) continue;//MAXIMUS: added for some towns (such as St. John's on Antigua)
-		if(sti(Towns[i].nation) != iTradeNation) continue;
-		friendlyTowns = StoreString(friendlyTowns,Towns[i].id);
-	}
-	if (friendlyTowns != "") {
-		sTown = GetRandSubString(friendlyTowns);
-		while (sTown == "" || HasSubStr(sTown, ",") || GetIslandIDFromTown(sTown) == GetIslandIDFromTown(GetCurrentTownId()))
-		{
-			sTown = GetRandSubString(friendlyTowns);
-		}
-	} else {
-		sTown = "Quebradas Costillas"; //MAXIMUS: Quebradas Costillas - why some trader can't trade with pirates?
-	}
+   string friendlyTowns = "";
+   string pirateTowns = "";
+   ref chr;
+   for(i = 0; i < TOWNS_QUANTITY; i++)
+   {
+     if(!CheckAttribute(&Towns[i],"id")) continue;
+     if(!CheckAttribute(&Towns[i],"nation")) continue;
+     if(GetAttribute(&Towns[i],"skiptrade") == true) continue;//MAXIMUS: added for some towns (such as St. John's on Antigua)
+     if(sti(Towns[i].nation) != iTradeNation) continue;
+     if(GetIslandIDFromTown(Towns[i].id) == GetIslandIDFromTown(GetCurrentTownID())) continue;
+     friendlyTowns = StoreString(friendlyTowns,Towns[i].id);
+   }
+   if (friendlyTowns != "") {
+     sTown = GetRandSubString(friendlyTowns);
+     while (sTown == "" || HasSubStr(sTown, ","))
+     {
+       sTown = GetRandSubString(friendlyTowns);
+     }
+   } else {
+     sTown = "Quebradas Costillas"; //MAXIMUS: Quebradas Costillas - why some trader can't trade with pirates?
+   }
 	iQuantityGoods = GetSquadronFreeSpace(pchar, iTradeGoods) * 4/5; // NK ratio 05-05-12
 	fDistance = GetTownDistance2D(GetCurrentTown(), GetTownFromID(sTown));
 	fWeight = GetGoodWeightByType(iTradeGoods, iQuantityGoods);

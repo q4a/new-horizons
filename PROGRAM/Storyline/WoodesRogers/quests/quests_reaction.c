@@ -9418,8 +9418,16 @@ void QuestComplete(string sQuestName)
 			PlaySound("VOICE\ENGLISH\grandma_yell.wav");
 			LAi_QuestDelay("shop_walkers1", 1.0);
 		break;
-
+//pär
 		case "shop_walkers1":
+			RemoveCharacterEquip(characterFromID("wr_fsh"), GUN_ITEM_TYPE);
+			TakeItemFromCharacter(characterFromID("wr_fsh"), "pistol1");
+			RemoveCharacterEquip(characterFromID("wr_fsh"), BLADE_ITEM_TYPE);
+			TakeItemFromCharacter(characterFromID("wr_fsh"), "blade4");
+
+			GiveItem2Character(CharacterFromID("wr_fsh"), "bladearmchair");
+			EquipCharacterbyItem(characterFromID("wr_fsh"), "bladearmchair");
+			
 			PlaySound("INTERFACE\Closet_open.wav");
 			LAi_SetStayType(CharacterFromID("wr_fsh"));
 			ChangeCharacterAddressGroup(CharacterFromID("wr_fsh"), "wr_shop", "reload", "reload2");
@@ -9470,8 +9478,18 @@ void QuestComplete(string sQuestName)
 			EquipCharacterbyItem(characterFromID("wr_fatj"), "blade4");
 			EquipCharacterbyItem(characterFromID("wr_fatj"), "pistol1");
 		break;
-
+//pär
 		case "shop_walkers3":
+			RemoveCharacterEquip(characterFromID("wr_cor3"), GUN_ITEM_TYPE);
+			TakeItemFromCharacter(characterFromID("wr_cor3"), "pistol1");
+			RemoveCharacterEquip(characterFromID("wr_cor3"), BLADE_ITEM_TYPE);
+			TakeItemFromCharacter(characterFromID("wr_cor3"), "blade4");
+
+			GiveItem2Character(CharacterFromID("wr_cor3"), "bladeX4");
+			EquipCharacterbyItem(characterFromID("wr_cor3"), "bladeX4");
+			GiveItem2Character(CharacterFromID("wr_cor3"), "pistol_armchair");
+			EquipCharacterbyItem(characterFromID("wr_cor3"), "pistol_armchair");
+
 			PlaySound("INTERFACE\Closet_open.wav");
 			LAi_SetStayType(CharacterFromID("wr_cor3"));
 			ChangeCharacterAddressGroup(CharacterFromID("wr_cor3"), "wr_shop", "reload", "reload2");
@@ -49575,11 +49593,9 @@ void QuestComplete(string sQuestName)
 			LAi_QuestDelay("pchar_yah", 1.0);
 		break;
 
-
-
 //Q2 Caesar: Citadel Rock
 //_________________________________________________________________________________________________________________
-//pär
+
 		case "Citadel_rock_start":
 			Locations[FindLocation("Eleuthera_shore")].models.always.locators = "Pass1_l_Eleuthera_F";	//neutral start WR quest
 			Locations[FindLocation("Eleuthera_shore")].models.always.l1 = "";
@@ -50015,7 +50031,6 @@ void QuestComplete(string sQuestName)
 			LAi_ActorWaitDialog(Pchar, characterFromID("Maynard"));
 			Characters[GetCharacterIndex("Maynard")].dialog.CurrentNode  = "repeat";
 		break;
-//pär
 
 //_________________________________________________________________________________________________________________
 //Q2 Caesar: Turks
@@ -50338,8 +50353,7 @@ void QuestComplete(string sQuestName)
 		break;
 
 //_________________________________________________________________________________________________________________
-//pär Charleston Maltains
-	
+
 		case "start_Maltains":
 			ChangeCharacterAddressGroup(characterFromID("Thomas Modiford"), "none", "", "");	//governor gone
 			ChangeCharacterAddressGroup(characterFromID("Maltese_soldier3"), "Charlestown_port", "quest", "quest2");
@@ -51851,6 +51865,7 @@ void QuestComplete(string sQuestName)
 		case "BB_island1_ladder_up1":
 			LAi_SetPlayerType(Pchar);
 			Pchar.quest.BB_isl1_ladder = "way_up";
+			Pchar.BB_isl1_box4 = "off";
 		break;
 //---------------------------------------------------------------------------------------------------
 		case "BB_island1_ladder_down":
@@ -51877,6 +51892,100 @@ void QuestComplete(string sQuestName)
 		case "BB_island1_ladder_down2":
 			LAi_SetPlayerType(Pchar);
 			Pchar.quest.BB_isl1_ladder = "way_down";
+		break;
+
+
+		case "BB_island1_ladder_down_to_box2":
+			Pchar.quest.BB_isl1_ladder = "way_down";
+			PlaySound("PEOPLE\creak2.wav");
+			ChangeCharacterAddressGroup(Pchar, "BB_island1", "goto", "box2");
+			Pchar.BB_isl1_box4 = "off";
+		break;
+
+		case "BB_isl1_box4_off":
+			Pchar.BB_isl1_box4 = "off";
+		break;
+
+		case "key_unlock2":
+			PlaySound("INTERFACE\key_unlock2.wav");
+		break;
+		
+		case "BB_island1_unlock_tunnel":
+			RemoveCharacterEquip(Pchar, BLADE_ITEM_TYPE);
+			TakeItemFromCharacter(pchar, "bladeBB");
+			if(!CheckCharacterItem(Pchar,"bladeX4")) GiveItem2Character(Pchar, "bladeX4");
+			EquipCharacterByItem(Pchar, "bladeX4");
+			Locations[FindLocation("BB_island1")].models.always.l1 = "blade1";
+		Locations[FindLocation(Pchar.location)].models.always.locators = "jungle07_l_JRH_open";
+			Locations[FindLocation("BB_island1")].image = "";
+			DoQuestReloadToLocation("BB_island1", "goto", "box3", "BB_island1_unlock_tunnel1");
+		break;
+
+		case "BB_island1_unlock_tunnel1":
+			LAi_SetFightMode(Pchar, false);
+			Locations[FindLocation("BB_island1")].image = "Outside_Jungle_7.tga";
+			Pchar.BB_isl1_box4 = "off";
+			Pchar.BB_isl1_tunnel = "open";
+	
+			LAi_QuestDelay("BB_island1_unlock_tunnel2", 1.5);
+		break;
+	
+		case "BB_island1_unlock_tunnel2":
+			LAi_SetActorType(Pchar);
+			LAi_ActorTurnToLocator(Pchar, "goto", "turn");
+
+			LAi_QuestDelay("BB_island1_unlock_tunnel3", 1.5);
+		break;
+
+		case "BB_island1_unlock_tunnel3":
+			Pchar.quest.BB_isl1_ladder = "way_up";		//access now to tunnel
+			LAi_SetPlayerType(Pchar);
+
+			pchar.quest.equip_pistolbladeBB.win_condition.l1 = "location";
+			pchar.quest.equip_pistolbladeBB.win_condition.l1.location = "BB_island2";
+			pchar.quest.equip_pistolbladeBB.win_condition = "equip_pistolbladeBB";
+		break;
+
+		case "equip_pistolbladeBB":
+			if(CheckCharacterItem(Pchar,"pistolbladeBB"))
+			{
+				if(!IsEquipCharacterByItem(Pchar, "pistolbladeBB"))
+				{
+					RemoveCharacterEquip(Pchar, GUN_ITEM_TYPE);
+					RemoveCharacterEquip(Pchar, BLADE_ITEM_TYPE);
+					EquipCharacterByItem(Pchar, "bladeX4");
+					EquipCharacterByItem(Pchar, "pistolbladeBB");
+				}	
+			}
+		break;
+	//--------------------------------------------------------------------------------------------
+		case "BB_island2_still_locked":
+			PlaySound("PEOPLE\run_stone.wav");
+			PlaySound("PEOPLE\creak2.wav");
+			ChangeCharacterAddressGroup(Pchar, "BB_island2", "goto", "box2");
+		break;
+
+		case "BB_isl2_box7_off":
+			Pchar.BB_isl2_box7 = "off";
+		break;
+
+		case "BB_island2_unlock_tower":
+			RemoveCharacterEquip(Pchar, GUN_ITEM_TYPE);
+			TakeItemFromCharacter(pchar, "pistolbladeBB");
+			if(!CheckCharacterItem(Pchar,"bladeX4")) GiveItem2Character(Pchar, "bladeX4");
+			EquipCharacterByItem(Pchar, "bladeX4");
+			Locations[FindLocation("BB_island2")].models.always.l1 = "blade2";
+			Locations[FindLocation("BB_island2")].image = "";
+			DoQuestReloadToLocation("BB_island2", "reload", "reload4", "BB_island2_unlock_tower1");
+		break;
+
+		case "BB_island2_unlock_tower1":
+			LAi_SetFightMode(Pchar, false);
+			Locations[FindLocation("BB_island2")].image = "Outside_Jungle_7.tga";
+			Pchar.BB_isl2_box7 = "off";
+			Pchar.BB_tower_entrance = "open";
+	
+			LAi_QuestDelay("pchar_playertype", 1.5);
 		break;
 //---------------------------------------------------------------------------------------------------
 		case "BB_tower_top_backloop":
@@ -52276,15 +52385,16 @@ void QuestComplete(string sQuestName)
 			pchar.quest.BB_lower_cave_steplock1.win_condition = "BB_lower_cave_steplock1";
 		break;
 //------------------------------------------------------------------------------------------------------------------------
-		case "move_to_BB_flagpole":
+		case "move_to_BB_hatch":
 			PlaySound("VOICE\ENGLISH\blaze_hah.wav");
 
-			LAi_QuestDelay("move_to_BB_flagpole1", 1.5);
+			LAi_QuestDelay("move_to_BB_hatch1", 1.5);
 		break;
 
-		case "move_to_BB_flagpole1":
+		case "move_to_BB_hatch1":
 			PlaySound("PEOPLE\run_stone.wav");
-			ChangeCharacterAddressGroup(Pchar, "BB_island2", "goto", "flagpole");
+			ChangeCharacterAddressGroup(Pchar, "BB_island2", "goto", "reload6");
+			Pchar.BB_spyglass = "off";
 		break;
 
 		case "place_coin_BB_spyglass":
@@ -52296,31 +52406,116 @@ void QuestComplete(string sQuestName)
 		case "place_coin_BB_spyglass1":
 			Locations[FindLocation("BB_island2")].image = "Outside_Jungle_1.tga";
 			
-			LAi_QuestDelay("move_to_BB_flagpole1", 1.0);
+			LAi_QuestDelay("move_to_BB_hatch1", 1.0);
+		break;
+//------------------------------------------------------------------------------------------------------------------------
+
+		case "start_BB_flag":
+			Pchar.old.flag.sequence = 0;
+			Pchar.new.flag.sequence = 0;
+
+	//LogIt("old_flag_sequence = " + Pchar.old.flag.sequence);
+	//LogIt("new_flag_sequence = " + Pchar.new.flag.sequence);
 		break;
 
-		
-
-//------------------------------------------------------------------------------------------------------------------------
 		case "raise_BBflag":
-			ref cmdr = Group_GetGroupCommander(GetGroupIDFromCharacter("Grand Turk Commander"));
-			if(IsEquipCharacterByItem(Pchar, "bladeflag_pir")) cmdr.Flags.Pirate = 0;
-			if(IsEquipCharacterByItem(Pchar, "bladeflag_pir1")) cmdr.Flags.Pirate = 1;
-			if(IsEquipCharacterByItem(Pchar, "bladeflag_pir2")) cmdr.Flags.Pirate = 2;
-			if(IsEquipCharacterByItem(Pchar, "bladeflag_pir3")) cmdr.Flags.Pirate = 3;
-			if(IsEquipCharacterByItem(Pchar, "bladeflag_pir4")) cmdr.Flags.Pirate = 4;
-			if(IsEquipCharacterByItem(Pchar, "bladeflag_pir5")) cmdr.Flags.Pirate = 5;
-			if(IsEquipCharacterByItem(Pchar, "bladeflag_pir6")) cmdr.Flags.Pirate = 6;
+			ref cmdr = CharacterFromID("Dante Siciliano");
 
+			pchar_blade = GetCharacterEquipByGroup(PCHAR, BLADE_ITEM_TYPE);
+			switch (pchar_blade)
+			{
+				case "bladeflag_pir":
+					CaptureTownForNation("Grand Turk", PIRATE);
+					cmdr.nation = PIRATE; pchar.tower.flag = "pir";
+				break;
+			
+				case "bladeflag_pir2":
+					CaptureTownForNation("Grand Turk", GUEST1_NATION);
+					cmdr.nation = GUEST1_NATION; pchar.tower.flag = "pir2";
+				break;
+
+				case "bladeflag_HOL":
+					CaptureTownForNation("Grand Turk", HOLLAND);
+					cmdr.nation = HOLLAND; pchar.tower.flag = "HOL";
+				break;
+
+				case "bladeflag_ENG":
+					CaptureTownForNation("Grand Turk", ENGLAND);
+					cmdr.nation = ENGLAND; pchar.tower.flag = "ENG";
+				break;
+
+				case "bladeflag_FRA":
+					CaptureTownForNation("Grand Turk", FRANCE);
+					cmdr.nation = FRANCE; pchar.tower.flag = "FRA";
+				break;
+
+				case "bladeflag_POR":
+					CaptureTownForNation("Grand Turk", PORTUGAL);
+					cmdr.nation = PORTUGAL; pchar.tower.flag = "POR";
+
+					if(Pchar.old.flag.sequence == 0) Pchar.new.flag.sequence = 1;
+				break;
+				
+				case "bladeflag_SPA":
+					CaptureTownForNation("Grand Turk", SPAIN);
+					cmdr.nation = SPAIN; pchar.tower.flag = "SPA";
+				break;
+
+				case "bladeflag_PRE":
+					CaptureTownForNation("Grand Turk", PERSONAL_NATION);
+					cmdr.nation = PERSONAL_NATION; pchar.tower.flag = "PRE";
+					cmdr.Flags.Personal = 1; cmdr.Flags.Personal.texture = 4;
+
+					if(Pchar.old.flag.sequence == 0) Pchar.new.flag.sequence = 1;
+				break;
+
+				case "bladeflag_IRE":
+					CaptureTownForNation("Grand Turk", PERSONAL_NATION);
+					cmdr.nation = PERSONAL_NATION; pchar.tower.flag = "IRE";
+					cmdr.Flags.Personal = 2; cmdr.Flags.Personal.texture = 4;	
+				break;
+
+				case "bladeflag_SWE":
+					CaptureTownForNation("Grand Turk", PERSONAL_NATION);
+					cmdr.nation = PERSONAL_NATION; pchar.tower.flag = "SWE";
+					cmdr.Flags.Personal = 3; cmdr.Flags.Personal.texture = 4;	
+				break;
+
+				case "bladeflag_HOL2":
+					CaptureTownForNation("Grand Turk", PERSONAL_NATION);
+					cmdr.nation = PERSONAL_NATION; pchar.tower.flag = "HO2";
+					cmdr.Flags.Personal = 4; cmdr.Flags.Personal.texture = 4;	
+				break;
+
+				case "bladeflag_AME":
+					CaptureTownForNation("Grand Turk", PERSONAL_NATION);
+					cmdr.nation = PERSONAL_NATION; pchar.tower.flag = "AME";
+					cmdr.Flags.Personal = 5; cmdr.Flags.Personal.texture = 4;	
+				break;
+			
+				case "bladeflag_SPA2":
+					CaptureTownForNation("Grand Turk", PERSONAL_NATION);
+					cmdr.nation = PERSONAL_NATION; pchar.tower.flag = "SP2";
+					cmdr.Flags.Personal = 6; cmdr.Flags.Personal.texture = 4;	
+				break;
+			}
+
+			Towns[GetTownIndex("Grand Turk")].gov = "Dante Siciliano";
 			RemoveCharacterEquip(Pchar, BLADE_ITEM_TYPE);
 
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "0") TakeItemFromCharacter(Pchar, "bladeflag_pir");
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "1") TakeItemFromCharacter(Pchar, "bladeflag_pir1");
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "2") TakeItemFromCharacter(Pchar, "bladeflag_pir2");
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "3") TakeItemFromCharacter(Pchar, "bladeflag_pir3");
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "4") TakeItemFromCharacter(Pchar, "bladeflag_pir4");
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "5") TakeItemFromCharacter(Pchar, "bladeflag_pir5");
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "6") TakeItemFromCharacter(Pchar, "bladeflag_pir6");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "pir") TakeItemFromCharacter(Pchar, "bladeflag_pir");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "pir2") TakeItemFromCharacter(Pchar, "bladeflag_pir2");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "HOL") TakeItemFromCharacter(Pchar, "bladeflag_HOL");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "ENG") TakeItemFromCharacter(Pchar, "bladeflag_ENG");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "FRA") TakeItemFromCharacter(Pchar, "bladeflag_FRA");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "POR") TakeItemFromCharacter(Pchar, "bladeflag_POR");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "SPA") TakeItemFromCharacter(Pchar, "bladeflag_SPA");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "PRE") TakeItemFromCharacter(Pchar, "bladeflag_PRE");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "IRE") TakeItemFromCharacter(Pchar, "bladeflag_IRE");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "SWE") TakeItemFromCharacter(Pchar, "bladeflag_SWE");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "HO2") TakeItemFromCharacter(Pchar, "bladeflag_HOL2");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "AME") TakeItemFromCharacter(Pchar, "bladeflag_AME");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "SP2") TakeItemFromCharacter(Pchar, "bladeflag_SPA2");
 
 			if(!CheckCharacterItem(Pchar,"bladeX4")) GiveItem2Character(Pchar, "bladeX4");
 			EquipCharacterByItem(Pchar, "bladeX4");
@@ -52328,129 +52523,253 @@ void QuestComplete(string sQuestName)
 			Locations[FindLocation("BB_island2")].image = "";
 			Locations[FindLocation(Pchar.location)].models.always.locators = "jungle01_l_JRH_F";
 			
-			DoQuestReloadToLocation("BB_island2", "goto", "reload6", "raise_BBflag_A");
-		break;
-
-		case "raise_BBflag_A":
-			Locations[FindLocation("BB_island2")].image = "Outside_Jungle_1.tga";
-			PlaySound("PEOPLE\clothes1.wav");
-			LAi_SetFightMode(Pchar, false);
-			LAi_SetStayType(Pchar);
-		break;
-//------------------------------------------------------------------------------------------------------------------------
-		case "lower_BBflag":
-			cmdr = Group_GetGroupCommander(GetGroupIDFromCharacter("Grand Turk Commander"));
-			RemoveCharacterEquip(Pchar, BLADE_ITEM_TYPE);
-
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "0")
-			{ GiveItem2Character(Pchar, "bladeflag_pir"); EquipCharacterByItem(Pchar, "bladeflag_pir"); }
-
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "1")
-			{ GiveItem2Character(Pchar, "bladeflag_pir1"); EquipCharacterByItem(Pchar, "bladeflag_pir1"); }
-
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "2")
-			{ GiveItem2Character(Pchar, "bladeflag_pir2"); EquipCharacterByItem(Pchar, "bladeflag_pir2"); }
-
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "3")
-			{ GiveItem2Character(Pchar, "bladeflag_pir3"); EquipCharacterByItem(Pchar, "bladeflag_pir3"); }
-
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "4")
-			{ GiveItem2Character(Pchar, "bladeflag_pir4"); EquipCharacterByItem(Pchar, "bladeflag_pir4"); }
-
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "5")
-			{ GiveItem2Character(Pchar, "bladeflag_pir5"); EquipCharacterByItem(Pchar, "bladeflag_pir5"); }
-
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "6")
-			{ GiveItem2Character(Pchar, "bladeflag_pir6"); EquipCharacterByItem(Pchar, "bladeflag_pir6"); }
-
-			Locations[FindLocation("BB_island2")].image = "";
-			Locations[FindLocation(Pchar.location)].models.always.locators = "jungle01_l_JRH";
-
-			DoQuestReloadToLocation("BB_island2", "goto", "reload6", "lower_BBflag_A");
-		break;
-
-		case "lower_BBflag_A":
-			cmdr = Group_GetGroupCommander(GetGroupIDFromCharacter("Grand Turk Commander"));
-			cmdr.Flags.Pirate = "";
-			Locations[FindLocation("BB_island2")].image = "Outside_Jungle_1.tga";
-			PlaySound("PEOPLE\clothes1.wav");
-			LAi_SetFightMode(Pchar, false);
-			LAi_SetStayType(Pchar);
+			DoQuestReloadToLocation("BB_island2", "goto", "flagpole", "change_BBflag_A");
 		break;
 //------------------------------------------------------------------------------------------------------------------------
 		case "change_BBflag":
-			cmdr = Group_GetGroupCommander(GetGroupIDFromCharacter("Grand Turk Commander"));
+			cmdr = CharacterFromID("Dante Siciliano");
 
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "0") Pchar.quest.BB_old_flag = "0";
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "1") Pchar.quest.BB_old_flag = "1";
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "2") Pchar.quest.BB_old_flag = "2";
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "3") Pchar.quest.BB_old_flag = "3";
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "4") Pchar.quest.BB_old_flag = "4";
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "5") Pchar.quest.BB_old_flag = "5";
-			if(CheckAttribute(cmdr, "Flags.Pirate") && cmdr.Flags.Pirate == "6") Pchar.quest.BB_old_flag = "6";
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "pir") Pchar.BB_old_flag = "pir";
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "pir2") Pchar.BB_old_flag = "pir2";
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "HOL") Pchar.BB_old_flag = "HOL";
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "ENG") Pchar.BB_old_flag = "ENG";
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "FRA") Pchar.BB_old_flag = "FRA";
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "POR") Pchar.BB_old_flag = "POR";
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "SPA") Pchar.BB_old_flag = "SPA";
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "PRE") Pchar.BB_old_flag = "PRE";
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "IRE") Pchar.BB_old_flag = "IRE";
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "SWE") Pchar.BB_old_flag = "SWE";
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "HO2") Pchar.BB_old_flag = "HO2";
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "AME") Pchar.BB_old_flag = "AME";
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "SP2") Pchar.BB_old_flag = "SP2";
+		
+			pchar_blade = GetCharacterEquipByGroup(PCHAR, BLADE_ITEM_TYPE);
+			switch (pchar_blade)
+			{
+				case "bladeflag_pir":
+					CaptureTownForNation("Grand Turk", PIRATE);
+					cmdr.nation = PIRATE; pchar.tower.flag = "pir";
 
-			if(IsEquipCharacterByItem(Pchar, "bladeflag_pir")) Pchar.quest.BB_new_flag = "0";
-			if(IsEquipCharacterByItem(Pchar, "bladeflag_pir1")) Pchar.quest.BB_new_flag = "1";
-			if(IsEquipCharacterByItem(Pchar, "bladeflag_pir2")) Pchar.quest.BB_new_flag = "2";
-			if(IsEquipCharacterByItem(Pchar, "bladeflag_pir3")) Pchar.quest.BB_new_flag = "3";
-			if(IsEquipCharacterByItem(Pchar, "bladeflag_pir4")) Pchar.quest.BB_new_flag = "4";
-			if(IsEquipCharacterByItem(Pchar, "bladeflag_pir5")) Pchar.quest.BB_new_flag = "5";
-			if(IsEquipCharacterByItem(Pchar, "bladeflag_pir6")) Pchar.quest.BB_new_flag = "6";
+					if(Pchar.old.flag.sequence == 2) 
+					{
+						Pchar.new.flag.sequence = 3;
+					}
+					else 
+					{
+						Pchar.old.flag.sequence = 0;
+						Pchar.new.flag.sequence = 0;
+					}
+				break;
+			
+				case "bladeflag_pir2":
+					//needed as a reset when personal is going down & teach is going up
+					CaptureTownForNation("Grand Turk", PIRATE);		
+					cmdr.nation = PIRATE; pchar.tower.flag = "pir";
 
+					CaptureTownForNation("Grand Turk", GUEST1_NATION);
+					cmdr.nation = GUEST1_NATION; pchar.tower.flag = "pir2";
+
+					if(Pchar.old.flag.sequence == 4) 
+					{
+						Pchar.new.flag.sequence = 5;
+					}
+					else 
+					{
+						Pchar.old.flag.sequence = 0;
+						Pchar.new.flag.sequence = 0;
+					}
+				break;
+
+				case "bladeflag_HOL":
+					CaptureTownForNation("Grand Turk", HOLLAND);
+					cmdr.nation = HOLLAND; pchar.tower.flag = "HOL";
+
+					Pchar.old.flag.sequence = 0;
+					Pchar.new.flag.sequence = 0;
+				break;
+
+				case "bladeflag_ENG":
+					CaptureTownForNation("Grand Turk", ENGLAND);
+					cmdr.nation = ENGLAND; pchar.tower.flag = "ENG";
+
+					if(Pchar.old.flag.sequence == 5) 
+					{
+						Pchar.new.flag.sequence = 6;
+					}
+					else 
+					{
+						Pchar.old.flag.sequence = 0;
+						Pchar.new.flag.sequence = 0;
+					}
+				break;
+
+				case "bladeflag_FRA":
+					CaptureTownForNation("Grand Turk", FRANCE);
+					cmdr.nation = FRANCE; pchar.tower.flag = "FRA";
+
+					Pchar.old.flag.sequence = 0;
+					Pchar.new.flag.sequence = 0;
+				break;
+
+				case "bladeflag_POR":
+					CaptureTownForNation("Grand Turk", PORTUGAL);
+					cmdr.nation = PORTUGAL; pchar.tower.flag = "POR";
+
+					if(Pchar.old.flag.sequence == 0) 
+					{
+						Pchar.new.flag.sequence = 1;
+					}
+					else 
+					{
+						Pchar.old.flag.sequence = 0;
+						Pchar.new.flag.sequence = 0;
+					}
+				break;
+				
+				case "bladeflag_SPA":
+					CaptureTownForNation("Grand Turk", SPAIN);
+					cmdr.nation = SPAIN; pchar.tower.flag = "SPA";
+
+					Pchar.old.flag.sequence = 0;
+					Pchar.new.flag.sequence = 0;
+				break;
+
+				case "bladeflag_PRE":
+					CaptureTownForNation("Grand Turk", PERSONAL_NATION);
+					cmdr.nation = PERSONAL_NATION; pchar.tower.flag = "PRE";
+					cmdr.Flags.Personal = 1; cmdr.Flags.Personal.texture = 4;
+
+					if(Pchar.old.flag.sequence == 0) 
+					{
+						Pchar.new.flag.sequence = 1;
+					}
+					else 
+					{
+						Pchar.old.flag.sequence = 0;
+						Pchar.new.flag.sequence = 0;
+					}
+				break;
+
+				case "bladeflag_IRE":
+					CaptureTownForNation("Grand Turk", PERSONAL_NATION);
+					cmdr.nation = PERSONAL_NATION; pchar.tower.flag = "IRE";
+					cmdr.Flags.Personal = 2; cmdr.Flags.Personal.texture = 4;
+
+					if(Pchar.old.flag.sequence == 1) 
+					{
+						Pchar.new.flag.sequence = 2;
+					}
+					else 
+					{
+						Pchar.old.flag.sequence = 0;
+						Pchar.new.flag.sequence = 0;
+					}	
+				break;
+
+				case "bladeflag_SWE":
+					CaptureTownForNation("Grand Turk", PERSONAL_NATION);
+					cmdr.nation = PERSONAL_NATION; pchar.tower.flag = "SWE";
+					cmdr.Flags.Personal = 3; cmdr.Flags.Personal.texture = 4;
+
+					Pchar.old.flag.sequence = 0;
+					Pchar.new.flag.sequence = 0;	
+				break;
+
+				case "bladeflag_HOL2":
+					CaptureTownForNation("Grand Turk", PERSONAL_NATION);
+					cmdr.nation = PERSONAL_NATION; pchar.tower.flag = "HO2";
+					cmdr.Flags.Personal = 4; cmdr.Flags.Personal.texture = 4;
+
+					Pchar.old.flag.sequence = 0;
+					Pchar.new.flag.sequence = 0;	
+				break;
+
+				case "bladeflag_AME":
+					CaptureTownForNation("Grand Turk", PERSONAL_NATION);
+					cmdr.nation = PERSONAL_NATION; pchar.tower.flag = "AME";
+					cmdr.Flags.Personal = 5; cmdr.Flags.Personal.texture = 4;
+
+					if(Pchar.old.flag.sequence == 3) 
+					{
+						Pchar.new.flag.sequence = 4;
+					}
+					else 
+					{
+						Pchar.old.flag.sequence = 0;
+						Pchar.new.flag.sequence = 0;
+					}	
+				break;
+			
+				case "bladeflag_SPA2":
+					CaptureTownForNation("Grand Turk", PERSONAL_NATION);
+					cmdr.nation = PERSONAL_NATION; pchar.tower.flag = "SP2";
+					cmdr.Flags.Personal = 6; cmdr.Flags.Personal.texture = 4;
+				
+					Pchar.old.flag.sequence = 0;
+					Pchar.new.flag.sequence = 0;
+				break;
+			}
+
+			Towns[GetTownIndex("Grand Turk")].gov = "Dante Siciliano";
 			RemoveCharacterEquip(Pchar, BLADE_ITEM_TYPE);
 
-			//...........................................
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "pir") TakeItemFromCharacter(Pchar, "bladeflag_pir");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "pir2") TakeItemFromCharacter(Pchar, "bladeflag_pir2");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "HOL") TakeItemFromCharacter(Pchar, "bladeflag_HOL");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "ENG") TakeItemFromCharacter(Pchar, "bladeflag_ENG");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "FRA") TakeItemFromCharacter(Pchar, "bladeflag_FRA");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "POR") TakeItemFromCharacter(Pchar, "bladeflag_POR");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "SPA") TakeItemFromCharacter(Pchar, "bladeflag_SPA");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "PRE") TakeItemFromCharacter(Pchar, "bladeflag_PRE");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "IRE") TakeItemFromCharacter(Pchar, "bladeflag_IRE");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "SWE") TakeItemFromCharacter(Pchar, "bladeflag_SWE");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "HO2") TakeItemFromCharacter(Pchar, "bladeflag_HOL2");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "AME") TakeItemFromCharacter(Pchar, "bladeflag_AME");
+			if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "SP2") TakeItemFromCharacter(Pchar, "bladeflag_SPA2");
 
-			if(CheckAttribute(Pchar, "quest.BB_new_flag") && Pchar.quest.BB_new_flag == "0")
-			{ TakeItemFromCharacter(Pchar, "bladeflag_pir"); cmdr.Flags.Pirate = 0; }
+			if(CheckAttribute(Pchar, "BB_old_flag") && Pchar.BB_old_flag == "pir") 
+			{ Pchar.BB_old_flag = "none"; GiveItem2Character(Pchar, "bladeflag_pir"); EquipCharacterByItem(Pchar, "bladeflag_pir"); }
 
-			if(CheckAttribute(Pchar, "quest.BB_new_flag") && Pchar.quest.BB_new_flag == "1")
-			{ TakeItemFromCharacter(Pchar, "bladeflag_pir1"); cmdr.Flags.Pirate = 1; }
+			if(CheckAttribute(Pchar, "BB_old_flag") && Pchar.BB_old_flag == "pir2") 
+			{ Pchar.BB_old_flag = "none"; GiveItem2Character(Pchar, "bladeflag_pir2"); EquipCharacterByItem(Pchar, "bladeflag_pir2"); }
 
-			if(CheckAttribute(Pchar, "quest.BB_new_flag") && Pchar.quest.BB_new_flag == "2")
-			{ TakeItemFromCharacter(Pchar, "bladeflag_pir2"); cmdr.Flags.Pirate = 2; }
+			if(CheckAttribute(Pchar, "BB_old_flag") && Pchar.BB_old_flag == "HOL") 
+			{ Pchar.BB_old_flag = "none"; GiveItem2Character(Pchar, "bladeflag_HOL"); EquipCharacterByItem(Pchar, "bladeflag_HOL"); }
 
-			if(CheckAttribute(Pchar, "quest.BB_new_flag") && Pchar.quest.BB_new_flag == "3")
-			{ TakeItemFromCharacter(Pchar, "bladeflag_pir3"); cmdr.Flags.Pirate = 3; }
+			if(CheckAttribute(Pchar, "BB_old_flag") && Pchar.BB_old_flag == "ENG") 
+			{ Pchar.BB_old_flag = "none"; GiveItem2Character(Pchar, "bladeflag_ENG"); EquipCharacterByItem(Pchar, "bladeflag_ENG"); }
 
-			if(CheckAttribute(Pchar, "quest.BB_new_flag") && Pchar.quest.BB_new_flag == "4")
-			{ TakeItemFromCharacter(Pchar, "bladeflag_pir4"); cmdr.Flags.Pirate = 4; }
+			if(CheckAttribute(Pchar, "BB_old_flag") && Pchar.BB_old_flag == "FRA") 
+			{ Pchar.BB_old_flag = "none"; GiveItem2Character(Pchar, "bladeflag_FRA"); EquipCharacterByItem(Pchar, "bladeflag_FRA"); }
 
-			if(CheckAttribute(Pchar, "quest.BB_new_flag") && Pchar.quest.BB_new_flag == "5")
-			{ TakeItemFromCharacter(Pchar, "bladeflag_pir5"); cmdr.Flags.Pirate = 5; }
+			if(CheckAttribute(Pchar, "BB_old_flag") && Pchar.BB_old_flag == "POR") 
+			{ Pchar.BB_old_flag = "none"; GiveItem2Character(Pchar, "bladeflag_POR"); EquipCharacterByItem(Pchar, "bladeflag_POR"); }
 
-			if(CheckAttribute(Pchar, "quest.BB_new_flag") && Pchar.quest.BB_new_flag == "6")
-			{ TakeItemFromCharacter(Pchar, "bladeflag_pir6"); cmdr.Flags.Pirate = 6; }
+			if(CheckAttribute(Pchar, "BB_old_flag") && Pchar.BB_old_flag == "SPA") 
+			{ Pchar.BB_old_flag = "none"; GiveItem2Character(Pchar, "bladeflag_SPA"); EquipCharacterByItem(Pchar, "bladeflag_SPA"); }
 
-			//...........................................
+			if(CheckAttribute(Pchar, "BB_old_flag") && Pchar.BB_old_flag == "PRE") 
+			{ Pchar.BB_old_flag = "none"; GiveItem2Character(Pchar, "bladeflag_PRE"); EquipCharacterByItem(Pchar, "bladeflag_PRE"); }
 
-			if(CheckAttribute(Pchar, "quest.BB_old_flag") && Pchar.quest.BB_old_flag == "0")
-			{ GiveItem2Character(Pchar, "bladeflag_pir"); EquipCharacterByItem(Pchar, "bladeflag_pir"); }
+			if(CheckAttribute(Pchar, "BB_old_flag") && Pchar.BB_old_flag == "IRE") 
+			{ Pchar.BB_old_flag = "none"; GiveItem2Character(Pchar, "bladeflag_IRE"); EquipCharacterByItem(Pchar, "bladeflag_IRE"); }
 
-			if(CheckAttribute(Pchar, "quest.BB_old_flag") && Pchar.quest.BB_old_flag == "1")
-			{ GiveItem2Character(Pchar, "bladeflag_pir1"); EquipCharacterByItem(Pchar, "bladeflag_pir1"); }
+			if(CheckAttribute(Pchar, "BB_old_flag") && Pchar.BB_old_flag == "SWE") 
+			{ Pchar.BB_old_flag = "none"; GiveItem2Character(Pchar, "bladeflag_SWE"); EquipCharacterByItem(Pchar, "bladeflag_SWE"); }
 
-			if(CheckAttribute(Pchar, "quest.BB_old_flag") && Pchar.quest.BB_old_flag == "2")
-			{ GiveItem2Character(Pchar, "bladeflag_pir2"); EquipCharacterByItem(Pchar, "bladeflag_pir2"); }
+			if(CheckAttribute(Pchar, "BB_old_flag") && Pchar.BB_old_flag == "HO2") 
+			{ Pchar.BB_old_flag = "none"; GiveItem2Character(Pchar, "bladeflag_HOL2"); EquipCharacterByItem(Pchar, "bladeflag_HOL2"); }
 
-			if(CheckAttribute(Pchar, "quest.BB_old_flag") && Pchar.quest.BB_old_flag == "3")
-			{ GiveItem2Character(Pchar, "bladeflag_pir3"); EquipCharacterByItem(Pchar, "bladeflag_pir3"); }
+			if(CheckAttribute(Pchar, "BB_old_flag") && Pchar.BB_old_flag == "AME") 
+			{ Pchar.BB_old_flag = "none"; GiveItem2Character(Pchar, "bladeflag_AME"); EquipCharacterByItem(Pchar, "bladeflag_AME"); }
 
-			if(CheckAttribute(Pchar, "quest.BB_old_flag") && Pchar.quest.BB_old_flag == "4")
-			{ GiveItem2Character(Pchar, "bladeflag_pir4"); EquipCharacterByItem(Pchar, "bladeflag_pir4"); }
-
-			if(CheckAttribute(Pchar, "quest.BB_old_flag") && Pchar.quest.BB_old_flag == "5")
-			{ GiveItem2Character(Pchar, "bladeflag_pir5"); EquipCharacterByItem(Pchar, "bladeflag_pir5"); }
-
-			if(CheckAttribute(Pchar, "quest.BB_old_flag") && Pchar.quest.BB_old_flag == "6")
-			{ GiveItem2Character(Pchar, "bladeflag_pir6"); EquipCharacterByItem(Pchar, "bladeflag_pir6"); }
-
-			//...........................................
-
+			if(CheckAttribute(Pchar, "BB_old_flag") && Pchar.BB_old_flag == "SP2") 
+			{ Pchar.BB_old_flag = "none"; GiveItem2Character(Pchar, "bladeflag_SPA2"); EquipCharacterByItem(Pchar, "bladeflag_SPA2"); }
+		
 			Locations[FindLocation("BB_island2")].image = "";
 			Locations[FindLocation(Pchar.location)].models.always.locators = "jungle01_l_JRH_F";
 			
-			DoQuestReloadToLocation("BB_island2", "goto", "reload6", "change_BBflag_A");
+			DoQuestReloadToLocation("BB_island2", "goto", "flagpole", "change_BBflag_A");
 		break;
 
 		case "change_BBflag_A":
@@ -52458,7 +52777,118 @@ void QuestComplete(string sQuestName)
 			PlaySound("PEOPLE\clothes1.wav");
 			LAi_SetFightMode(Pchar, false);
 			LAi_SetStayType(Pchar);
+
+	//LogIt("old_flag_sequence = " + Pchar.old.flag.sequence);
+	//LogIt("new_flag_sequence = " + Pchar.new.flag.sequence);
+
+			if(sti(Pchar.new.flag.sequence) > sti(Pchar.old.flag.sequence)) 
+			{
+				LAi_QuestDelay("confirm_BBflag", 2.0);
+			}
+			else
+			{
+				if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "pir") LogIt("R");
+				if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "pir2") LogIt("T");
+				if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "HOL") LogIt("D");
+				if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "ENG") LogIt("E");
+				if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "FRA") LogIt("F");
+				if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "POR") LogIt("P");
+				if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "SPA") LogIt("S");
+				if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "PRE") LogIt("P");
+				if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "IRE") LogIt("I");
+				if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "SWE") LogIt("S");
+				if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "HO2") LogIt("D");
+				if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "AME") LogIt("A");
+				if(CheckAttribute(Pchar, "tower.flag") && Pchar.tower.flag == "SP2") LogIt("U");
+
+				LAi_QuestDelay("Pchar_sigh", 2.0);
+				LAi_QuestDelay("BB_isl2_box4_off", 2.0);
+			}
 		break;
+
+		case "confirm_BBflag":
+		//	PlaySound("OBJECTS\SHIPCHARGE\cannon_fire1.wav");
+			PlaySound("OBJECTS\SHIPCHARGE\cannon_fire_01.wav");
+			Pchar.old.flag.sequence = Pchar.new.flag.sequence;
+
+	//LogIt("old_flag_sequence = " + Pchar.old.flag.sequence);
+	//LogIt("new_flag_sequence = " + Pchar.new.flag.sequence);
+
+			if(Pchar.new.flag.sequence == 1) 
+			{
+				LogIt("P");
+				LAi_QuestDelay("BB_isl2_box4_off", 2.0);
+			}
+			if(Pchar.new.flag.sequence == 2)
+			{
+				LogIt("P");
+				LogIt("I");
+				LAi_QuestDelay("BB_isl2_box4_off", 2.0);
+			}
+			if(Pchar.new.flag.sequence == 3)
+			{
+				LogIt("P");
+				LogIt("I");
+				LogIt("R");
+				LAi_QuestDelay("BB_isl2_box4_off", 2.0);
+			}
+			if(Pchar.new.flag.sequence == 4)
+			{
+				LogIt("P");
+				LogIt("I");
+				LogIt("R");
+				LogIt("A");
+				LAi_QuestDelay("BB_isl2_box4_off", 2.0);
+			}
+			if(Pchar.new.flag.sequence == 5)
+			{
+				LogIt("P");
+				LogIt("I");
+				LogIt("R");
+				LogIt("A");
+				LogIt("T");
+				LAi_QuestDelay("BB_isl2_box4_off", 2.0);
+			}
+
+			if(Pchar.new.flag.sequence == 6) 
+			{
+				LogIt("P");
+				LogIt("I");
+				LogIt("R");
+				LogIt("A");
+				LogIt("T");
+				LogIt("E");
+
+				LAi_QuestDelay("confirm_BBflag_end", 2.0);
+			}
+		break;
+
+		case "confirm_BBflag_end":
+			PlaySound("AMBIENT\SEASHORE\fanfare.wav");
+
+			LAi_QuestDelay("confirm_BBflag_end1", 13.0);
+		break;
+
+		case "confirm_BBflag_end1":
+			PlaySound("PEOPLE\run_stone.wav");
+			ChangeCharacterAddressGroup(Pchar, "BB_island2", "goto", "spyglass");
+		break;
+
+		case "BB_isl2_box4_off":
+			Pchar.BB_isl2_box4 = "off";
+			//LogIt("OFF");
+		break;
+//------------------------------------------------------------------------------------------------------------------------
+//pär
+		case "BB_isle_hut_jump":
+			LAi_SetSitType(Pchar);
+			PlaySound("PEOPLE\jump_roof.wav");
+			PlaySound("PEOPLE\jump_roof.wav");
+			CreateParticleSystem("blast_dirt_small" , 1.7, 0.0, 0.7, 0.0, 0.0, 0.0, sti(20) );
+
+			LAi_QuestDelay("pchar_playertype", 0.5);
+		break;
+
 //------------------------------------------------------------------------------------------------------------------------
 
 

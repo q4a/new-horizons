@@ -140,5 +140,42 @@ void ProcessDialogEvent()
 			link.l1 = DLG_TEXT[33];
 			link.l1.go = "exit";
 		break;
+
+		case "abduction_move_ship":
+			dialog.text = DLG_TEXT[0];
+			link.l1 = DLG_TEXT[34];
+			link.l1.go = "exit";
+		break;
+
+		case "abduction_officer_replace_romance":
+			if (PChar.sex == "man") Preprocessor_Add("pronoun", "she");
+			else Preprocessor_Add("pronoun", "he");
+			dialog.text = DLG_TEXT[40] + GetMySimpleName(characterfromID(PChar.quest.romance)) + DLG_TEXT[41];
+			link.l1 = DLG_TEXT[42];
+			link.l1.go = "exit";
+		break;
+
+		case "abduction_romance_not_back":
+			dialog.text = DLG_TEXT[35];
+			link.l1 = DLG_TEXT[36] + GetMySimpleName(characterfromID(PChar.quest.romance)) + DLG_TEXT[37];
+			link.l1.go = "abduction_romance_not_back2";
+		break;
+
+		case "abduction_romance_not_back2":
+			if (PChar.sex == "man")
+			{
+				Preprocessor_Add("pronoun", "she");
+				Preprocessor_Add("pronoun2", "her");
+			}
+			else
+			{
+				Preprocessor_Add("pronoun", "he");
+				Preprocessor_Add("pronoun2", "him");
+			}
+			dialog.text = DLG_TEXT[38];
+			link.l1 = DLG_TEXT[39];
+			AddDialogExitQuest("abduction_officer_return_town");
+			link.l1.go = "exit";
+		break;
 	}
 }

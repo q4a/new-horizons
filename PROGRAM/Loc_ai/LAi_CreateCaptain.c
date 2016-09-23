@@ -21,29 +21,12 @@ ref LAi_Create_Captain(ref rCaptain, string sFantomType, int iShipType, int iNat
 	if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: Shipclass is ="+iShipClass);
 	
 	//Set up model data
-	string model = RandomCaptain(iNation);
-	rCaptain.model	= model;
-	float mheight = MAN_HEIGHT;
-	string sex = "man";
-	string ani = "man";
-	int modelidx = GetModelIndex(model);
-	ref rmodel; // KK
-	if (modelidx != -1)
-	{
-		makeref(rmodel, Models[modelidx]);
-		ani = rmodel.ani;
-		sex = rmodel.sex;
-		mheight = stf(rmodel.height);
-	}
+	rCaptain.nation = iNation;
+	Fantom_SetRandomModel(rCaptain, sFantomType);
 	rCaptain.model.entity = "NPCharacter";
-	rCaptain.model.animation = ani;
-	rCaptain.sex = sex;
-	rCaptain.model.height = MAN_HEIGHT;
-	facemaker(rCaptain);
-	if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: Set up model data");
+	if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: pick model "+rCaptain.model);
 	
 	//Set some basic data
-	rCaptain.nation = iNation;
 	rCaptain.FantomType = sFantomType;
 	rCaptain.reputation = 20 + rand(69);
 	rCaptain.quest.officertype = GetCaptainType(rCaptain);
@@ -57,6 +40,7 @@ ref LAi_Create_Captain(ref rCaptain, string sFantomType, int iShipType, int iNat
 	rCaptain.skipsetfantom = true; //Making sure the game knows it's generated okay already
 	rCaptain.nodisarm = 1;
 	LAi_SetGuardianType(rCaptain);
+	DeleteAttribute(rCaptain,"isSoldier"); //For now let's tackle it like this
 	LAi_SetLoginTime(rCaptain, 0.0, 24.0);
 	if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: Set up basic data");
 	
@@ -82,17 +66,38 @@ ref LAi_Create_Captain(ref rCaptain, string sFantomType, int iShipType, int iNat
 	rCaptain.ship.cannons.Charge.Type = GOOD_BALLS; //Start with canonballs
 	Fantom_SetCannons(rCaptain, sFantomType);
 	Fantom_SetBalls(rCaptain, sFantomType);
+	Fantom_SetSails(rCaptain, sFantomType);
+	Fantom_SetGoods(rCaptain, sFantomType);
 	SetRandomStatsToShip(sti(rCaptain.index), iShipType, iNation);
 	if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: Ship Setup Complete");
 	
 	//Set the fatom points
 	aref arship; makearef(arship, rCaptain.ship);
 	float mult = CaptainMultFromOfficerType(rCaptain.quest.officertype); //Levis removed other lines to make it character independend
-	rCaptain.Points = mult * stf(GetLocalShipAttrib(arship,iShipType,"Weight")) / 5000;
+	string weight = GetLocalShipAttrib(arship,iShipType,"Weight");
+	rCaptain.Points = mult * stf(weight) / 5000;
 	
 	//Set fantom money
 	Fantom_SetRandomMoney(rCaptain, sFantomType);
 	rCaptain.wealth = makeint(sti(rCaptain.money)*(frand(5.0)+2.3));
+	if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: Has wealth="+rCaptain.wealth+" and money="+rCaptain.money);
+	
+	//Give captain weapons
+	LAi_NPC_Equip(rCaptain, sti(rCaptain.rank), true, 1.0);
+	EquipCharacterByItem(rCaptain, FindCharacterItemByGroup(rCaptain, BLADE_ITEM_TYPE));
+	EquipCharacterByItem(rCaptain, FindCharacterItemByGroup(rCaptain, GUN_ITEM_TYPE));
+	EquipCharacterByItem(rCaptain, FindCharacterItemByGroup(rCaptain, ARMOR_ITEM_TYPE));
+	SetModelArmor(rCaptain); //will also do a equip of everything
+	
+	//Check if we can sail this ship
+	//if(EnableLimitedShipClass())
+	//{
+		if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: min shipclass for captain is="+GetShipMinClassForCharacter(rCaptain)+" shipclass is="+iShipClass);
+		if (GetShipMinClassForCharacter(rCaptain) > iShipClass)
+		{
+			if(DEBUG_CAPTAIN_CREATION>0) Trace("CAPTAIN CREATION: Captain can't sail this ship!!!");
+		}
+	//}
 	
 	//Increase the number of fantoms
 	iNumFantoms++;
@@ -109,10 +114,11 @@ ref LAi_Find_New_Captain()
 
 int GetCaptainRank(ref SCaptain, int shipclass)
 {
-	//Class 8 ship should have a rank 1 captain. A class 1 ship should have something round a rank 40 captain.
+	//Class 8 ship should have a rank 1 captain. TY Class 1 ship has a minimum captain rank of 39, but usually should be in the 50s. Class 1 Navy ship should have a navy officer on average of level 57, given a rank bonus of 10 for him. 
 	int rank = (8-shipclass)*7;
 	rank = rank*0.8 + 0.3*rand(rank);
 	rank += GetOfficTypeRankBonus(SCaptain.quest.officertype);
+	rank += (4*(GetDifficulty()-2)); //TY added difficulty effect
 	if(rank < 1) rank = 1;
 	return rank;
 }

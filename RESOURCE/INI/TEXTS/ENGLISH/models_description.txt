@@ -497,10 +497,11 @@ And so... we go to war!{And so... we go to war!}
 It's actually spelled, Conceição!{It's actually spelled, ConceiçÝo!}
 A very sharp looking model for an officer.{A very sharp looking model for an officer.}
 The best gunsmith in the Caribbean, if you please!{The best gunsmith in the Caribbean, if you please!}
-A young villian who seems to love kidnapping.{A young villian who seems to love kidnapping.}
-The young villian has become older, but still seems to love kidnapping.{The young villian has become older, but still seems to love kidnapping.}
+A young villain who seems to love kidnapping.{A young villain who seems to love kidnapping.}
+The young villain has become older, but still seems to love kidnapping.{The young villain has become older, but still seems to love kidnapping.}
 What who is she!? Get your name straight woman!{What who is she!? Get your name straight woman!}
 Jack as a Spanish Captain{Jack as a Spanish Captain}
+Jack as an EITC Lieutenant{Jack as an EITC Lieutenant}
 The search for the chest is the search for the divine in all of us.{The search for the chest is the search for the divine in all of us.}
 Talk about the latest from Paris, a red striped-and-frilled coat, sash, NICE hat, and a 'do that a barber will take hours over!{Talk about the latest from Paris, a red striped-and-frilled coat, sash, NICE hat, and a 'do that a barber will take hours over!}
 I hate anyone weilding worldly power. But I love the church. And fugitives.{I hate anyone weilding worldly power. But I love the church. And fugitives.}
@@ -604,3 +605,5 @@ Helen Ardent has 'borrowed' a Spanish uniform.{Helen Ardent has 'borrowed' a Spa
 An elaborate dress with lace trim, befitting the daughter of a governor.{An elaborate dress with lace trim, befitting the daughter of a governor.}
 An elaborate costume befitting the son of a governor.{An elaborate costume befitting the son of a governor.}
 This is what happens when a pirate lady gets hold of some silk and lace.{This is what happens when a pirate lady gets hold of some silk and lace.}
+Being a governor's daughter doesn't stop you from allying with pirates.{Being a governor's daughter doesn't stop you from allying with pirates.}
+From Russia with sword.{From Russia with sword.}

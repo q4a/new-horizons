@@ -527,9 +527,49 @@ void CreateStoryCharacters(ref n)
 	ch.skill.Sneak = "1";
 	ch.money = "20000";
 	LAi_SetHuberType(ch);
-//	LAi_SetLoginTime(ch, 0.0, 24.0);
+	LAi_SetLoginTime(ch, 0.0, 24.0);
 	ch.questchar = true;//MAXIMUS: identifier for captives
 //	SetRankTitle(ch, TranslateString("", "Sir"));
+	AddGameCharacter(n, ch);
+
+// Spare officer, originally for "Abduction" quest in case Lucia / Edmundo is a companion captain
+	ch.nation = PIRATE;
+	ch.old.name = "Emmett";
+	ch.old.lastname = "Dawson";
+	ch.name = TranslateString("","Emmett");
+	ch.lastname = TranslateString("","Dawson");
+	ch.id		= "Emmett Dawson";
+	ch.model = "wf1blaze";
+	ch.sex = "man";
+	ch.sound_type = "male_citizen";
+	ch.location	= "None";
+	ch.location.group = "";
+	ch.location.locator = "";
+	ch.Dialog.Filename = "Enc_Officer_dialog.c";
+	ch.greeting = "Gr_Herald";
+	ch.rank 	= 5;
+	ch.reputation = "None";
+	ch.experience = "0";
+	ch.skill.Leadership = "2";
+	ch.skill.Fencing = "1";
+	ch.skill.Sailing = "5";
+	ch.skill.Accuracy = "2";
+	ch.skill.Cannons = "2";
+	ch.skill.Grappling = "1";
+	ch.skill.Repair = "2";
+	ch.skill.Defence = "2";
+	ch.skill.Commerce = "1";
+	ch.skill.Sneak = "1";
+	ch.money = "0";
+	ch.perks.list.BasicDefence = true;
+	ch.perks.list.AdvancedDefence = true;
+	ch.perks.list.SwordplayProfessional = true;
+	ch.perks.list.CriticalHit = true;
+	LAi_SetCitizenType(ch);
+	LAi_SetLoginTime(ch, 0.0, 24.0);		
+	LAi_group_MoveCharacter(ch, "QC_CITIZENS");
+	ch.quest.officertype = OFFIC_TYPE_NAVIGATOR;
+	ch.questchar = true;
 	AddGameCharacter(n, ch);
 
 }

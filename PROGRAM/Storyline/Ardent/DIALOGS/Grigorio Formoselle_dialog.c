@@ -53,7 +53,7 @@ void ProcessDialogEvent()
 
 		case "first_delivery":
 			dialog.text = DLG_TEXT[0] + GetMyAddressForm(NPChar, PChar, ADDR_CIVIL, false, false) + DLG_TEXT[2];
-			link.l1 = DLG_TEXT[3] + GetMyAddressForm(NPChar, characterFromID(PChar.quest.romance), ADDR_CIVIL, false, false) + " " + GetMyFullName(characterFromID(PChar.quest.romance)) + ".";
+			link.l1 = DLG_TEXT[3] + GetMyFullName(characterFromID(PChar.quest.romance)) + ".";
 			link.l1.go = "first_delivery2";
 		break;
 
@@ -78,12 +78,13 @@ void ProcessDialogEvent()
 
 		case "second_delivery":
 			dialog.text = DLG_TEXT[0] + GetMyAddressForm(NPChar, PChar, ADDR_CIVIL, false, false) + DLG_TEXT[2];
-			link.l1 = DLG_TEXT[14] + GetMyAddressForm(NPChar, characterFromID(PChar.quest.romance), ADDR_CIVIL, false, false) + " " + GetMyFullName(characterFromID(PChar.quest.romance)) + DLG_TEXT[15];
+//			link.l1 = DLG_TEXT[14] + GetMyAddressForm(NPChar, characterFromID(PChar.quest.romance), ADDR_CIVIL, false, false) + " " + GetMyFullName(characterFromID(PChar.quest.romance)) + DLG_TEXT[15];
+			link.l1 = DLG_TEXT[14] + GetMyFullName(characterFromID(PChar.quest.romance)) + DLG_TEXT[15];
 			link.l1.go = "second_delivery2";
 		break;
 
 		case "second_delivery2":
-			dialog.text = DLG_TEXT[16] + GetMyAddressForm(NPChar, characterFromID(PChar.quest.villain), ADDR_CIVIL, false, false) + " " + GetMyFullName(characterFromID(PChar.quest.villain)) + DLG_TEXT[17] + GetMyAddressForm(NPChar, characterFromID(PChar.quest.romance), ADDR_CIVIL, false, false) + " " + GetMyFullName(characterFromID(PChar.quest.romance)) + ".";
+			dialog.text = DLG_TEXT[16] + GetMyAddressForm(NPChar, characterFromID(PChar.quest.villain), ADDR_CIVIL, false, false) + " " + GetMyFullName(characterFromID(PChar.quest.villain)) + DLG_TEXT[17] + GetMyFullName(characterFromID(PChar.quest.romance)) + ".";
 			link.l1 = DLG_TEXT[18];
 			AddDialogExitQuest("second_CourtingLetter_delivered");
 			link.l1.go = "exit";

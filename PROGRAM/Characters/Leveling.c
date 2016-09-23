@@ -947,9 +947,7 @@ void InitCharacterSkills(ref chref)
 			if(!dopost)
 			{
 				if(DEBUG_POSTINIT > 1)Trace("POSTINIT: do normal init");
-				trace("FREEPOINTS NOW: "+sti(chref.perks.FreePoints));
 				AddXPtoChar(chref, "", CalculateExperienceFromRank(rank)); //Bypassing multipliers and shared experience
-				trace("FREEPOINTS AFTER: "+sti(chref.perks.FreePoints));
 				FinishCharInit(chref);
 			}
 		}

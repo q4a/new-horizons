@@ -1,0 +1,16 @@
+string DLG_TEXT[14] = {
+"Got any rum?",
+"Wait till we get you to #sTortuga#. You can have your fill of rum there.",
+"Well, what have we here? I wasn't expecting any visitors.",
+"Neither were these guards, and they're about to get another surprise!",
+"What's the price for my freedom?",
+"Don't worry, you're not paying it. Your boss is doing me a favour, so I'm doing one for him by getting you out of here.",
+" is concerned about me?  Touching. But I hope you have a plan beyond getting to the door.",
+"I do, and it doesn't involve waiting around here. Let's move!  But first, you get into that soldier's uniform.",
+"Why?",
+"Because the guards outside are hardly likely to let us out with you looking like a pirate, are they?",
+"Stand straight when you speak to me, soldier!",
+"No. Stand at your posts. Make sure the prisoner does not try to escape.",
+"What did I just tell you? Stay at your posts here!",
+"Come on, sergeant. We don't want the smugglers to get away before you have time to call your men.",
+}

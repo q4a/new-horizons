@@ -46,7 +46,8 @@ void Whr_Generator(){
 	rWind = rand(MAX_WINDCHANGE);
 	rFog = rand(MAX_FOGCHANGE); 
 	rRain = rand(MAX_RAINCHANGE);
-	rWindA = frand(MAX_ANGLECHANGE);
+	//rWindA = frand(MAX_ANGLECHANGE);
+	rWindA = frand(2); //TY We need something a bit more dramatic to work with the trade winds system, it condenses wind changes
 	
 	Whr_GenerateValues(FREE_FOG);
 	
@@ -72,6 +73,20 @@ void Whr_Generator(){
 		Whr_ResetOvrd();
 	}
 	
+	// TY Caribbean trade winds blow west conversion
+	if(!bWhrStorm && !bWhrTornado)  // TY real Carribean winds blow towards the west 90% of the time, we are modeling that while still preserving the chance of winds blowing east at full speed (as is realistic) and turning it off during unpredictable weather events.
+	{
+		fWindA = (((fWindA-PI)^3)/(PI)^2 + PI);	//TY PI is north. So this points the wind mostly north, then we need to translate it to the west. West is 0.5 * PI The exponents look less dramatic than they should be, but it is needed because of the limited wind changes creating a strong western trend
+		if(fWindA >= 0.6 * PI)
+		{
+			fWindA = fWindA - 0.6 * PI // TY preserving continuity as we shift the function to the west
+		}
+		else 
+		{
+			fWindA = (2*PI + fWindA - 0.6 * PI) //TY I'm not simplifying the formula so the meaning stays clear. We are shifting the negative number over to where it belongs as a positive number between 0 and 2 PI
+		}
+	}
+
 	if (CheckAttribute(&WeatherParams,"Storm")) { bWhrStorm = sti(WeatherParams.Storm); } 
 	if (CheckAttribute(&WeatherParams,"Tornado")) { bWhrTornado = sti(WeatherParams.Tornado); } 
 	WeatherParams.Storm = false;

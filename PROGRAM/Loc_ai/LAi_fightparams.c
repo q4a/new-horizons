@@ -8,7 +8,7 @@ float ApplyArmor(ref chr, ref attack, float dmg, bool blade)
 		if(stf(chr.chr_ai.coverage) == 0.0) return dmg;
 	}
 	// NK add piercing to calc 05-04-22
-	float covch = stf(chr.chr_ai.coverage) * (1.0 + makefloat(CalcCharacterSkill(&chr, SKILL_SNEAK)) * ARMOR_LUCK_SCALAR);
+	float covch = stf(chr.chr_ai.coverage) * (1.0 + makefloat(CalcCharacterSkill(&chr, SKILL_FENCING)) * ARMOR_FENCING_SCALAR);
 	float piercing = 0.05;
 	if(CheckAttribute(attack, "chr_ai.piercing"))
 	{
@@ -66,8 +66,8 @@ float LAi_BladeApplySkills(aref attack, aref enemy, float dmg)
 		dmg = dmg*(1.0 + 0.5*(aSkill - eSkill));
 	}
 	// NK -->
-	dmg *= (0.75 + fRand(CalcCharacterSkill(attack, SKILL_SNEAK))/(40.0/3.0));
-	dmg *= (1.5  - fRand(CalcCharacterSkill(enemy, SKILL_SNEAK))/(40.0/3.0));
+	dmg *= (0.75 + fRand(CalcCharacterSkill(attack, SKILL_FENCING))/(40.0/3.0));
+	dmg *= (1.5  - fRand(CalcCharacterSkill(enemy, SKILL_FENCING))/(40.0/3.0));
 	float piercing = 0.05;
 	float block = 0.01;
 	if(CheckAttribute(attack, "chr_ai.piercing"))
@@ -79,8 +79,13 @@ float LAi_BladeApplySkills(aref attack, aref enemy, float dmg)
 		block = stf(enemy.chr_ai.block);
 	}
 	if(piercing > block*2 && piercing > 0.1) dmg *= (1.0 + fRand(piercing)/2.0);
-	if(sti(attack.index) == GetMainCharacterIndex()) dmg *= (1.45 - 0.15*GetDifficulty()); // NK Diff Mod
-	else { if(sti(enemy.index) == GetMainCharacterIndex()) { dmg *= (0.85 + 0.15*GetDifficulty()); } } // NK Diff Mod
+	//if(sti(attack.index) == GetMainCharacterIndex()) dmg *= (1.45 - 0.15*GetDifficulty()); // NK Diff Mod
+	//else { if(sti(enemy.index) == GetMainCharacterIndex()) { dmg *= (0.85 + 0.15*GetDifficulty()); } } // NK Diff Mod 
+	if(GetDifficulty() < 2)     //TY Commenting out old difficulty mod, HP changes and such are better for balancing difficulty while preserving meaningfulness of hp and damage numbers given to players, and a more forgiving landlubber
+	{
+		if(sti(attack.index) == GetMainCharacterIndex()) dmg *= 1.3; 
+		else { if(sti(enemy.index) == GetMainCharacterIndex()) { dmg *= 0.5; } } 
+	}
 	// NK <--
 	//Moved from attack function
 	float kDmg = 1.0;
@@ -96,7 +101,8 @@ float LAi_BladeApplySkills(aref attack, aref enemy, float dmg)
 	if(IsCharacterPerkOn(enemy, "SwordplayProfessional")) kDmg = 0.7; // Baste
 	//Levis: Opium sickness
 	float s = 1.0;
-	if(CheckAttribute(enemy,"quest.opium_use.opiumsickness")) s = s + stf(enemy.quest.opium_use.opiumsickness);
+	if(CheckAttribute(enemy,"quest.opium_use.opiumsickness")) s = s - stf(enemy.quest.opium_use.opiumsickness);
+	if(s < 0.1) s = 0.1;
 	dmg = dmg*kDmg*s;
 	return dmg;
 }
@@ -203,7 +209,8 @@ float LAi_BladeFindPiercingProbability(aref attack, aref enemy, float hitDmg)
 
 	//Levis: Opium sickness
 	float s = 1.0;
-	if(CheckAttribute(enemy,"quest.opium_use.opiumsickness")) s = s + stf(enemy.quest.opium_use.opiumsickness);
+	if(CheckAttribute(enemy,"quest.opium_use.opiumsickness")) s = s - stf(enemy.quest.opium_use.opiumsickness);
+	if(s < 0.1) s = 0.1;
 	
 	p = p*k*hitDmg*pBreak*s;
 	if (p>1.0) p = 1.0;
@@ -262,8 +269,12 @@ float LAi_GunCalcDamage(aref attack)
 	}
 	float dmg = min + (max - min)*(rand(100)*0.01);
 	// NK -->
-	dmg *= (0.75 + fRand(CalcCharacterSkill(attack, SKILL_SNEAK))/(40.0/3.0));
-	if(sti(attack.index) == GetMainCharacterIndex()) dmg *= (1.45 - 0.15*GetDifficulty()); // NK Diff Mod
+	dmg *= (0.75 + fRand(CalcCharacterSkill(attack, SKILL_ACCURACY))/(40.0/3.0));
+	//if(sti(attack.index) == GetMainCharacterIndex()) dmg *= (1.45 - 0.15*GetDifficulty()); // NK Diff Mod 
+	if(GetDifficulty() < 2)     //TY Commenting out old difficulty mod, HP changes and such are better for balancing difficulty while preserving meaningfulness of hp and damage numbers given to players, and a more forgiving landlubber
+	{
+		if(sti(attack.index) == GetMainCharacterIndex()) dmg *= 1.3;  
+	}
 	// NK <--
 	return dmg;
 }
@@ -969,7 +980,7 @@ void LAi_ApplyCharacterFireDamage(aref attack, aref enemy, float kDist)
 		}
 		exp = 0.0;
 	}
-	if(!noExp) { if(AUTO_SKILL_SYSTEM) { AddCharacterExpChar(attack, "Accuracy", MakeInt(exp*0.5 + 0.5)); }else{ AddCharacterExp(attack, MakeInt(exp*0.5 + 0.5)); } }
+	if(!noExp) { if(AUTO_SKILL_SYSTEM) { AddCharacterExpChar(attack, SKILL_ACCURACY, MakeInt(exp*0.5 + 0.5)); }else{ AddCharacterExp(attack, MakeInt(exp*0.5 + 0.5)); } }
 }
 
 //--------------------------------------------------------------------------------

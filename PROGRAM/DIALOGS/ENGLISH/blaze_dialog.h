@@ -1,4 +1,4 @@
-string DLG_TEXT[330] = {
+string DLG_TEXT[331] = {
 "Oh, it's you, ",
 ". What are you doing here?",
 "None of your business ",
@@ -329,4 +329,5 @@ string DLG_TEXT[330] = {
 "So much for buying a map of #sisland_Cuba#. But there's one right in the window. And it's dark now...",
 "Wait a moment... that rope had better be tied securely!",
 "Trying to spy on our intimate moment, are you? Get lost or you'll be intimately acquainted with my sword!",
+"Nice security! The prison is right next to the town gate. I should move the ship to the beach, then getting away from the prison will be much easier.",
 };

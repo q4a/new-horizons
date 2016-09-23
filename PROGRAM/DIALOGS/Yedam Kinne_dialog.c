@@ -182,5 +182,75 @@ void ProcessDialogEvent()
 			DialogExit();
 			NextDiag.CurrentNode = NextDiag.TempNode;
 		break;
+
+		case "ardent_abduction_pass":
+			Dialog.snd = "voice\YEKI\YEKI001";
+			dialog.text = DLG_TEXT[29];
+			link.l1 = DLG_TEXT[30];
+			link.l1.go = "ardent_abduction_pass2";
+		break;
+
+		case "ardent_abduction_pass2":
+			Dialog.snd = "voice\YEKI\YEKI002";
+			dialog.text = DLG_TEXT[31];
+			link.l1 = DLG_TEXT[32];
+			link.l1.go = "ardent_abduction_pass3";
+		break;
+
+		case "ardent_abduction_pass3":
+			Dialog.snd = "voice\YEKI\YEKI003";
+			dialog.text = DLG_TEXT[33];
+			if (makeint(pchar.money >= 5000))
+			{
+				link.l1 = DLG_TEXT[34];
+				link.l1.go = "ardent_abduction_good_pass";
+			}
+			if (makeint(pchar.money >= 500))
+			{
+				link.l2 = DLG_TEXT[35];
+				link.l2.go = "ardent_abduction_cheap_pass";
+			}
+			link.l3 = DLG_TEXT[36];
+			link.l3.go = "Exit";
+		break;
+
+		case "ardent_abduction_good_pass":
+			PlayStereoSound("INTERFACE\took_item.wav");
+			AddMoneyToCharacter(pchar, -5000);
+			dialog.text = DLG_TEXT[37];
+			AddDialogExitQuest("abduction_wait_for_pass");
+			link.l1 = DLG_TEXT[40];
+			link.l1.go = "Exit";
+			NextDiag.TempNode = "ardent_abduction_wait_for_pass";
+		break;
+
+		case "ardent_abduction_good_pass2":
+			GiveItem2Character(PChar, "PrisonPass");
+			AddQuestRecord("Abduction", 12);
+			NextDiag.TempNode = "First time";
+			Dialog.snd = "voice\YEKI\YEKI004";
+			dialog.text = DLG_TEXT[39];
+			link.l1 = DLG_TEXT[40];
+			link.l1.go = "Exit";
+		break;
+
+		case "ardent_abduction_cheap_pass":
+			PlayStereoSound("INTERFACE\took_item.wav");
+			AddMoneyToCharacter(pchar, -500);
+			GiveItem2Character(PChar, "FakePrisonPass");
+			AddQuestRecord("Abduction", 13);
+			Dialog.snd = "voice\YEKI\YEKI004";
+			dialog.text = DLG_TEXT[38];
+			link.l1 = DLG_TEXT[40];
+			link.l1.go = "Exit";
+		break;
+
+		case "ardent_abduction_wait_for_pass":
+			NextDiag.TempNode = "ardent_abduction_wait_for_pass";
+			Dialog.snd = "voice\YEKI\YEKI005";
+			dialog.text = DLG_TEXT[41];
+			link.l1 = DLG_TEXT[42];
+			link.l1.go = "Exit";
+		break;
 	}
 }

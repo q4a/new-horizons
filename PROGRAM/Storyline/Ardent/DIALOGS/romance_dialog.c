@@ -4,7 +4,8 @@ void ProcessDialogEvent()
 	ref NPChar;
 	aref Link, Diag; //NextDiag;
 	int n;
-	string gov_kid, merch_kid;
+	string gov_kid, gov_kid_pronoun, gov_kid_pronoun2, merch_kid, merch_kid_pronoun, merch_kid_pronoun2;
+	string tmp;
 
 	DeleteAttribute(&Dialog,"Links");
 
@@ -17,12 +18,20 @@ void ProcessDialogEvent()
 	if (PChar.sex == "man")
 	{
 		gov_kid = "daughter";
+		gov_kid_pronoun = "she";
+		gov_kid_pronoun2 = "her";
 		merch_kid = "son";
+		merch_kid_pronoun = "he";
+		merch_kid_pronoun2 = "him";
 	}
 	else
 	{
 		gov_kid = "son";
+		gov_kid_pronoun = "he";
+		gov_kid_pronoun2 = "him";
 		merch_kid = "daughter";
+		merch_kid_pronoun = "she";
+		merch_kid_pronoun2 = "her";
 	}
 	
 	switch(Dialog.CurrentNode)
@@ -249,7 +258,7 @@ void ProcessDialogEvent()
 
 		case "marry":
 			n = makeint(PChar.quest.ardent_kidnap.voyage_stage);
-			if (n<2 && !CheckAttribute(PChar,"quest.ardent_kidnap.bored"))
+			if (n<2 && !CheckAttribute(PChar,"quest.bored_in_san_juan"))
 			{
 				dialog.text = DLG_TEXT[49] + GetMySimpleName(characterFromID(PChar.quest.villain)) + DLG_TEXT[50];
 				link.l1 = DLG_TEXT[51];
@@ -267,7 +276,7 @@ void ProcessDialogEvent()
 					AddQuestRecord("Kidnap", 27);
 					Preprocessor_Remove("romance");
 					CloseQuestHeader("Kidnap");
-					DeleteQuestAttribute("ardent_kidnap");
+					PChar.quest.kidnap_hostage_dead.over = "yes";
 				}
 				dialog.text = DLG_TEXT[139];
 				link.l1 = DLG_TEXT[140];
@@ -285,7 +294,7 @@ void ProcessDialogEvent()
 							Preprocessor_Remove("romance");
 						}
 						dialog.text = DLG_TEXT[117];
-						if (CheckAttribute(PChar,"quest.ardent_kidnap.bored")) link.l1 = DLG_TEXT[123];
+						if (CheckAttribute(PChar,"quest.bored_in_san_juan")) link.l1 = DLG_TEXT[123];
 						else link.l1 = DLG_TEXT[120] + GetMySimpleName(characterFromID(PChar.quest.villain)) + DLG_TEXT[121];
 						link.l1.go = "marry_love_logic";
 						if (CalcCharacterSkill(PChar, SKILL_LEADERSHIP) >= 5)
@@ -364,7 +373,7 @@ void ProcessDialogEvent()
 		break;
 
 		case "marry_love_logic":
-			if (CheckAttribute(PChar,"quest.ardent_kidnap.bored"))
+			if (CheckAttribute(PChar,"quest.bored_in_san_juan"))
 			{
 				NPChar.quest.love_me = true;
 				dialog.text = DLG_TEXT[124];
@@ -636,7 +645,7 @@ void ProcessDialogEvent()
 		break;
 
 		case "bored_in_san_juan":
-			PChar.quest.ardent_kidnap.bored = "waiting";
+			PChar.quest.bored_in_san_juan = "waiting";
 			dialog.text = DLG_TEXT[63] + GetMyName(PChar) + ".";
 			link.l1 = DLG_TEXT[64];
 			link.l1.go = "bored_in_san_juan2";
@@ -829,6 +838,8 @@ void ProcessDialogEvent()
 		break;
 
 		case "marriage_accepted":
+			DeleteQuestAttribute("bored_in_san_juan");
+			DeleteQuestAttribute("ardent_kidnap");
 			dialog.text = DLG_TEXT[150];
 			link.l1 = DLG_TEXT[151];
 			link.l1.go = "exit";
@@ -842,23 +853,16 @@ void ProcessDialogEvent()
 		break;
 
 		case "ask_favour":
-			if(CheckAttribute(PChar,"quest.assassination")) dialog.text = DLG_TEXT[178] + GetMyName(PChar) + DLG_TEXT[179];
+//			if(CheckAttribute(PChar,"quest.assassination")) dialog.text = DLG_TEXT[178] + GetMyName(PChar) + DLG_TEXT[179];
+			if(CheckQuestAttribute("revenge_type","assassin")) dialog.text = DLG_TEXT[178] + GetMyName(PChar) + DLG_TEXT[179];
 			else dialog.text = DLG_TEXT[180];
 			link.l1 = DLG_TEXT[181];
 			link.l1.go = "convoy_request";
 		break;
 
 		case "convoy_request":
-			if(PChar.sex == "man")
-			{
-				PreProcessor_Add("pronoun", "he");
-				PreProcessor_Add("pronoun2", "him");
-			}
-			else
-			{
-				PreProcessor_Add("pronoun", "she");
-				PreProcessor_Add("pronoun2", "her");
-			}
+			PreProcessor_Add("pronoun", merch_kid_pronoun);
+			PreProcessor_Add("pronoun2", merch_kid_pronoun2);
 			if(CheckAttribute(PChar,"quest.assassination")) dialog.text = DLG_TEXT[182] + GetMySimpleName(characterFromID(PChar.quest.villain)) + DLG_TEXT[183];
 			else dialog.text = DLG_TEXT[184] + GetMySimpleName(characterFromID(PChar.quest.villain)) + DLG_TEXT[185];
 			dialog.text = dialog.text + DLG_TEXT[186] + GetMyName(PChar) + DLG_TEXT[187];
@@ -878,16 +882,8 @@ void ProcessDialogEvent()
 			SetQuestHeader("Convoy Strike");
 			Preprocessor_AddQuestData("villain", GetMySimpleName(characterFromID(PChar.quest.villain)));
 			Preprocessor_AddQuestData("romance", GetMyName(characterFromID(PChar.quest.romance)));
-			if (PChar.sex == "man")
-			{
-				Preprocessor_AddQuestData("pronoun1", "he");
-				Preprocessor_AddQuestData("pronoun2", "her");
-			}
-			else
-			{
-				Preprocessor_AddQuestData("pronoun1", "she");
-				Preprocessor_AddQuestData("pronoun2", "him");
-			}
+			Preprocessor_AddQuestData("pronoun1", merch_kid_pronoun);
+			Preprocessor_AddQuestData("pronoun2", merch_kid_pronoun2);
 			AddQuestRecord("Convoy Strike", 1);
 			Preprocessor_Remove("pronoun2");
 			Preprocessor_Remove("pronoun1");
@@ -907,7 +903,8 @@ void ProcessDialogEvent()
 
 		case "convoy_how_take_convoy":
 			dialog.text = DLG_TEXT[197] + GetMyName(PChar) + "?";
-			if (CheckAttribute(PChar,"quest.assassination"))
+//			if (CheckAttribute(PChar,"quest.assassination"))
+			if(CheckQuestAttribute("revenge_type","assassin"))
 			{
 				link.l1 = DLG_TEXT[200] + GetMyFullName(characterFromID(PChar.quest.romance)) + DLG_TEXT[201];
 				link.l1.go = "convoy_interested_prepare";
@@ -917,6 +914,7 @@ void ProcessDialogEvent()
 				if (PChar.sex == "man") PreProcessor_Add("spouse", "wife");
 				else PreProcessor_Add("spouse", "husband");
 				link.l1 = DLG_TEXT[198] + GetMySimpleName(characterFromID(PChar.quest.villain)) + DLG_TEXT[199];
+				AddDialogExitQuest("convoy_arrive_port_plan1");
 				link.l1.go = "exit";
 			}
 		break;
@@ -924,7 +922,7 @@ void ProcessDialogEvent()
 		case "convoy_interested_prepare":
 			dialog.text = DLG_TEXT[202];
 			link.l1 = DLG_TEXT[203];
-//			link.l1.go = "convoy_choose_officer_first_time";
+			AddDialogExitQuest("convoy_arrive_port");
 			link.l1.go = "exit";
 		break;
 
@@ -941,7 +939,8 @@ void ProcessDialogEvent()
 		break;
 
 		case "convoy_recognised3":
-			dialog.text = DLG_TEXT[207];
+			if(CheckQuestAttribute("revenge_type","kidnap_rescue")) dialog.text = DLG_TEXT[321] + GetMySimpleName(characterFromID(PChar.quest.villain)) + DLG_TEXT[322];
+			else dialog.text = DLG_TEXT[207];
 			link.l1 = DLG_TEXT[208];
 			link.l1.go = "convoy_recognised4";
 		break;
@@ -952,7 +951,7 @@ void ProcessDialogEvent()
 			link.l1.go = "convoy_recognised5";
 		break;
 
-		case "convoy_recognised3":
+		case "convoy_recognised5":
 			dialog.text = DLG_TEXT[212];
 			link.l1 = DLG_TEXT[200] + GetMyFullName(characterFromID(PChar.quest.romance)) + DLG_TEXT[201];
 			link.l1.go = "convoy_interested_prepare";
@@ -1075,12 +1074,14 @@ void ProcessDialogEvent()
 
 		case "convoy_dispose_ships":
 			dialog.text = DLG_TEXT[228];
+			if(CheckQuestAttribute("revenge_type","kidnap_rescue")) dialog.text = DLG_TEXT[228] + DLG_TEXT[323];
 			link.l1 = DLG_TEXT[229];
 			link.l1.go = "exit";
 		break;
 
 		case "convoy_dispose_ships2":
 			dialog.text = DLG_TEXT[230] + GetMyName(PChar) + ".";
+			if(CheckQuestAttribute("revenge_type","kidnap_rescue")) dialog.text = DLG_TEXT[230] + GetMyName(PChar) + "." + DLG_TEXT[324];
 			link.l1 = DLG_TEXT[231];
 			link.l1.go = "exit";
 		break;
@@ -1124,7 +1125,9 @@ void ProcessDialogEvent()
 		case "convoy_propose_trade":
 			PreProcessor_Add("dutch_gov", GetMyLastName(characterFromID("Hans Kloss")));
 			PreProcessor_Add("villain", GetMySimpleName(characterFromID(PChar.quest.villain)));
-			dialog.text = DLG_TEXT[244];
+			if(CheckAttribute(characterFromID(PChar.quest.romance), "married") && characters[getCharacterIndex(PChar.quest.romance)].married == MR_MARRIED && characters[getCharacterIndex(PChar.quest.romance)].married.id == PChar.id)
+				dialog.text = DLG_TEXT[244];
+			else dialog.text = DLG_TEXT[300];
 			link.l1 = "";
 			link.l1.go = "exit";
 		break;
@@ -1175,6 +1178,21 @@ void ProcessDialogEvent()
 			link.l1.go = "exit";
 		break;
 
+		case "convoy_done_wrong":
+			dialog.text = DLG_TEXT[301];
+			link.l1 = DLG_TEXT[302];
+			link.l1.go = "convoy_goodbye";
+		break;
+
+		case "convoy_goodbye":
+			if(CheckAttribute(characterFromID(PChar.quest.romance), "married") && characters[getCharacterIndex(PChar.quest.romance)].married == MR_MARRIED && characters[getCharacterIndex(PChar.quest.romance)].married.id == PChar.id)
+				dialog.text = DLG_TEXT[304] + GetMyName(PChar) + ".";
+			else
+				dialog.text = DLG_TEXT[303] + GetMyName(PChar) + ".";
+			link.l1 = DLG_TEXT[305] + GetMyName(characterFromID(PChar.quest.romance)) + ".";
+			link.l1.go = "exit";
+		break;
+
 		case "want_silk":
 			dialog.text = DLG_TEXT[257];
 			link.l1 = DLG_TEXT[258];
@@ -1193,6 +1211,186 @@ void ProcessDialogEvent()
 			dialog.text = DLG_TEXT[262];
 			link.l1 = DLG_TEXT[263];
 			link.l1.go = "exit";
+		break;
+
+		case "abduction_found_in_cell":
+			dialog.text = DLG_TEXT[264] + GetMyName(PChar) + DLG_TEXT[265];
+			if (!CheckCharacterItem(PChar, "lockpick"))
+			{
+				link.l1 = DLG_TEXT[266];
+				link.l1.go = "abduction_corridor_to_house";
+				Preprocessor_AddQuestData("romance", GetMySimpleName(characterFromID(PChar.quest.romance)));
+				Preprocessor_AddQuestData("villain", GetMySimpleName(characterFromID(PChar.quest.villain)));
+				AddQuestRecord("Abduction", 17);
+				Preprocessor_Remove("villain");
+				Preprocessor_Remove("romance");
+				Characters[GetCharacterIndex("Gilbert Downing")].dialog.CurrentNode = "abduction_where_did_you_come_from";
+			}
+			else
+			{
+				link.l1 = DLG_TEXT[270];
+				AddDialogExitQuest("abduction_release_romance");
+				link.l1.go = "exit";
+			}
+		break;
+
+		case "abduction_corridor_to_house":
+			dialog.text = DLG_TEXT[267] + GetMySimpleName(characterFromID(PChar.quest.villain)) + DLG_TEXT[268];
+			link.l1 = DLG_TEXT[269];
+			link.l1.go = "exit";
+		break;
+
+		case "abduction_return_with_lockpick":
+			dialog.text = DLG_TEXT[271];
+			link.l1 = DLG_TEXT[272];
+			link.l1.go = "exit";
+		break;
+
+		case "abduction_romance_free":
+			dialog.text = DLG_TEXT[273];
+			link.l1 = DLG_TEXT[274];
+			link.l1.go = "exit";
+		break;
+
+		case "abduction_romance_confronts_merchant":
+			Preprocessor_Add("pronoun", merch_kid_pronoun2);
+			if (CheckQuestAttribute("ardent_kidnap.status", "in_downing_prison"))
+			dialog.text = GetMySimpleName(characterFromID(PChar.quest.villain)) + DLG_TEXT[276];
+			else dialog.text = GetMySimpleName(characterFromID(PChar.quest.villain)) + DLG_TEXT[275] + GetMyName(characterFromID(PChar.quest.villain)) + DLG_TEXT[276];
+			link.l1 = DLG_TEXT[277] + GetMyFullName(characterFromID(PChar.quest.villain)) + "?";
+			link.l1.go = "exit";
+		break;
+
+		case "abduction_romance_suggests_church":
+			dialog.text = DLG_TEXT[278];
+			link.l1 = DLG_TEXT[279];
+			link.l1.go = "exit";
+		break;
+
+		case "abduction_romance_will_pay_church":
+			dialog.text = DLG_TEXT[280];
+			link.l1 = "...";
+			link.l1.go = "exit";
+		break;
+
+		case "abduction_accuse_abductor":
+// Figure out attributes to detect if abducted from San Juan or from ship, then use DLG_TEXT[283] or DLG_TEXT[284]
+			switch(PChar.quest.revenge_type)
+			{
+				case "san_juan":
+					tmp = DLG_TEXT[283];
+				break;
+
+				case "officer":
+					tmp = DLG_TEXT[284] + GetMySimpleName(PChar) + DLG_TEXT[285];
+				break;
+			}
+			Preprocessor_Add("pronoun", merch_kid_pronoun2);
+			dialog.text = DLG_TEXT[281] + GetMySimpleName(characterFromID(PChar.quest.villain)) + DLG_TEXT[282] + tmp + DLG_TEXT[286] + GetMyName(characterFromID(PChar.quest.villain)) + DLG_TEXT[287] + GetMySimpleName(PChar) + ".";
+			link.l1 = "";
+			link.l1.go = "exit";
+		break;
+
+		case "abduction_revenge_plan":
+			dialog.text = DLG_TEXT[288] + GetMySimpleName(PChar) + DLG_TEXT[289];
+			link.l1 = DLG_TEXT[290] + GetMyName(characterFromID(PChar.quest.romance)) + "?";
+			link.l1.go = "convoy_request";
+		break;
+
+		case "abduction_officer_request_leave":
+			dialog.text = DLG_TEXT[291];
+			link.l1 = DLG_TEXT[292] + GetMyName(characterFromID(PChar.quest.romance)) + ".";
+			link.l1.go = "exit";
+		break;
+
+		case "abduction_kidnap_report1":
+			Preprocessor_Add("pronoun", merch_kid_pronoun);
+			dialog.text = DLG_TEXT[293] + GetMyName(characterFromID(PChar.quest.villain)) + DLG_TEXT[294] + GetMyName(PChar) + DLG_TEXT[295];
+			link.l1 = DLG_TEXT[296];
+			link.l1.go = "abduction_kidnap_report2";
+		break;
+
+		case "abduction_kidnap_report2":
+			Preprocessor_Add("pronoun2", merch_kid_pronoun2);
+			dialog.text = DLG_TEXT[297] + GetMySimpleName(characterFromID(PChar.quest.villain)) + DLG_TEXT[298];
+			link.l1 = DLG_TEXT[299];
+			link.l1.go = "exit";
+		break;
+
+		case "kidnap_rescue_found_in_cell":
+			dialog.text = GetMySimpleName(PChar) + DLG_TEXT[306];
+			link.l1 = DLG_TEXT[307];
+			link.l1.go = "kidnap_rescue_found_in_cell2";
+		break;
+
+		case "kidnap_rescue_found_in_cell2":
+			dialog.text = DLG_TEXT[308];
+			if (!CheckCharacterItem(PChar, "lockpick"))
+			{
+				link.l1 = DLG_TEXT[309] + DLG_TEXT[266];
+				link.l1.go = "abduction_corridor_to_house";
+				Preprocessor_AddQuestData("romance", GetMySimpleName(characterFromID(PChar.quest.romance)));
+				if (PChar.sex == "man") Preprocessor_AddQuestData("pronoun", "her");
+				else PreProcessor_AddQuestData("pronoun", "him");
+				AddQuestRecord("Dungeon", 4);
+				Preprocessor_Remove("pronoun");
+				Preprocessor_Remove("romance");
+				Characters[GetCharacterIndex("Gilbert Downing")].dialog.CurrentNode = "abduction_where_did_you_come_from";
+			}
+			else
+			{
+				link.l1 = DLG_TEXT[309] + DLG_TEXT[270];
+				AddDialogExitQuest("abduction_release_romance");
+				link.l1.go = "exit";
+			}
+		break;
+
+		case "kidnap_rescue_propose_convoy1":
+			Preprocessor_Add("villain", GetMySimpleName(characterFromID(PChar.quest.villain)));
+			dialog.text = DLG_TEXT[310];
+			link.l1 = DLG_TEXT[311];
+			link.l1.go = "kidnap_rescue_propose_convoy2";
+		break;
+
+		case "kidnap_rescue_propose_convoy2":
+			dialog.text = DLG_TEXT[312];
+			link.l1 = DLG_TEXT[313];
+			link.l1.go = "kidnap_rescue_propose_convoy3";
+		break;
+
+		case "kidnap_rescue_propose_convoy3":
+			PreProcessor_Add("pronoun", merch_kid_pronoun);
+			PreProcessor_Add("pronoun2", merch_kid_pronoun2);
+			dialog.text = DLG_TEXT[314] + DLG_TEXT[184] + GetMySimpleName(characterFromID(PChar.quest.villain)) + DLG_TEXT[185] + DLG_TEXT[315];
+			link.l1 = DLG_TEXT[316];
+			link.l1.go = "kidnap_rescue_propose_convoy4";
+		break;
+
+		case "kidnap_rescue_propose_convoy4":
+			Preprocessor_Add("villain", GetMySimpleName(characterFromID(PChar.quest.villain)));
+			dialog.text = DLG_TEXT[317];
+			link.l1 = DLG_TEXT[318];
+			link.l1.go = "kidnap_rescue_propose_convoy5";
+		break;
+
+		case "kidnap_rescue_propose_convoy5":
+			Preprocessor_AddQuestData("romance", GetMySimpleName(characterFromID(PChar.quest.romance)));
+			AddQuestRecord("Dungeon", 5);
+			CloseQuestHeader("Dungeon");
+			Preprocessor_AddQuestData("villain", GetMySimpleName(characterFromID(PChar.quest.villain)));
+			Preprocessor_AddQuestData("romance", GetMySimpleName(characterFromID(PChar.quest.romance)));
+			Preprocessor_AddQuestData("pronoun1", merch_kid_pronoun);
+			Preprocessor_AddQuestData("pronoun2", gov_kid_pronoun2);
+			SetQuestHeader("Convoy Strike");
+			AddQuestRecord("Convoy Strike", 1);
+			Preprocessor_Remove("pronoun2");
+			Preprocessor_Remove("pronoun1");
+			Preprocessor_Remove("romance");
+			Preprocessor_Remove("villain");
+			Preprocessor_Add("villain", GetMySimpleName(characterFromID(PChar.quest.villain)));
+			dialog.text = DLG_TEXT[319];
+			link.l1 = DLG_TEXT[320] + DLG_TEXT[40];
+			link.l1.go = "officer2";
 		break;
 
 		case "exit_make_peace_spain":

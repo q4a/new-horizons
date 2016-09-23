@@ -21,7 +21,9 @@ void InitQuestItems()
   	n = InitQuestItem(n,"jewelry10_q",	"jewelry10_q",		"",       2,   10,	0,0,	"",	"",	"","",	"","",""); // Gold sapphire ring
 	n = InitQuestItem(n,"ExplainLetter",	"ExplainLetter",	"",	  4,   10,	0,0,	"",	"",	"","",	"","",""); // Letter to Santiago governor from daughter / son
 	n = InitQuestItem(n,"CourtingLetter",	"CourtingLetter",	"",	  4,   11,	0,0,	"",	"",	"","",	"","",""); // Letter from merchant's son / daughter to governor's daughter / son
-	n = InitQuestItem(n,"BetrayedLetter",	"BetrayedLetter",	"",	  4,    9,	0,0,	"",	"",	"","",	"","",""); // Letter from governor's daughter / son who has left you because you became hostile to Spain					
+	n = InitQuestItem(n,"BetrayedLetter",	"BetrayedLetter",	"",	  4,    9,	0,0,	"",	"",	"","",	"","",""); // Letter from governor's daughter / son who has left you because you became hostile to Spain
+	n = InitQuestItem(n,"PrisonPass",	"PrisonPass",		"",	  4,    3,	0,0,	"",	"",	"","",	"","",""); // Visitor pass for a prison
+	n = InitQuestItem(n,"FakePrisonPass",	"FakePrisonPass",	"",	  4,    3,	0,0,	"",	"",	"","",	"","",""); // Forged visitor pass for a prison
 
   //------------------------------------------------------------------------------------SKILL ITEM SETTINGS-------------------------------------------
   // GENERAL:  ItemIndex                   picIndex          Price        numneeded  leader      accuracy    repair       sneak   skiptrade

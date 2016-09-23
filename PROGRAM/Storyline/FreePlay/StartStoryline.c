@@ -156,6 +156,14 @@ void StartStoryLine()
 			}
 		break;
 
+/*		case PLAYER_TYPE_SWORD_MASTER:
+			if (GetMySimpleName(PChar) == "Kaverin Aleskeevich" && iNation == PERSONAL_NATION)
+			{
+				if(ENABLE_WEAPONSMOD) GiveItem2Character(PChar, "blade41+3");
+				else GiveItem2Character(PChar, "blade41");
+			}
+		break; */
+
 		case PLAYER_TYPE_SMUGGLER:
 			ch = CharacterFromID("Malcolm Hatcher");
 			ch.Dialog.Filename = "Robert Fletcher_dialog.c";

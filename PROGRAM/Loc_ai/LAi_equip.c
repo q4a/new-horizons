@@ -16,12 +16,302 @@ void LAi_NPC_Equip(ref chr, int rank, bool isWeapons, float GunProb)
 	}
 
 	// NK friend/foe diff scaling 05-07-09
-	int diffoffset = GetDifficulty();
+	//int diffoffset = GetDifficulty();
+	int diffoffset = 2;
 	if(CheckAttribute(chr, "friend") && sti(chr.friend))
 	{
-		diffoffset = 5 - diffoffset;
+		//diffoffset = 5 - diffoffset;
+		diffoffset = 2;
 	}
 	// NK <--
+	//TY adding below code to give armor to AI enemies characters, AD&D equipment table style. Balanced together with the weapon changes which should reduce AI damage dealing in the higher levels.
+	float armorroll = frnd()
+	if(isWeapons)
+	{
+		if(!CheckAttribute(chr,"isIndian"))
+		{	
+			if(rank >= 1 && rank <= 10)
+			{	if (armorroll < 0.3) 
+				{
+					GiveItem2Character(chr, "jerkin"); 
+					EquipCharacterByItem(chr, "jerkin");	
+				}
+				if (armorroll >= 0.3 && armorroll < 0.34) 
+				{
+					GiveItem2Character(chr, "cured"); 
+					EquipCharacterByItem(chr, "cured");	
+				}
+				if (armorroll >= 0.34 && armorroll < 0.35) 
+				{
+					GiveItem2Character(chr, "cheaparmor"); 
+					EquipCharacterByItem(chr, "cheaparmor");	
+				}
+				if (armorroll >= 0.35 && armorroll < 0.36) 
+				{
+					GiveItem2Character(chr, "gorget"); 
+					EquipCharacterByItem(chr, "gorget");	
+				}
+			}
+			if(rank >= 11 && rank <= 15)
+			{	if (armorroll < 0.3) 
+				{
+					GiveItem2Character(chr, "jerkin"); 
+					EquipCharacterByItem(chr, "jerkin");	
+				}
+				if (armorroll >= 0.3 && armorroll < 0.4) 
+				{
+					GiveItem2Character(chr, "cured"); 
+					EquipCharacterByItem(chr, "cured");	
+				}
+				if (armorroll >= 0.4 && armorroll < 0.46) 
+				{
+					GiveItem2Character(chr, "cheaparmor"); 
+					EquipCharacterByItem(chr, "cheaparmor");	
+				}
+				if (armorroll >= 0.46 && armorroll < 0.47) 
+				{
+					GiveItem2Character(chr, "gorget"); 
+					EquipCharacterByItem(chr, "gorget");	
+				}
+			}
+			if(rank >= 16 && rank <= 20)
+			{	if (armorroll < 0.4) 
+				{
+					GiveItem2Character(chr, "jerkin"); 
+					EquipCharacterByItem(chr, "jerkin");	
+				}
+				if (armorroll >= 0.4 && armorroll < 0.5) 
+				{
+					GiveItem2Character(chr, "cured"); 
+					EquipCharacterByItem(chr, "cured");	
+				}
+				if (armorroll >= 0.5 && armorroll < 0.65) 
+				{
+					GiveItem2Character(chr, "cheaparmor"); 
+					EquipCharacterByItem(chr, "cheaparmor");	
+				}
+				if (armorroll >= 0.65 && armorroll < 0.66) 
+				{
+					GiveItem2Character(chr, "gorget"); 
+					EquipCharacterByItem(chr, "gorget");	
+				}
+			}
+			if(rank >= 21 && rank <= 25)
+			{	if (armorroll < 0.4) 
+				{
+					GiveItem2Character(chr, "jerkin"); 
+					EquipCharacterByItem(chr, "jerkin");	
+				}
+				if (armorroll >= 0.4 && armorroll < 0.47) 
+				{
+					GiveItem2Character(chr, "cured"); 
+					EquipCharacterByItem(chr, "cured");	
+				}
+				if (armorroll >= 0.47 && armorroll < 0.67) 
+				{
+					GiveItem2Character(chr, "cheaparmor"); 
+					EquipCharacterByItem(chr, "cheaparmor");	
+				}
+				if (armorroll >= 0.67 && armorroll < 0.68) 
+				{
+					GiveItem2Character(chr, "commonarmor"); 
+					EquipCharacterByItem(chr, "commonarmor");	
+				}
+				if (armorroll >= 0.68 && armorroll < 0.69) 
+				{
+					GiveItem2Character(chr, "gorget"); 
+					EquipCharacterByItem(chr, "gorget");	
+				}
+			}
+			if(rank >= 26 && rank <= 30)
+			{	if (armorroll < 0.35) 
+				{
+					GiveItem2Character(chr, "jerkin"); 
+					EquipCharacterByItem(chr, "jerkin");	
+				}
+				if (armorroll >= 0.35 && armorroll < 0.45) 
+				{
+					GiveItem2Character(chr, "cured"); 
+					EquipCharacterByItem(chr, "cured");	
+				}
+				if (armorroll >= 0.45 && armorroll < 0.75) 
+				{
+					GiveItem2Character(chr, "cheaparmor"); 
+					EquipCharacterByItem(chr, "cheaparmor");	
+				}
+				if (armorroll >= 0.75 && armorroll < 0.79) 
+				{
+					GiveItem2Character(chr, "commonarmor"); 
+					EquipCharacterByItem(chr, "commonarmor");	
+				}
+				if (armorroll >= 0.79 && armorroll < 0.80) 
+				{
+					GiveItem2Character(chr, "gorget"); 
+					EquipCharacterByItem(chr, "gorget");	
+				}
+			}
+			if(rank >= 31 && rank <= 35)
+			{	if (armorroll < 0.35) 
+				{
+					GiveItem2Character(chr, "jerkin"); 
+					EquipCharacterByItem(chr, "jerkin");	
+				}
+				if (armorroll >= 0.35 && armorroll < 0.45) 
+				{
+					GiveItem2Character(chr, "cured"); 
+					EquipCharacterByItem(chr, "cured");	
+				}
+				if (armorroll >= 0.45 && armorroll < 0.75) 
+				{
+					GiveItem2Character(chr, "cheaparmor"); 
+					EquipCharacterByItem(chr, "cheaparmor");	
+				}
+				if (armorroll >= 0.75 && armorroll < 0.81) 
+				{
+					GiveItem2Character(chr, "commonarmor"); 
+					EquipCharacterByItem(chr, "commonarmor");	
+				}
+				if (armorroll >= 0.81 && armorroll < 0.814) 
+				{
+					GiveItem2Character(chr, "goldarmor"); 
+					EquipCharacterByItem(chr, "goldarmor");	
+				}
+				if (armorroll >= 0.814 && armorroll < 0.82) 
+				{
+					GiveItem2Character(chr, "gorget"); 
+					EquipCharacterByItem(chr, "gorget");	
+				}
+			}
+			if(rank >= 36 && rank <= 40)
+			{	if (armorroll < 0.35) 
+				{
+					GiveItem2Character(chr, "jerkin"); 
+					EquipCharacterByItem(chr, "jerkin");	
+				}
+				if (armorroll >= 0.35 && armorroll < 0.45) 
+				{
+					GiveItem2Character(chr, "cured"); 
+					EquipCharacterByItem(chr, "cured");	
+				}
+				if (armorroll >= 0.45 && armorroll < 0.75) 
+				{
+					GiveItem2Character(chr, "cheaparmor"); 
+					EquipCharacterByItem(chr, "cheaparmor");	
+				}
+				if (armorroll >= 0.75 && armorroll < 0.85) 
+				{
+					GiveItem2Character(chr, "commonarmor"); 
+					EquipCharacterByItem(chr, "commonarmor");	
+				}
+				if (armorroll >= 0.85 && armorroll < 0.86) 
+				{
+					GiveItem2Character(chr, "goldarmor"); 
+					EquipCharacterByItem(chr, "goldarmor");	
+				}
+				if (armorroll >= 0.86 && armorroll < 0.87) 
+				{
+					GiveItem2Character(chr, "gorget"); 
+					EquipCharacterByItem(chr, "gorget");	
+				}
+			}
+			if(rank >= 41 && rank <= 45)
+			{	if (armorroll < 0.35) 
+				{
+					GiveItem2Character(chr, "jerkin"); 
+					EquipCharacterByItem(chr, "jerkin");	
+				}
+				if (armorroll >= 0.35 && armorroll < 0.45) 
+				{
+					GiveItem2Character(chr, "cured"); 
+					EquipCharacterByItem(chr, "cured");	
+				}
+				if (armorroll >= 0.45 && armorroll < 0.75) 
+				{
+					GiveItem2Character(chr, "cheaparmor"); 
+					EquipCharacterByItem(chr, "cheaparmor");	
+				}
+				if (armorroll >= 0.75 && armorroll < 0.88) 
+				{
+					GiveItem2Character(chr, "commonarmor"); 
+					EquipCharacterByItem(chr, "commonarmor");	
+				}
+				if (armorroll >= 0.88 && armorroll < 0.89) 
+				{
+					GiveItem2Character(chr, "goldarmor"); 
+					EquipCharacterByItem(chr, "goldarmor");	
+				}
+				if (armorroll >= 0.89 && armorroll < 0.90) 
+				{
+					GiveItem2Character(chr, "gorget"); 
+					EquipCharacterByItem(chr, "gorget");	
+				}
+			}
+			if(rank >= 46 && rank <= 50)
+			{	if (armorroll < 0.25) 
+				{
+					GiveItem2Character(chr, "jerkin"); 
+					EquipCharacterByItem(chr, "jerkin");	
+				}
+				if (armorroll >= 0.25 && armorroll < 0.35) 
+				{
+					GiveItem2Character(chr, "cured"); 
+					EquipCharacterByItem(chr, "cured");	
+				}
+				if (armorroll >= 0.35 && armorroll < 0.75) 
+				{
+					GiveItem2Character(chr, "cheaparmor"); 
+					EquipCharacterByItem(chr, "cheaparmor");	
+				}
+				if (armorroll >= 0.75 && armorroll < 0.88) 
+				{
+					GiveItem2Character(chr, "commonarmor"); 
+					EquipCharacterByItem(chr, "commonarmor");	
+				}
+				if (armorroll >= 0.88 && armorroll < 0.89) 
+				{
+					GiveItem2Character(chr, "goldarmor"); 
+					EquipCharacterByItem(chr, "goldarmor");	
+				}
+				if (armorroll >= 0.89 && armorroll < 0.90) 
+				{
+					GiveItem2Character(chr, "gorget"); 
+					EquipCharacterByItem(chr, "gorget");	
+				}
+			}
+			if(rank >= 51)
+			{	if (armorroll < 0.2) 
+				{
+					GiveItem2Character(chr, "jerkin"); 
+					EquipCharacterByItem(chr, "jerkin");	
+				}
+				if (armorroll >= 0.2 && armorroll < 0.27) 
+				{
+					GiveItem2Character(chr, "cured"); 
+					EquipCharacterByItem(chr, "cured");	
+				}
+				if (armorroll >= 0.27 && armorroll < 0.80) 
+				{
+					GiveItem2Character(chr, "cheaparmor"); 
+					EquipCharacterByItem(chr, "cheaparmor");	
+				}
+				if (armorroll >= 0.80 && armorroll < 0.97) 
+				{
+					GiveItem2Character(chr, "commonarmor"); 
+					EquipCharacterByItem(chr, "commonarmor");	
+				}
+				if (armorroll >= 0.97 && armorroll < 0.99) 
+				{
+					GiveItem2Character(chr, "goldarmor"); 
+					EquipCharacterByItem(chr, "goldarmor");	
+				}
+				if (armorroll >= 0.99 && armorroll < 0.995) 
+				{
+					GiveItem2Character(chr, "gorget"); 
+					EquipCharacterByItem(chr, "gorget");	
+				}
+			}		
+		}
+	}
 	//give blade
 	if(isWeapons)
 	{
@@ -31,7 +321,8 @@ void LAi_NPC_Equip(ref chr, int rank, bool isWeapons, float GunProb)
 			string blade;
 			if(ENABLE_WEAPONSMOD == 1)
 			{
-				blade = GetRandomBladeForLevel(rank-3+diffoffset, rank+diffoffset, 3+(diffoffset/2));
+				//blade = GetRandomBladeForLevel(rank-3+diffoffset, rank+diffoffset, 3+(diffoffset/2));
+				blade = GetRandomBladeForLevel(1, rank+diffoffset, 3+(diffoffset/2));
 			}
 			else
 			{
@@ -77,7 +368,8 @@ void LAi_NPC_Equip(ref chr, int rank, bool isWeapons, float GunProb)
 				{
 					if(ENABLE_WEAPONSMOD == 1)
 					{
-						blade = GetRandomBladeForLevel(rank-3+diffoffset, rank+diffoffset, 3+(diffoffset/2));
+						//blade = GetRandomBladeForLevel(rank-3+diffoffset, rank+diffoffset, 3+(diffoffset/2));
+						blade = GetRandomBladeForLevel(1, rank+diffoffset, 3+(diffoffset/2));
 					}
 					else
 					{
@@ -105,7 +397,8 @@ void LAi_NPC_Equip(ref chr, int rank, bool isWeapons, float GunProb)
 		//give gun
 		if(GunProb > 0)
 		{
-			if(!CheckAttribute(chr,"isIndian"))	GunProb *= 0.25 + makefloat(diffoffset)/4.0;
+			//if(!CheckAttribute(chr,"isIndian"))	GunProb *= 0.25 + makefloat(diffoffset)/4.0;
+			if(!CheckAttribute(chr,"isIndian"))	GunProb *= 0.75 + makefloat(diffoffset)/4.0;
 			else								GunProb  = 1.0;
 			if(frnd() <= GunProb)
 			{
@@ -116,7 +409,8 @@ void LAi_NPC_Equip(ref chr, int rank, bool isWeapons, float GunProb)
 					//Levis make indians use bows
 					if(!CheckAttribute(chr,"isIndian"))
 					{
-						gun = GetRandomGunForLevel(rank-3+diffoffset, rank+diffoffset, 3+(diffoffset/2));
+						//gun = GetRandomGunForLevel(rank-3+diffoffset, rank+diffoffset, 3+(diffoffset/2));
+						gun = GetRandomGunForLevel(1, rank+diffoffset, 3+(diffoffset/2));
 					}
 					else
 					{
@@ -179,7 +473,8 @@ void LAi_NPC_Equip(ref chr, int rank, bool isWeapons, float GunProb)
 						{
 							if(ENABLE_WEAPONSMOD == 1)
 							{
-								gun = GetRandomGunForLevel(rank-3+diffoffset, rank+diffoffset, 3+(diffoffset/2));
+								//gun = GetRandomGunForLevel(rank-3+diffoffset, rank+diffoffset, 3+(diffoffset/2));
+								gun = GetRandomGunForLevel(1, rank+diffoffset, 3+(diffoffset/2));
 							}
 							else
 							{
@@ -258,14 +553,15 @@ void LAi_NPC_Ammo(ref chr)
 string LAi_NPC_EquipBladeSelection(int rank)
 {
 	// LDH rewritten to match GetRandomBladeForLevel() - 08May09
-	int intMinLevel  = iClamp(0, 8, rank-4);
+	//int intMinLevel  = iClamp(0, 8, rank-4);
+	int intMinLevel  = 1
 	int intMaxLevel  = iClamp(1, GetBladeMaxLevel(), rank+2);
 	int intMinBlade  = GetFirstBladeForLevel(intMinLevel);
 	int intMaxBlade  = GetLastBladeForLevel(intMaxLevel);
 	int intRandBlade = intMinBlade + Rand(intMaxBlade - intMinBlade);
 
 	float rareconst = 1.0; //this multiplies the rare percentage, so that it's more possible to get rare blades
-	rareconst *= (1 + ((makefloat(GetDifficulty())-1)/3.0)); 	//difficulty  (1 + (1..4 - 1) / 3) = 1..2
+	//rareconst *= (1 + ((makefloat(GetDifficulty())-1)/3.0)); 	//difficulty  (1 + (1..4 - 1) / 3) = 1..2
 
 	ref refBlade;
 	float randrare;
@@ -299,14 +595,14 @@ string LAi_NPC_EquipBladeSelection(int rank)
 // NK -->
 string LAi_NPC_EquipGunSelection(int rank)
 {
-	int min = rank - 4;
+	int min = 1;
 	if(min < 1) min = 1;
 	int max = rank + 2;
 	if(max < 1) max = 1;
-	if(min > 8) min = 8;
+	if(min > 1) min = 1;
 	int sel = rand(max - min) + min;
 	float rareconst = 1.0; //this multiplies the rare percentage, so that it's more possible to get rare guns
-	rareconst *= makefloat(GetDifficulty())/4.0;	//difficulty
+//	rareconst *= makefloat(GetDifficulty())/4.0;	//difficulty
 	string gun = "pistol1"; // now DOES have a default
 	if(GetCurrentPeriod() < PERIOD_GOLDEN_AGE_OF_PIRACY) gun = "pistol11"; // JRH: wheellock
 	//Log_SetStringToLog("Rank: " + sel);
@@ -370,7 +666,8 @@ string LAi_NPC_EquipGunSelection(int rank)
 		// LDH find error in rare
 		if(!CheckAttribute(Items[gunsID[i]],"rare")) continue;
 		//		Trace("Testing gun " + i + ", rare = " + Items[gunsID[i]].rare);
-		if(sel >= gunsML[i]*(2.0 - (makefloat(GetDifficulty()-1))/3.0) && frnd() <= stf(Items[gunsID[i]].rare) * rareconst) // difficulty added
+		//if(sel >= gunsML[i]*(2.0 - (makefloat(GetDifficulty()-1))/3.0) && frnd() <= stf(Items[gunsID[i]].rare) * rareconst) // difficulty added
+		if(sel >= gunsML[i] && frnd() <= stf(Items[gunsID[i]].rare) * rareconst) // difficulty added
 		{ gun = Items[gunsID[i]].id; /*Log_SetStringToLog("Using " + Items[gunsID[i]].id);*/ break; }
 	}
 	//Log_SetStringToLog("2Using " + Items[gunsID[i]].id);

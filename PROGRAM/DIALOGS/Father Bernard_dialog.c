@@ -145,6 +145,13 @@ void ProcessDialogEvent()
 				link.l3.go = "exit"; // NK
 				AddDialogExitQuest("artois_donate_done");
 			}
+			if (CheckAttribute(PChar, "quest.romance") && CheckAttribute(characterFromID(PChar.quest.romance), "married") && characters[getCharacterIndex(PChar.quest.romance)].married == MR_MARRIED && characters[getCharacterIndex(PChar.quest.romance)].married.id == characters[getCharacterIndex(PChar.quest.villain)].id && !CheckAttribute(characterFromID(PChar.quest.romance), "married.annulled") && characters[getCharacterIndex(PChar.quest.romance)].location == "Redmond_church")
+			{
+				Preprocessor_Add("romance", GetMyFullName(characterFromID(PChar.quest.romance)));
+				Preprocessor_Add("villain", GetMyFullName(characterFromID(PChar.quest.villain)));
+				link.l4 = DLG_TEXT[170];
+				link.l4.go = "ardent_abduction_sad_marriage1"; // NK
+			}
 // -- Scheffnow -- 2004-01-14 -- ResetCharacterMod -- start -----------
 			if(!AUTO_SKILL_SYSTEM) // El Rapido
 			{
@@ -627,6 +634,66 @@ void ProcessDialogEvent()
 			LAi_SetPriestType(NPChar);
 		break;
 // <-- JRH
+
+// GR: Ardent storyline -->
+		case "ardent_abduction_sad_marriage1":
+			Preprocessor_Add("romance", GetMyFullName(characterFromID(PChar.quest.romance)));
+			if (PChar.sex == "man")
+			{
+				Preprocessor_Add("pronoun", "She");
+				Preprocessor_Add("pronoun2", "her");
+			}
+			else
+			{
+				Preprocessor_Add("pronoun", "He");
+				Preprocessor_Add("pronoun2", "his");
+			}
+			dialog.text = DLG_TEXT[171];
+			link.l1 = DLG_TEXT[172];
+			link.l1.go = "ardent_abduction_sad_marriage2";
+		break;
+
+		case "ardent_abduction_sad_marriage2":
+			Preprocessor_Add("romance", GetMyName(characterFromID(PChar.quest.romance)));
+			if (PChar.sex == "man") Preprocessor_Add("pronoun", "her");
+			else Preprocessor_Add("pronoun", "his");
+			dialog.text = DLG_TEXT[173];
+			link.l1 = DLG_TEXT[174];
+			link.l1.go = "ardent_abduction_sad_marriage3";
+		break;
+
+		case "ardent_abduction_sad_marriage3":
+			dialog.text = DLG_TEXT[175];
+			link.l1 = "...";
+			link.l1.go = "exit";
+			AddDialogExitQuest("abduction_confession_interlude");
+		break;
+
+		case "ardent_abduction_story_checks_out":
+			Preprocessor_Add("romance", GetMyName(characterFromID(PChar.quest.romance)));
+			if (PChar.sex == "man") Preprocessor_Add("pronoun", "she");
+			else Preprocessor_Add("pronoun", "he");
+			dialog.text = DLG_TEXT[176];
+			link.l1 = DLG_TEXT[178];
+			link.l1.go = "ardent_abduction_story_checks_out2";
+		break;
+
+		case "ardent_abduction_story_checks_out2":
+			dialog.text = DLG_TEXT[179];
+			link.l1 = "...";
+			link.l1.go = "exit";
+			AddDialogExitQuest("abduction_romance_will_pay");
+		break;
+
+		case "ardent_abduction_write_to_rome":
+			Preprocessor_Add("romance", GetMyName(characterFromID(PChar.quest.romance)));
+			Preprocessor_Add("villain", GetMyName(characterFromID(PChar.quest.villain)));
+			dialog.text = DLG_TEXT[180];
+			link.l1 = DLG_TEXT[181];
+			link.l1.go = "exit";
+		break;
+// <-- GR: Ardent storyline
+
 		case "exit":
 			Diag.CurrentNode = Diag.TempNode;
 			NPChar.quest.meeting = NPC_Meeting;

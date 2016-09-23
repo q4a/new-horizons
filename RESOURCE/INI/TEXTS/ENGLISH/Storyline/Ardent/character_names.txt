@@ -1,0 +1,21 @@
+Two Dogs{Two Dogs}
+Fighting{Fighting}
+not-Fighting{not-Fighting}
+Inquisitor{Inquisitor}
+Monkey{Monkey}
+Crescent{Crescent}
+Moon{Moon}
+Rain{Rain}
+Cloud{Cloud}
+Golden{Golden}
+Flower{Flower}
+Nervous{Nervous}
+Elk{Elk}
+Ringboned{Ringboned}
+Wolf{Wolf}
+Strong{Strong}
+Deer{Deer}
+White{White}
+Crow{Crow}
+Soaring{Soaring}
+Hawk{Hawk}

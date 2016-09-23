@@ -121,7 +121,8 @@ int GetRandomRank(bool isfriend, string officertype, int offset)
 	{
 		//friendly encounter
 		pRank = makeint(sti(PChar.rank)*0.75 + rand(sti(PChar.rank)*(1.1-(GetDifficulty()*0.2))) + offset);
-		pRank = makeint(pRank * (1+((pLuck*2)+(pLead*3))/200)); //Take in account leadership and luck
+		//pRank = makeint(pRank * (1+((pLuck*2)+(pLead*3))/200)); //Take in account leadership and luck
+		pRank = makeint(pRank * (1+(pLead*5)/200)); //TY Let's remove some magical influence of luck
 		pRank = pRank + rand(bonus); //Take in account different officertypes;
 		if (pRank < 5) pRank = 2 + rand(5);
 	}
@@ -129,6 +130,7 @@ int GetRandomRank(bool isfriend, string officertype, int offset)
 	{
 		//enemy encounter
 		pRank = makeint(sti(PChar.rank)*0.90 + rand(sti(PChar.rank)*(0.2+(GetDifficulty()*0.2))) + offset);
+		//pRank = makeint(15*0.90 + rand(15*(0.2+(GetDifficulty()*0.2))) + offset); // TY let's try leveling the world as if the player were permanently level 15 (increased to compensate for now weaker randchar template), for random bandits and such
 		pRank = pRank + rand(bonus); //Take in account different officertypes;
 		if (pRank < 3) pRank = 1 + rand(4);
 	}

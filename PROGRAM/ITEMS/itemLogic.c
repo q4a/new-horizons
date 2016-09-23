@@ -2309,6 +2309,13 @@ void Box_FillBox(ref _location, string locatorName, bool isAbordageBox)
 		if(_location.id=="bb_Eden_attic3")spawnItemsCount = 0;
 		if(_location.id=="bb_Eden_bedroom2")spawnItemsCount = 0;
 		if(_location.id=="bb_Eden_dining_room")spawnItemsCount = 0;
+		if(_location.id=="bb_isle_passage")spawnItemsCount = 0;
+
+		if(_location.id=="bb_isle_hut")
+		{
+			spawnItemsCount = 0;
+			locations[FindLocation(chr.location)].box8.items.bladelever3 = 1;
+		}
 
 		if(_location.id=="bb_Maltains")
 		{

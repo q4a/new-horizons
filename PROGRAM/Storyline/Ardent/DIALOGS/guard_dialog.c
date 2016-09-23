@@ -3,6 +3,7 @@ void ProcessDialogEvent()
 {
 	ref NPChar;
 	aref Link, Diag; //NextDiag;
+	int x;
 
 	DeleteAttribute(&Dialog,"Links");
 
@@ -214,6 +215,149 @@ void ProcessDialogEvent()
 			else PreProcessor_Add("relation", "son");
 			link.l1 = DLG_TEXT[62] + GetMyFullName(characterFromID(PChar.quest.romance)) + DLG_TEXT[63] + GetMyFullName(characterFromID("Javier Balboa")) + DLG_TEXT[64];
 			link.l1.go = "exit";
-		break;			
+		break;
+
+		case "French_first_time":
+			Dialog.defAni = "dialog_stay1";
+			Dialog.defCam = "1";
+			Dialog.defSnd = "dialogs\0\017";
+			Dialog.defLinkAni = "dialog_1";
+			Dialog.defLinkCam = "1";
+			Dialog.defLinkSnd = "dialogs\woman\024";
+			Dialog.ani = "dialog_stay2";
+			Dialog.cam = "1";
+			Dialog.snd = "dialogs\0\009";
+
+			dialog.text = DLG_TEXT[67];
+			link.l1 = DLG_TEXT[68];
+			link.l1.go = "French_Exit";
+		break;
+
+		case "French_Exit":
+			Diag.CurrentNode = "French_first_time";
+			DialogExit();
+		break;
+
+		case "abduction_challenge":
+			dialog.text = DLG_TEXT[69];
+			link.l1 = DLG_TEXT[70];
+			link.l1.go = "abduction_entry_options";
+		break;
+
+		case "abduction_entry_options":
+			dialog.text = DLG_TEXT[71];
+			if (CheckCharacterItem(PChar, "PrisonPass") || CheckCharacterItem(PChar, "FakePrisonPass"))
+			{
+				link.l1 = DLG_TEXT[72];
+				link.l1.go = "abduction_check_pass";
+			}
+			link.l2 = DLG_TEXT[73];
+			link.l2.go = "abduction_offer_bribe";
+			link.l3 = DLG_TEXT[74];
+			link.l3.go = "exit_try_again";
+			link.l4 = DLG_TEXT[75];
+			link.l4.go = "abduction_fight_guards";
+		break;
+
+		case "abduction_check_pass":
+			dialog.text = DLG_TEXT[78];
+			link.l1 = DLG_TEXT[79];
+			link.l1.go = "French_Exit";
+			if (CheckCharacterItem(PChar, "PrisonPass") || CalcCharacterSkill(pchar, SKILL_LEADERSHIP) + CalcCharacterSkill(pchar, SKILL_SNEAK) > 7)
+			{
+				if (!CheckCharacterItem(PChar, "PrisonPass") && CalcCharacterSkill(pchar, SKILL_LEADERSHIP) + CalcCharacterSkill(pchar, SKILL_SNEAK) <= 10)
+				{
+					PChar.quest.abduction_guard_status = "fakepass";
+				}
+				dialog.text = DLG_TEXT[76];
+				link.l1 = DLG_TEXT[77];
+				link.l1.go = "exit_pass_accepted";
+			}
+		break;
+
+		case "abduction_offer_bribe":
+			dialog.text = DLG_TEXT[80];
+			if (makeint(pchar.money >= 5000))
+			{
+				link.l1 = DLG_TEXT[81];
+				link.l1.go = "exit_bribe_accepted";
+			}
+			link.l2 = DLG_TEXT[82];
+			link.l2.go = "exit_try_again";
+		break;
+
+		case "abduction_demand_second_bribe":
+			dialog.text = DLG_TEXT[83];
+			link.l1 = DLG_TEXT[84];
+			link.l1.go = "abduction_fight_guards";
+			if (makeint(pchar.money >= 5000))
+			{
+				link.l2 = DLG_TEXT[85];
+				link.l2.go = "exit_bribe_accepted";
+			}
+		break;
+
+		case "abduction_demand_fine":
+			dialog.text = DLG_TEXT[86];
+			link.l1 = DLG_TEXT[84];
+			link.l1.go = "abduction_fight_guards";
+			if (makeint(pchar.money >= 5000))
+			{
+				link.l2 = DLG_TEXT[85];
+				link.l2.go = "exit_bribe_accepted";
+			}
+		break;
+
+		case "abduction_fight_guards":
+			AddDialogExitQuest("abduction_fight_guards");
+			Diag.CurrentNode = "French_first_time";
+			DialogExit();
+		break;
+
+		case "abduction_exit_challenge":
+			dialog.text = DLG_TEXT[87];
+			link.l1 = DLG_TEXT[88];
+			link.l1.go = "exit";
+		break;
+
+		case "abduction_apology":
+			dialog.text = DLG_TEXT[89];
+			link.l1 = DLG_TEXT[90];
+			link.l1.go = "abduction_come_along";
+		break;
+
+		case "abduction_come_along":
+			dialog.text = DLG_TEXT[91];
+			link.l1 = "";
+			link.l1.go = "exit";
+		break;
+
+		case "abduction_check_prisoner":
+			dialog.text = DLG_TEXT[92];
+			link.l1 = "";
+			link.l1.go = "exit";
+		break;
+
+		case "exit_try_again":
+			AddDialogExitQuest("abduction_reset_guards");
+			Diag.CurrentNode = "abduction_entry_options";
+			DialogExit();
+		break;
+
+		case "exit_pass_accepted":
+			AddDialogExitQuest("abduction_open_barracks_door");
+			Diag.CurrentNode = "French_first_time";
+			DialogExit();
+		break;
+
+		case "exit_bribe_accepted":
+			PChar.quest.abduction_guard_status = "bribed";
+			PlayStereoSound("INTERFACE\took_item.wav");
+			AddMoneyToCharacter(PChar, -5000);
+			AddMoneyToCharacter(NPChar, 5000);
+			AddDialogExitQuest("abduction_open_barracks_door");
+			Diag.CurrentNode = "French_first_time";
+			DialogExit();
+		break;
 	}
 }

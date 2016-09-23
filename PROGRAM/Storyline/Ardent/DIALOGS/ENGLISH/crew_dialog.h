@@ -1,4 +1,4 @@
-string DLG_TEXT[34] = {
+string DLG_TEXT[43] = {
 "Any orders, cap'n?",
 "Nothing for now.",
 "Are we glad to see you, cap'n! We thought we were all going to die here. But at least someone made it out, I see.",
@@ -33,4 +33,13 @@ string DLG_TEXT[34] = {
 " is harmed in any way, which means if it happens, you'll be taking swimming lessons from sharks.",
 "Well, who'd have thought it? You getting married? Congratulations from me and the lads, cap'n! The rum'll be flowing free tonight in your honour, that's for sure!",
 "Thanks. Yes, by all means go and have a good time. I certainly will!",
+"Yes. Some genius put the prison right next to the town gate. Move the ship round to the beach, then we can escape through the jungle and not have to fight our way through the town.",
+"The ship's ready to sail, cap'n.",
+"Is ",
+" back yet?",
+"No, #spronoun# hasn't reported aboard.",
+"Damn! Probably still in town. I'll need to go back and look for #spronoun2#.",
+"Do you want me to look after ",
+"'s ship until #spronoun# returns?",
+"Yes, please do. But don't try sailing off with it!",
 }

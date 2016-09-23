@@ -410,7 +410,7 @@ void LAi_StartBoarding(int locType, ref echr, bool isMCAttack)
 	if(CheckAttribute(echr, "ship.crew.morale"))	boarding_enemy_original_morale = stf(echr.ship.crew.morale);
 	else											boarding_enemy_original_morale = MORALE_NORMAL;					// PB: For towns without forts
 	// LDH - defeat variable is used in GetAdjustedMorale() for final enemy morale adjustment after battle is over
-	defeat = makeint((rand(makeint(GetShipSkill(mchr,SKILL_GRAPPLING)+GetShipSkill(mchr,SKILL_SNEAK)))+rand(9)+1)*((GetShipSkill(mchr,SKILL_LEADERSHIP)+CalcCharacterSkill(mchr,SKILL_FENCING))/2)); // NK
+	defeat = makeint((rand(makeint(GetShipSkill(mchr,SKILL_GRAPPLING)+GetShipSkill(mchr,SKILL_GRAPPLING)))+rand(9)+1)*((GetShipSkill(mchr,SKILL_LEADERSHIP)+CalcCharacterSkill(mchr,SKILL_FENCING))/2)); // NK TY edited to make grappling have principal role, luck removed
 //	defeat = (rand(GetShipSkill(mchr,SKILL_GRAPPLING)+GetShipSkill(mchr,SKILL_SNEAK))+rand(9)+1) * ((GetShipSkill(mchr,SKILL_LEADERSHIP)+CalcCharacterSkill(mchr,SKILL_FENCING))/2); // NK
 //	defeat = (rand((1..10) + (1..10)) + (0..9) + 1) * ((1..10) + (1..10)) / 2)
 //	defeat = ((0..20) + (0..9) + 1) * AverageOfLeadershipAndFencing = (1..300), likely 75
@@ -705,11 +705,6 @@ void LAi_LoadLocation(string locationID)
 // <-- KK
 		// LDH <--
 
-		if (Surrendered) noOfficers = SurrenderAction(mchr, refEnCharacter, locationID, homeLocator, chLocType, false);//MAXIMUS
-
-		//Устанавливаем офицеров, если такие есть
-		// We establish officers, if such exist
-		PlaceOfficers(locationID, chLocType, noOfficers, !noOfficers);//MAXIMUS
 		//Перегружаемся в локацию
 		// We are reloaded into the location
 		boarding_location = locIndex;
@@ -745,6 +740,14 @@ void LAi_LoadLocation(string locationID)
 	{
 		Trace("Boarding: Boarding location not found, current loc <" + locationID + ">");
 	}
+	
+	//Levis: moved this after loacation generation so the locators will always be there:
+	
+	if (Surrendered) noOfficers = SurrenderAction(mchr, refEnCharacter, locationID, homeLocator, chLocType, false);//MAXIMUS
+
+	//Устанавливаем офицеров, если такие есть
+	// We establish officers, if such exist
+	PlaceOfficers(locationID, chLocType, noOfficers, !noOfficers);//MAXIMUS
 
 	ReloadProgressEnd();
 
@@ -803,125 +806,25 @@ void PlaceOfficers(string locationID, string chLocType, bool noOfficers, bool no
 	}
 }
 
-bool SurrenderAction(ref mchr, ref ch, string locationID, string homeLocator, string chLocType, bool bGen)
-{//MAXIMUS: here we'll make a fantom (if boarding_enemy is fantom or not in player's location) without superfluous attributes with possibility to make him an officer in the future
-	ref refEnCaptain = ch;
-	if(ch.id=="0" || strleft(ch.id,4)=="fenc" || bGen)
-	{
-		refEnCharacter = LAi_CreateFantomCharacterEx(true, 0, true, true, BOARDER_HAS_GUN_PROB, refEnCharacter.model, "rld", homeLocator);
-		boarding_enemy.isFantom = 0;
-		boarding_enemy.fight = 0;
-		refEnCaptain.isFantom = 0;
-		refEnCaptain.fight = 0;
-		refEnCaptain.cabinfight = true;
+bool SurrenderAction(ref mchr, ref refEnCaptain, string locationID, string homeLocator, string chLocType, bool bGen)
+{//Levis: function now used captain which is already generated
 
-		if (CheckAttribute(ch,"old.name")) refEnCaptain.old.name = ch.old.name;
-		if (CheckAttribute(ch,"old.lastname")) refEnCaptain.old.lastname = ch.old.lastname;
-		if (CheckAttribute(ch,"title")) refEnCaptain.title = ch.title;
-		if (CheckAttribute(ch,"name")) refEnCaptain.name = ch.name;
-		if (CheckAttribute(ch,"middlename")) refEnCaptain.middlename = ch.middlename;
-		if (CheckAttribute(ch,"lastname")) refEnCaptain.lastname = ch.lastname;
-		if (CheckAttribute(ch,"model")) refEnCaptain.model = ch.model;
-		if (CheckAttribute(ch,"sex")) refEnCaptain.sex = ch.sex;
-		if (CheckAttribute(ch,"nation")) refEnCaptain.nation = ch.nation;
-		if (CheckAttribute(ch,"nation.name")) refEnCaptain.nation.name = sti(ch.nation.name);
-		if (CheckAttribute(ch,"rank")) refEnCaptain.rank = ch.rank;
-		if (CheckAttribute(ch,"reputation")) refEnCaptain.reputation = ch.reputation;
-		if (CheckAttribute(ch,"experience")) refEnCaptain.experience = ch.experience;
-		if (CheckAttribute(ch,"questchar")) refEnCaptain.questchar = ch.questchar;
-		/*if (CheckAttribute(ch,"money"))
-			refEnCaptain.money = ch.money;
-		else
-			refEnCaptain.money = makeint(rand(100));
-		if (CheckAttribute(ch,"wealth"))
-			refEnCaptain.wealth = ch.wealth;
-		else
-			refEnCaptain.wealth = makeint(sti(refEnCaptain.money)*(frand(5.0)+2.3));
-
-		if (!UsableOfficer(ch)) {*/
-			/*switch(Rand(7))
-			{
-				case 0: refEnCaptain.quest.officertype = OFFIC_TYPE_BOATSWAIN; break;
-				case 1: refEnCaptain.quest.officertype = OFFIC_TYPE_CANNONEER; break;
-				case 2: refEnCaptain.quest.officertype = OFFIC_TYPE_QMASTER; break;
-				case 3: refEnCaptain.quest.officertype = OFFIC_TYPE_NAVIGATOR; break;
-				case 4: refEnCaptain.quest.officertype = OFFIC_TYPE_FIRSTMATE; break;
-				case 5: refEnCaptain.quest.officertype = OFFIC_TYPE_CARPENTER; break;
-				case 6: refEnCaptain.quest.officertype = OFFIC_TYPE_DOCTOR; break;
-				case 7: refEnCaptain.quest.officertype = OFFIC_TYPE_ABORDAGE; break;
-			}*/
-			/*if(DEBUG_EXPERIENCE>0) TraceAndLog("SurrenderAction: Set officer type for " + GetMySimpleName(refEnCaptain));
-			refEnCaptain.quest.officertype = GetRandomOfficerType(); //Levis let's use a global function so we can easily add types later.
-			LAi_Create_Officer(rand(8), &refEnCaptain);
-		}
-		if (CheckAttribute(ch,"quest.officerprice"))
-			refEnCaptain.quest.officerprice = ch.quest.officerprice;
-		else
-			refEnCaptain.quest.officerprice = makeint((sti(characters[GetMainCharacterIndex()].rank) * 2 + 10)*100) - 330 + rand(40)*15 + rand(10);
-		*/
-		/*int i;
-		if (CheckAttribute(ch,"skill")) {
-			aref arSkillsRoot; makearef(arSkillsRoot,ch.skill);
-			for (i = 0; i < GetAttributesNum(arSkillsRoot); i++)
-			{
-				string skillName = GetSkillName(i);
-				if (CheckAttribute(ch,"skill."+skillName)) {
-					refEnCaptain.skill.(skillName) = ch.skill.(skillName);
-				} else {
-					refEnCaptain.skill.(skillName) = "1";
-				}
-			}
-		}
-
-		aref arPerksRoot; makearef(arPerksRoot,ChrPerksList.list);
-		for (i=0; i < GetAttributesNum(arPerksRoot); i++)
-		{
-			string perkName = GetAttributeName(GetAttributeN(arPerksRoot,i));
-			if (CheckAttribute(ch,"perks.list."+perkName)) {
-				refEnCaptain.perks.list.(perkName) = ch.perks.list.(perkName);
-			} else {
-				refEnCaptain.perks.list.(perkName) = false;
-			}
-		}*/
-
-		if(CheckAttribute(ch,"Ship"))
-		{
-			refEnCaptain.Ship = true;
-
-			aref oldShip; makearef(oldShip,ch.Ship);
-			aref newShip; makearef(newShip,refEnCaptain.Ship);
-			CopyAttributes(&newShip,&oldShip);
-		}
-		LAi_NPC_Equip(&refEnCaptain, sti(refEnCaptain.rank), true, 0.5);
-
-		SDLogIt("Fantom-captain created!!!");
-	}
-
-	//refEnCaptain.skill.Leadership = sti(refEnCaptain.skill.Leadership)-1;//MAXIMUS: he surrendered and his Leadership goes to a Devil
-	//refEnCaptain.skill.Grappling = sti(refEnCaptain.skill.Grappling)-1;//MAXIMUS: he surrendered and his Grappling goes to a Devil
+	trace("SURRENDERED CAPTAIN:"); //Levis: If it's working please remove these lines
+	DumpAttributes(refEnCaptain); //Levis: If it's working please remove these lines
 	string id = "surrender";
 	string desc = "This captain surrendered";
 	SetSkillCharMod(refEnCaptain, "Leadership", -1, id, desc); //Levis
-	//SetSkillCharMod(refEnCaptain, "Grappling", -1, id, desc); //Levis TY after poll generally agreed to remove this part of the modifier
 	
 	refEnCaptain.nodisarm = 1;
+	//Shouldn't happen but no problem in keeping it here
 	if (!CheckAttribute(refEnCaptain,"chr_ai.type")) refEnCaptain.chr_ai.type = "stay";
 	if (!CheckAttribute(refEnCaptain,"model.entity")) refEnCaptain.model.entity = "NPCharacter";
-// KK -->
-	if (CheckAttribute(ch, "Dialog.Filename") && CheckAttribute(ch, "Dialog.BoardingNode")) {
-		refEnCaptain.Dialog.Filename = ch.Dialog.Filename;
-		refEnCaptain.Dialog.CurrentNode = ch.Dialog.BoardingNode;
-	} else {
-		refEnCaptain.Dialog.Filename = "Cabinfight_dialog.c";
-		refEnCaptain.Dialog.Currentnode = "First time";
-	}
-// <-- KK
+
 	if (refEnCaptain.sex == "woman")
 		refEnCaptain.greeting = "Gr_Pirate_f";
 	else
 		refEnCaptain.greeting = "Gr_Dark Teacher";
 
-	SDLogIt("Did enemy captain dialog at locator " + homeLocator);
 
 	mchr.TalkWithSurrenderedCaptain = true; // KK
 
@@ -930,6 +833,7 @@ bool SurrenderAction(ref mchr, ref ch, string locationID, string homeLocator, st
 
 	LAi_RemoveCheckMinHP(refEnCaptain);//MAXIMUS: for some quest-characters
 	LAi_SetLoginTime(refEnCaptain, 0.0, 24.0); // KK
+	if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: Move captain to location "+locationID+" locator: rld , "+homeLocator);
 	ChangeCharacterAddressGroup(refEnCaptain, locationID, "rld", homeLocator); // KK
 	mchr.quest.CaptiveIdx = sti(refEnCaptain.index);
 	LAi_group_MoveCharacter(refEnCaptain, LAI_GROUP_PLAYER);
@@ -1586,7 +1490,7 @@ void LAi_SetBoardingActors(string locID, string chLocType, string enLocType)
 	i = 0;
 	if ("BOARDING_" + GetCharacterShipCabin(boarding_enemy) == locID && boarding_enemy_crew > 0) {
 		LAi_SetLoginTime(refEnCharacter, 0.0, 24.0);
-
+		if(DEBUG_CAPTAIN_CREATION>1) Trace("CAPTAIN CREATION: Move captain to location "+locID+" locator: rld , "+enLocType + locnum);
 		ChangeCharacterAddressGroup(refEnCharacter, locID, "rld", enLocType + locnum);
 		locnum++;
 		// PB: Don't reuse locators until needed -->
@@ -1824,7 +1728,7 @@ int GetAdjustedMorale(ref mchr, ref echr, bool FinalAdjust)
 	{
 		if (SurrenderModifier <= 0) SurrenderModifier = 1;	// added by MAXIMUS [for excluding error 'divide by zero']
 		int losing = makeint(defeat/SurrenderModifier);		// See note #1 at function end ((1..300)+repeat(4..9))/(6..1) example at 3rd deck: (75+15)/4 = 22 (13,17,22,32,etc)
-		if (losing < GetShipSkill(&mchr,SKILL_SNEAK)) losing = GetShipSkill(&mchr,SKILL_SNEAK); // NK skill // Defence against weird negative value
+		if (losing < GetShipSkill(&mchr,SKILL_GRAPPLING)) losing = GetShipSkill(&mchr,SKILL_GRAPPLING); // NK skill // Defence against weird negative value TY change to grappling
 		morale = morale - losing;				// See note #5 at function end
 	}
 	if (eCrewQ <= GetMinCrewQuantity(echr)) morale = morale - 10;
@@ -2514,17 +2418,17 @@ void MusketVolley(ref mchr, ref echr)
 	{
 		// musket fire effects have been moved from AIAbordage.c to here
 		int ecrew = GetCrewQuantity(chr2);
-		float fLuck = 0.5 * GetShipSkill(chr1, SKILL_SNEAK) / SKILL_MAX;
+		float fGrap = 0.5 * GetShipSkill(chr1, SKILL_GRAPPLING) / SKILL_MAX;           //TY subbing in grapplng for luck, influence of better managing the boarding and ship position to ensure maximum effect musket volley, after all bosun is in charge of this perk
 		float fShipDefense = 0.0;
 		if (GetOfficersPerkUsing(chr2, "BasicBattleState"))        fShipDefense = 0.15;
 		if (GetOfficersPerkUsing(chr2, "AdvancedBattleState"))     fShipDefense = 0.25;
 		if (GetOfficersPerkUsing(chr2, "ShipDefenceProfessional")) fShipDefense = 0.40;
 		float fCharDefence = makefloat(GetShipSkill(chr2, SKILL_DEFENCE)) / SKILL_MAX;
 
-		int musketkills = makeint(0.25*ecrew * (1.0+delta+fLuck-fShipDefense-fCharDefence)+0.5);
+		int musketkills = makeint(0.25*ecrew * (1.0+delta+fGrap-fShipDefense-fCharDefence)+0.5);
 		if (musketkills < 0) musketkills = 0;	// just in case
 
-		// SDLogIt("Musket Fire - delta=" + f2s2(delta) + " sneak=" + fLuck + " ShipDef=" + fShipDefense + " CharDef= " + fCharDefence);
+		// SDLogIt("Musket Fire - delta=" + f2s2(delta) + " grappling=" + fGrap + " ShipDef=" + fShipDefense + " CharDef= " + fCharDefence);
 
 		string whose_fire = "Your";
 		string which_target = "Enemy";

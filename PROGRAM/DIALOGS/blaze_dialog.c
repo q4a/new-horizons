@@ -1163,6 +1163,11 @@ void ProcessDialogEvent()
 		Link.l1.go = "exit";
 	break;
 
+	case "abduction_move_ship":
+		Dialog.Text = DLG_TEXT[330];
+		Link.l1.go = "exit";
+	break;
+
 // Ardent
 	}
 }

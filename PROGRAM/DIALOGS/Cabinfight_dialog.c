@@ -87,7 +87,7 @@ void ProcessDialogEvent()
 
 //TY Changed to check on AI reputation, skills, and piracy, and random chance, to engage in extreme act of attacking after surrender.
 	bDeathFight = false;
-	if(IsCharacterPerkOn(NPChar, "SwordplayProfessional")
+	if(IsCharacterPerkOn(NPChar, "SwordplayProfessional"))
 	{
 		if(frnd() < 0.2)
 		{
@@ -97,7 +97,7 @@ void ProcessDialogEvent()
 			{bDeathFight = true;}
 		}
 	}
-	if(sti(NPChar.nation) = PIRATE)
+	if(sti(NPChar.nation) == PIRATE)
 	{
 		if(frnd() < 0.3)
 		{

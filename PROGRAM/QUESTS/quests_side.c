@@ -10853,6 +10853,20 @@ void SideQuestComplete(string sQuestName)
 			ChangeCharacterAddress(characterFromID("Contre-Amirale"), "none", "");
 		break;
 
+///////////////////////////////////////////////////////////////
+///// Job at Martinique Shipyard
+///////////////////////////////////////////////////////////////
+		case "martinique_shipyard_work":
+			PlayStereoSound("AMBIENT\SHIPYARD\saw.wav");
+			waitdate("", 0, 0, 3, 0, 0);
+			SetCurrentTime(10.00, 0);
+			LAi_Fade("", "");
+			logit("Three days later...");
+			if(AUTO_SKILL_SYSTEM) AddPartyExpChar(pchar, "Repair", 500);
+			else AddPartyExp(pchar, 500);
+			Characters[GetCharacterIndex("Jean Filaut")].dialog.currentnode = "job_done";
+		break;
+
 		PChar.questnotfound = true; // PB: Testing
 	}
 }

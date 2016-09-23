@@ -28,7 +28,8 @@ void CreateParticles(ref Location)
 		//JRH -->
 			if(Location.id=="wr_port" || Location.id=="Fort_Moultrie_shore" || Location.id=="Sullivan_jungle1" || Location.id=="Legrands_backyard"
 			|| Location.id=="Legrands_kitchen" || Location.id=="Fort_Moultrie_village" || Location.id=="Fort_Moultrie_exit" || Location.id=="GB_chinese_nitre"
-			|| Location.id=="Bessop_plantation" || Location.id=="Oranjestad_port" || Location.id=="Oranjestad_store_02" || Location.id=="BB_graveyard")
+			|| Location.id=="Bessop_plantation" || Location.id=="Oranjestad_port" || Location.id=="Oranjestad_store_02" || Location.id=="BB_graveyard"
+			|| Location.id=="BB_isle")
 			{
 				CreateParticleSystem("smoke",stf(locator.x),stf(locator.y),stf(locator.z),-1.57,0,0,0);
 			}

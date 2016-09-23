@@ -2301,7 +2301,7 @@ void InitModels(bool isstart)
 	// For future quests <--
 
 	// assign as captain only -->
-	model.description =  "A young villian who seems to love kidnapping.";
+	model.description =  "A young villain who seems to love kidnapping.";
 	model.id	   =  "BillyBrock";
 	model.FaceId	= 442;
 	model.nation	  =  PIRATE;
@@ -2313,7 +2313,7 @@ void InitModels(bool isstart)
 	// <-- assign as captain only
 
 	// assign as captain only -->
-	model.description =  "The young villian has become older, but still seems to love kidnapping.";
+	model.description =  "The young villain has become older, but still seems to love kidnapping.";
 	model.id	   =  "BillyBrock2";
 	model.FaceId	= 443;
 	model.nation	  =  PIRATE;
@@ -2500,6 +2500,25 @@ void InitModels(bool isstart)
 	model.assigned	=  true;
 	AddCharacterModel(model);*/
 	// <-- Armor Mod
+
+	model.description = "From Russia with sword.";
+	model.id	  = "aleskeevich";
+	model.FaceId	= 268;
+	model.nation	  =  PERSONAL_NATION;
+	model.price	   =  300;
+	model.assigned	=  true;
+	model.storytitle = "The Cossack in the Caribbean";
+	model.storytext = "A Cossack under the the great Stenka Rasin, you have escaped after his death and come to the Caribbean seeking your fortune.";
+	model.playertype  = PLAYER_TYPE_SWORD_MASTER;
+	model.name = "Bohdan";
+   	model.middlename = "Aleskeevich";
+	model.lastname = "Voronov";
+	model.ship = "Polacca";
+	model.shipname = "Babushka";
+	model.Flags.Pirate = 12;
+	model.Flags.Personal = 6;
+	model.date.year = 1681;
+	AddCharacterModel(model);
 
 	model.description =  "";
 	model.id	   =  "Blaze4";
@@ -5307,6 +5326,9 @@ void InitModels(bool isstart)
 
 	model.description =  "This is what happens when a pirate lady gets hold of some silk and lace.";
 	model.id	   =  "lucia_2"; // Based on "50_33Petra"
+	model.sex         =  "woman";
+	model.ani         =  "woman_sit";
+	model.height      =  1.75;
 	model.FaceId	= 247;
 	model.nation	  =  BROKEN; // Assigned during story
 	model.price	   =  2000;

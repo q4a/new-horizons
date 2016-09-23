@@ -64,3 +64,15 @@ itmdescr_BetrayedLetter
 {
 To Captain Ardent. As you are once again an enemy of Spain, I have left. Do not try to find me. #sromance#
 }
+
+itmname_PrisonPass	{Prison pass}
+itmdescr_PrisonPass
+{
+A pass allowing you to visit a prisoner.
+}
+
+itmname_FakePrisonPass	{Fake prison pass}
+itmdescr_FakePrisonPass
+{
+A forged pass allowing you to visit a prisoner.
+}

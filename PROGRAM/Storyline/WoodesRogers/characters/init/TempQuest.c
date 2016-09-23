@@ -2842,8 +2842,8 @@ void CreateTempQuestCharacters(ref n)
 //8 officers + 57 guards
 
 				//wr 1 quartermaster
-	ch.name = TranslateString("","Thomas");
-	ch.lastname = TranslateString("","Stradling");
+	ch.name = TranslateString("","John");
+	ch.lastname = TranslateString("","Connely");
 	ch.id		= "wr_aub";
 	ch.model = "wr_aub";
 	ch.sex = "man";
@@ -3009,8 +3009,8 @@ void CreateTempQuestCharacters(ref n)
 	ch.questchar = true; ch.HPBonus = -20; AddGameCharacter(n, ch);
 
 				//wr 5 boatswain
-	ch.name = TranslateString("","Israel");
-	ch.lastname = TranslateString("","Hynde");
+	ch.name = TranslateString("","Charles");
+	ch.lastname = TranslateString("","Pope");
 	ch.id		= "wr_boc5";
 	ch.model = "wr_boc5";
 	ch.sex = "man";
@@ -3087,8 +3087,8 @@ void CreateTempQuestCharacters(ref n)
 	ch.questchar = true; ch.HPBonus = 20; AddGameCharacter(n, ch);
 
 				//wr 7 carpenter
-	ch.name = TranslateString("","Bryan");
-	ch.lastname =TranslateString("","Little");
+	ch.name = TranslateString("","Robert");
+	ch.lastname =TranslateString("","Fry");
 	ch.id		= "wr_bochat";
 	ch.model = "wr_bochat";
 	ch.sex = "man";
@@ -3693,10 +3693,10 @@ void CreateTempQuestCharacters(ref n)
 	ch.model = "wr_cor3";
 	ch.sex = "man";
 	ch.sound_type = "pirate";
-	GiveItem2Character(ch, "bladeX4");
-	ch.equip.blade = "bladeX4";
-	GiveItem2Character(ch, "pistol_armchair");
-	ch.equip.gun = "pistol_armchair";
+	GiveItem2Character(ch, "blade4");
+	ch.equip.blade = "blade4";
+	GiveItem2Character(ch, "pistol1");
+	ch.equip.gun = "pistol1";
 	ch.Dialog.Filename = "wr crew_dialog.c";
 	ch.greeting = "";
 	ch.rank 	= 5;
@@ -3804,10 +3804,10 @@ void CreateTempQuestCharacters(ref n)
 	ch.model = "wr_fsh";
 	ch.sex = "man";
 	ch.sound_type = "pirate";
-	GiveItem2Character(ch, "bladearmchair");	//temp in shop
-	ch.equip.blade = "bladearmchair";		//temp in shop
-//	GiveItem2Character(ch, "pistol1");
-//	ch.equip.gun = "pistol1";
+	GiveItem2Character(ch, "blade4");
+	ch.equip.blade = "blade4";
+	GiveItem2Character(ch, "pistol1");
+	ch.equip.gun = "pistol1";
 	ch.Dialog.Filename = "wr crew_dialog.c";
 	ch.greeting = "";
 	ch.rank 	= 5;
@@ -12298,7 +12298,7 @@ void CreateTempQuestCharacters(ref n)
 	ch.skill.Sneak = "1";
 	ch.money = "58";
 	ch.quest.meeting = "0";
-	LAi_SetCivilianGuardianType(ch);
+	LAi_SetGuardianTypeNoGroup(ch);	
 	LAi_SetLoginTime(ch, 0.0, 24.0);
 	LAi_SetHP(ch, 110.0, 110.0);
 	LAi_SetImmortal(ch, true);
@@ -12336,7 +12336,7 @@ void CreateTempQuestCharacters(ref n)
 	ch.skill.Sneak = "1";
 	ch.money = "58";
 	ch.quest.meeting = "0";
-	LAi_SetCivilianGuardianType(ch);
+	LAi_SetGuardianTypeNoGroup(ch);	
 	LAi_SetLoginTime(ch, 0.0, 24.0);
 	LAi_SetHP(ch, 110.0, 110.0);
 	LAi_SetImmortal(ch, true);
@@ -12374,7 +12374,7 @@ void CreateTempQuestCharacters(ref n)
 	ch.skill.Sneak = "1";
 	ch.money = "58";
 	ch.quest.meeting = "0";
-	LAi_SetCivilianGuardianType(ch);
+	LAi_SetGuardianTypeNoGroup(ch);	
 	LAi_SetLoginTime(ch, 0.0, 24.0);
 	LAi_SetHP(ch, 110.0, 110.0);
 	LAi_SetImmortal(ch, true);
@@ -12390,6 +12390,44 @@ void CreateTempQuestCharacters(ref n)
 	ch.sound_type = "pirate";
 	GiveItem2Character(ch, "BladeC6");
 	ch.equip.blade = "BladeC6";
+	ch.location	= "Kristiania_fort";
+	ch.location.group = "rld";
+	ch.location.locator = "loc4";
+	ch.Dialog.Filename = "Karolin_dialog.c";
+//	ch.greeting = "Gr_wr_ski";
+	ch.rank 	= 7;
+	ch.reputation = "20";
+	ch.experience = "0";
+	ch.skill.Leadership = "4";
+	ch.skill.Fencing = "6";
+	ch.skill.Sailing = "4";
+	ch.skill.Accuracy = "1";
+	ch.skill.Cannons = "1";
+	ch.skill.Grappling = "1";
+	ch.skill.Repair = "1";
+	ch.skill.Defence = "4";
+	ch.skill.Commerce = "1";
+	ch.skill.Sneak = "1";
+	ch.money = "58";
+	ch.quest.meeting = "0";
+	LAi_SetPatrolTypeNoGroup(ch);	
+	LAi_SetLoginTime(ch, 0.0, 24.0);
+	LAi_SetHP(ch, 110.0, 110.0);
+	LAi_SetImmortal(ch, true);
+	ch.questchar = true; ch.HPBonus = 10; AddGameCharacter(n, ch);
+
+	ch.old.name = "n";
+	ch.old.lastname = "n";
+	ch.name = "n";
+	ch.lastname = "n";
+	ch.id		= "Kri_gunner_5";
+	ch.model	= "Gunner_Swe5_18";
+	ch.sex = "man";
+	ch.sound_type = "pirate";
+	GiveItem2Character(ch, "bladeX4");
+	ch.equip.blade = "bladeX4";
+	GiveItem2Character(ch, "pistolbarrel4");
+	ch.equip.gun = "pistolbarrel4";
 	ch.location	= "Kristiania_fort";
 	ch.location.group = "goto";
 	ch.location.locator = "goto10";
@@ -12410,45 +12448,7 @@ void CreateTempQuestCharacters(ref n)
 	ch.skill.Sneak = "1";
 	ch.money = "58";
 	ch.quest.meeting = "0";
-	LAi_SetCivilianGuardianType(ch);
-	LAi_SetLoginTime(ch, 0.0, 24.0);
-	LAi_SetHP(ch, 110.0, 110.0);
-	LAi_SetImmortal(ch, true);
-	ch.questchar = true; ch.HPBonus = 10; AddGameCharacter(n, ch);
-
-	ch.old.name = "n";
-	ch.old.lastname = "n";
-	ch.name = "n";
-	ch.lastname = "n";
-	ch.id		= "Kri_gunner_5";
-	ch.model	= "Gunner_Swe5_18";
-	ch.sex = "man";
-	ch.sound_type = "pirate";
-	GiveItem2Character(ch, "bladeX4");
-	ch.equip.blade = "bladeX4";
-	GiveItem2Character(ch, "pistolbarrel4");
-	ch.equip.gun = "pistolbarrel4";
-	ch.location	= "Kristiania_fort";
-	ch.location.group = "goto";
-	ch.location.locator = "goto6";
-	ch.Dialog.Filename = "Karolin_dialog.c";
-//	ch.greeting = "Gr_wr_ski";
-	ch.rank 	= 7;
-	ch.reputation = "20";
-	ch.experience = "0";
-	ch.skill.Leadership = "4";
-	ch.skill.Fencing = "6";
-	ch.skill.Sailing = "4";
-	ch.skill.Accuracy = "1";
-	ch.skill.Cannons = "1";
-	ch.skill.Grappling = "1";
-	ch.skill.Repair = "1";
-	ch.skill.Defence = "4";
-	ch.skill.Commerce = "1";
-	ch.skill.Sneak = "1";
-	ch.money = "58";
-	ch.quest.meeting = "0";
-	LAi_SetCitizenType(ch);
+	LAi_SetPatrolTypeNoGroup(ch);	
 	LAi_SetLoginTime(ch, 0.0, 24.0);
 	LAi_SetHP(ch, 110.0, 110.0);
 	LAi_SetImmortal(ch, true);
@@ -12484,7 +12484,7 @@ void CreateTempQuestCharacters(ref n)
 	ch.skill.Sneak = "1";
 	ch.money = "58";
 	ch.quest.meeting = "0";
-	LAi_SetCivilianGuardianType(ch);
+	LAi_SetGuardianTypeNoGroup(ch);	
 	LAi_SetLoginTime(ch, 0.0, 24.0);
 	LAi_SetHP(ch, 110.0, 110.0);
 	LAi_SetImmortal(ch, true);
@@ -12498,10 +12498,10 @@ void CreateTempQuestCharacters(ref n)
 	ch.model	= "Gunner_Swe7_18";
 	ch.sex = "man";
 	ch.sound_type = "pirate";
-	GiveItem2Character(ch, "bladeX4");
-	ch.equip.blade = "bladeX4";
-	GiveItem2Character(ch, "pistolbarrel4");
-	ch.equip.gun = "pistolbarrel4";
+	GiveItem2Character(ch, "BladeC6");
+	ch.equip.blade = "BladeC6";
+	GiveItem2Character(ch, "pistolmtoon");
+	ch.equip.gun = "pistolmtoon";
 	ch.location	= "Kristiania_fort";
 	ch.location.group = "goto";
 	ch.location.locator = "guard1";
@@ -12522,7 +12522,7 @@ void CreateTempQuestCharacters(ref n)
 	ch.skill.Sneak = "1";
 	ch.money = "58";
 	ch.quest.meeting = "0";
-	LAi_SetCivilianGuardianType(ch);
+	LAi_SetGuardianTypeNoGroup(ch);	
 	LAi_SetLoginTime(ch, 0.0, 24.0);
 	LAi_SetHP(ch, 110.0, 110.0);
 	LAi_SetImmortal(ch, true);
@@ -12536,46 +12536,6 @@ void CreateTempQuestCharacters(ref n)
 	ch.model	= "Gunner_Swe8_18";
 	ch.sex = "man";
 	ch.sound_type = "pirate";
-	GiveItem2Character(ch, "bladeX4");
-	ch.equip.blade = "bladeX4";
-	GiveItem2Character(ch, "pistolbarrel4");
-	ch.equip.gun = "pistolbarrel4";
-	ch.location	= "Kristiania_fort";
-	ch.location.group = "goto";
-	ch.location.locator = "guard2";
-	ch.Dialog.Filename = "Karolin_dialog.c";
-//	ch.greeting = "Gr_wr_ski";
-	ch.rank 	= 7;
-	ch.reputation = "20";
-	ch.experience = "0";
-	ch.skill.Leadership = "4";
-	ch.skill.Fencing = "6";
-	ch.skill.Sailing = "4";
-	ch.skill.Accuracy = "1";
-	ch.skill.Cannons = "1";
-	ch.skill.Grappling = "1";
-	ch.skill.Repair = "1";
-	ch.skill.Defence = "4";
-	ch.skill.Commerce = "1";
-	ch.skill.Sneak = "1";
-	ch.money = "58";
-	ch.quest.meeting = "0";
-	LAi_SetCivilianGuardianType(ch);
-	LAi_SetLoginTime(ch, 0.0, 24.0);
-	LAi_SetHP(ch, 110.0, 110.0);
-	LAi_SetImmortal(ch, true);
-	ch.questchar = true; ch.HPBonus = 10; AddGameCharacter(n, ch);
-//--------------------------------------------------------------
-	ch.old.name = "";
-	ch.old.lastname = "";
-	ch.name = "";
-	ch.lastname = "";
-	ch.id		= "Kri_gunner_6A";
-	ch.model	= "Gunner_Swe6_18";
-	ch.sex = "man";
-	ch.sound_type = "pirate";
-	GiveItem2Character(ch, "bladecannon_ball");
-	ch.equip.blade = "bladecannon_ball";
 	ch.location	= "Kristiania_fort";
 	ch.location.group = "goto";
 	ch.location.locator = "outlook";
@@ -12596,7 +12556,7 @@ void CreateTempQuestCharacters(ref n)
 	ch.skill.Sneak = "1";
 	ch.money = "58";
 	ch.quest.meeting = "0";
-	LAi_SetCivilianGuardianType(ch);
+	LAi_SetGuardianTypeNoGroup(ch);	
 	LAi_SetLoginTime(ch, 0.0, 24.0);
 	LAi_SetHP(ch, 110.0, 110.0);
 	LAi_SetImmortal(ch, true);
@@ -12636,7 +12596,7 @@ void CreateTempQuestCharacters(ref n)
 	ch.skill.Sneak = "1";
 	ch.money = "58";
 	ch.quest.meeting = "0";
-	LAi_SetCivilianGuardianType(ch);
+	LAi_SetGuardianTypeNoGroup(ch);			//staytype dragoons & artillery
 	LAi_SetLoginTime(ch, 0.0, 24.0);
 	LAi_SetHP(ch, 110.0, 110.0);
 	LAi_SetImmortal(ch, true);
@@ -12676,7 +12636,7 @@ void CreateTempQuestCharacters(ref n)
 	ch.skill.Sneak = "1";
 	ch.money = "58";
 	ch.quest.meeting = "0";
-	LAi_SetCivilianGuardianType(ch);
+	LAi_SetGuardianTypeNoGroup(ch);	
 	LAi_SetLoginTime(ch, 0.0, 24.0);
 	LAi_SetHP(ch, 110.0, 110.0);
 	LAi_SetImmortal(ch, true);
@@ -12716,7 +12676,7 @@ void CreateTempQuestCharacters(ref n)
 	ch.skill.Sneak = "1";
 	ch.money = "58";
 	ch.quest.meeting = "0";
-	LAi_SetCivilianGuardianType(ch);
+	LAi_SetGuardianTypeNoGroup(ch);	
 	LAi_SetLoginTime(ch, 0.0, 24.0);
 	LAi_SetHP(ch, 110.0, 110.0);
 	LAi_SetImmortal(ch, true);
@@ -12756,7 +12716,8 @@ void CreateTempQuestCharacters(ref n)
 	ch.skill.Sneak = "1";
 	ch.money = "58";
 	ch.quest.meeting = "0";
-	LAi_SetCivilianGuardianType(ch);
+	//LAi_SetPatrolTypeNoGroup(ch);			//walking type dragoons & artillery
+	LAi_SetGuardianTypeNoGroup(ch);	
 	LAi_SetLoginTime(ch, 0.0, 24.0);
 	LAi_SetHP(ch, 110.0, 110.0);
 	LAi_SetImmortal(ch, true);
@@ -12796,7 +12757,7 @@ void CreateTempQuestCharacters(ref n)
 	ch.skill.Sneak = "1";
 	ch.money = "58";
 	ch.quest.meeting = "0";
-	LAi_SetCivilianGuardianType(ch);
+	LAi_SetGuardianTypeNoGroup(ch);	
 	LAi_SetLoginTime(ch, 0.0, 24.0);
 	LAi_SetHP(ch, 110.0, 110.0);
 	LAi_SetImmortal(ch, true);
@@ -12836,7 +12797,7 @@ void CreateTempQuestCharacters(ref n)
 	ch.skill.Sneak = "1";
 	ch.money = "58";
 	ch.quest.meeting = "0";
-	LAi_SetCivilianGuardianType(ch);
+	LAi_SetGuardianTypeNoGroup(ch);	
 	LAi_SetLoginTime(ch, 0.0, 24.0);
 	LAi_SetHP(ch, 110.0, 110.0);
 	LAi_SetImmortal(ch, true);

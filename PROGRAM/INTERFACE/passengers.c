@@ -842,6 +842,7 @@ void SetChrSkillData(ref chref)
 	//else GameInterface.strings.CharacterName = chref.name + " " + chref.lastname + " - " + XI_ConvertString("SComrade-In-Arms");
 //	GameInterface.strings.CharacterName = GetMyName(chref) + " - " + chref.quest.officertype;
 // changed by MAXIMUS <--
+	GameInterface.strings.CharacterName = chref.name + " " + chref.lastname + " - " + XI_ConvertString("S"+chref.quest.officertype);
 }
 
 void SetCaptiveData(ref chPsgn)

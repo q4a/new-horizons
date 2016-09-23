@@ -1462,6 +1462,78 @@ itmdescr_bladeflag_pir
 The black banner in the Charles Vane's style: A skull and two sabres. Later used by Jack Rackham.
 }
 
+itmname_bladeflag_pir2		{Teach's Pirate Flag}
+itmdescr_bladeflag_pir2
+{
+The black flag of Edward Teach. AKA Blackbeard.
+}
+
+itmname_bladeflag_HOL		{Dutch Flag}
+itmdescr_bladeflag_HOL
+{
+
+}
+
+itmname_bladeflag_ENG		{English Flag}
+itmdescr_bladeflag_ENG
+{
+
+}
+
+itmname_bladeflag_FRA		{French Flag}
+itmdescr_bladeflag_FRA
+{
+
+}
+
+itmname_bladeflag_POR		{Portuguese Flag}
+itmdescr_bladeflag_POR
+{
+
+}
+
+itmname_bladeflag_SPA		{Spanish Flag}
+itmdescr_bladeflag_SPA
+{
+
+}
+
+itmname_bladeflag_PRE		{Prussian Flag}
+itmdescr_bladeflag_PRE
+{
+
+}
+
+itmname_bladeflag_IRE		{Irish Flag}
+itmdescr_bladeflag_IRE
+{
+
+}
+
+itmname_bladeflag_SWE		{Swedish Flag}
+itmdescr_bladeflag_SWE
+{
+
+}
+
+itmname_bladeflag_HOL2		{Dutch Flag}
+itmdescr_bladeflag_HOL2
+{
+"Staten General" from the Netherlands.
+}
+
+itmname_bladeflag_AME		{American Flag}
+itmdescr_bladeflag_AME
+{
+The American First Navy Jack.
+}
+
+itmname_bladeflag_SPA2		{Unknown Flag}
+itmdescr_bladeflag_SPA2
+{
+It looks vaguely Spanish.
+}
+
 //-------------- WOOD TOWER ITEMS END -------------------------------------------------------------------------------------
 //--------------- BLADE WEAPONS START -------------------------------------------------------------------------------------
 

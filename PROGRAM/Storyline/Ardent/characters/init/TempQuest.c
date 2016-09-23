@@ -27,9 +27,9 @@ void CreateTempQuestCharacters(ref n)
 	ch.rank 	= 10;
 	ch.reputation = "45";
 	ch.experience = "0";
-//	ch.Ship.Name = "Unexpected"; // KK
-//	ch.Ship.Type = "RN_Poseidon"; // PB: To ensure he uses "Cabin1" aka. "Tut_deck"
-//	ch.Ship.Stopped = true; // KK
+	ch.Ship.Name = "Unexpected"; // KK
+	ch.Ship.Type = "RN_Poseidon"; // PB: To ensure he uses "Cabin1" aka. "Tut_deck"
+	ch.Ship.Stopped = true; // KK
 	ch.skill.Leadership = "10";
 	ch.skill.Fencing = "10";
 	ch.skill.Sailing = "0";
@@ -485,6 +485,86 @@ void CreateTempQuestCharacters(ref n)
 	ch.questchar = true;
 	LAi_group_MoveCharacter(ch, "DOUWESEN_SOLDIERS");
 	ch.greeting = "Gr_Douwesen Soldier";
+	AddGameCharacter(n, ch);
+
+    	ch.old.name = "Garfield";
+   	ch.old.lastname = "Leighton";
+   	ch.name    = TranslateString("","Garfield");
+   	ch.lastname    = TranslateString("","Leighton");
+   	ch.id        = "Garfield Leighton";
+    	ch.model    = "MorrisWilliams";
+    	ch.sex = "man";
+    	ch.sound_type = "seaman";
+	GiveItem2Character(ch, "blade11+2");
+	ch.equip.blade = "blade11";
+	GiveItem2Character(ch, "PiratesPistol+2");
+	ch.equip.gun = "PiratesPistol";
+	LAi_SetHP(ch, 540.0, 540.0);
+	ch.questchar = true;
+     //JRH ammo mod -->
+	if (ENABLE_AMMOMOD) {	// LDH change
+		TakenItems(ch, "gunpowder", 1 + rand(2));
+		TakenItems(ch, "pistolbullets", 1 + rand(2));
+	}
+     //JRH ammo mod <--
+    	ch.location    = "";
+    	ch.location.group = "";
+    	ch.location.locator = "";
+    	ch.Dialog.Filename = "Garfield Leighton_dialog.c";
+ 	ch.greeting = "Gr_Pirates vs Blaze";
+    	ch.nation = PIRATE;
+    	ch.rank    = 5;
+    	ch.reputation = "None";
+    	ch.experience = "0";
+    	ch.skill.Leadership = "1";
+    	ch.skill.Fencing = "10";
+    	ch.skill.Sailing = "1";
+    	ch.skill.Accuracy = "3";
+    	ch.skill.Cannons = "1";
+    	ch.skill.Grappling = "1";
+    	ch.skill.Repair = "1";
+    	ch.skill.Defence = "3";
+    	ch.skill.Commerce = "1";
+    	ch.skill.Sneak = "1";
+    	ch.money = "10";
+    	LAi_SetCivilianGuardianType(ch);
+//    	LAi_group_MoveCharacter(ch, "TORTUGA_CITIZENS");
+	LAi_SetLoginTime(ch, 0.0, 24.0);
+	AddGameCharacter(n, ch);
+
+    	ch.old.name = "Wilfred";
+   	ch.old.lastname = "Roscoe";
+   	ch.name    = TranslateString("","Wilfred");
+   	ch.lastname    = TranslateString("","Roscoe");
+   	ch.id        = "Wilfred Roscoe";
+    	ch.model    = "Pirat4";
+    	ch.sex = "man";
+    	ch.sound_type = "seaman";
+	LAi_SetHP(ch, 540.0, 540.0);
+	ch.questchar = true;
+    	ch.location    = "";
+    	ch.location.group = "";
+    	ch.location.locator = "";
+    	ch.Dialog.Filename = "Wilfred Roscoe_dialog.c";
+ 	ch.greeting = "Gr_Quest_Pirate_ 01";
+    	ch.nation = PIRATE;
+    	ch.rank    = 5;
+    	ch.reputation = "None";
+    	ch.experience = "0";
+    	ch.skill.Leadership = "1";
+    	ch.skill.Fencing = "6";
+    	ch.skill.Sailing = "1";
+    	ch.skill.Accuracy = "5";
+    	ch.skill.Cannons = "5";
+    	ch.skill.Grappling = "1";
+    	ch.skill.Repair = "1";
+    	ch.skill.Defence = "3";
+    	ch.skill.Commerce = "1";
+    	ch.skill.Sneak = "1";
+    	ch.money = "10";
+	LAi_SetCitizenType(ch);
+//    	LAi_group_MoveCharacter(ch, "TORTUGA_CITIZENS");
+	LAi_SetLoginTime(ch, 0.0, 24.0);
 	AddGameCharacter(n, ch);
 
 }

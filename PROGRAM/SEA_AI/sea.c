@@ -1582,6 +1582,7 @@ void SetCoastTraffic(string islandstr)
 // <-- KK
 			}
 			// NK <--
+			ReloadProgressUpdate(); //Let show some progress on screen
 		}
 		//if (Group_GetCharactersNum(crg) == 0 && Group_FindGroup(crg) != -1) Group_DeleteGroup(crg); // KK
 

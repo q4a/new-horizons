@@ -335,7 +335,7 @@ void SetCharacterGoods(ref _refCharacter,int _Goods,int _Quantity)
 	_refCharacter.Ship.Cargo.Goods.(goodsName) = _Quantity;
 	int curLoad = RecalculateCargoLoad(_refCharacter);
 	int maxLoad = GetCargoMaxSpace(_refCharacter);
-	if(curLoad>maxLoad)
+	if(curLoad>maxLoad && _Quantity > 0)
 	{
 // KK -->
 		//Trace("ERROR! Cargo space overup (character=" + _refCharacter.index + ",Quantity=" + _Quantity + ", curload=" + curLoad + ",maxload=" + maxLoad + ")"); // NK 05-04-06
